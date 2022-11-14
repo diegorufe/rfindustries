@@ -1,9 +1,8 @@
 package config
 
+import "launcher/pkg/service"
+
 func LoadConfig() {
-
-}
-
-func ReloadAppConfig() {
-
+	var appContextService service.AppContextService = service.AppContextService{}
+	appContextService.ReloadAppConfig()
 }

@@ -1,5 +1,6 @@
 package model
 
 type AppContext struct {
-	AppsConfig []AppConfig
+	AppsConfigRun map[string]AppConfig // Applications run
+	AppsConfig    map[string]AppConfig // Applications
 }
