@@ -4,7 +4,10 @@
             "PathExecutable": "",
             "PathIcon": "",
             "Icon": "",
-            "Name": ""
+            "Name": "",
+            "Route" : "",
+            "DestinationHost" : "",
+            "RunOnStart" : false
         }
     ]
 }

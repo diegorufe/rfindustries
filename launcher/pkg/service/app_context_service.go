@@ -13,7 +13,7 @@ var appContextEnviroment *model.AppContext = &model.AppContext{}
 type AppContextService struct {
 }
 
-func (service AppContextService) GetAppContext() *model.AppContext {
+func GetAppContext() *model.AppContext {
 	return appContextEnviroment
 }
 
@@ -44,4 +44,30 @@ func (service AppContextService) ReloadAppConfig() {
 	var configModel model.Config
 
 	json.Unmarshal(byteValue, &configModel)
+
+	appContextEnviroment.AppsConfig = make(map[string]model.AppConfig)
+
+	if appContextEnviroment.AppsConfigRun == nil {
+		appContextEnviroment.AppsConfigRun = make(map[string]model.AppConfig)
+	}
+
+	appContextEnviroment.RoutesIntercept = map[string]string{}
+
+	for _, appConfig := range configModel.AppsConfig {
+		if len(appConfig.Name) > 0 {
+			appContextEnviroment.AppsConfig[appConfig.Name] = appConfig
+
+			_, isRun := appContextEnviroment.AppsConfigRun[appConfig.Name]
+
+			if !isRun && appConfig.RunOnStart {
+				// TODO run application
+				appContextEnviroment.AppsConfigRun[appConfig.Name] = appConfig
+			}
+
+			if len(appConfig.Route) > 0 {
+				appContextEnviroment.RoutesIntercept[appConfig.Route] = appConfig.DestinationHost
+			}
+		}
+	}
+
 }
