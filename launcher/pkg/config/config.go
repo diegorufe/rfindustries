@@ -21,5 +21,5 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 func loadServer() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/test", HelloHandler)
-	log.Fatal(http.ListenAndServe(":7000", route.NewMiddleware(mux)))
+	log.Fatal(http.ListenAndServe(":6000", route.NewMiddleware(mux)))
 }

@@ -6,6 +6,7 @@ import (
 	"launcher/pkg/model"
 	"log"
 	"os"
+	"os/exec"
 )
 
 var appContextEnviroment *model.AppContext = &model.AppContext{}
@@ -45,24 +46,22 @@ func (service AppContextService) ReloadAppConfig() {
 
 	json.Unmarshal(byteValue, &configModel)
 
-	appContextEnviroment.AppsConfig = make(map[string]model.AppConfig)
+	appContextEnviroment.AppsConfig = make(map[string]*model.AppConfig)
 
-	if appContextEnviroment.AppsConfigRun == nil {
-		appContextEnviroment.AppsConfigRun = make(map[string]model.AppConfig)
+	if appContextEnviroment.AppsPidsRun == nil {
+		appContextEnviroment.AppsPidsRun = make(map[string]int)
 	}
 
 	appContextEnviroment.RoutesIntercept = map[string]string{}
 
 	for _, appConfig := range configModel.AppsConfig {
 		if len(appConfig.Name) > 0 {
-			appContextEnviroment.AppsConfig[appConfig.Name] = appConfig
+			appContextEnviroment.AppsConfig[appConfig.Name] = &appConfig
 
-			_, isRun := appContextEnviroment.AppsConfigRun[appConfig.Name]
-
-			if !isRun && appConfig.RunOnStart {
-				// TODO run application
-				appContextEnviroment.AppsConfigRun[appConfig.Name] = appConfig
-			}
+			// Run process app
+			go func() {
+				service.runProcessAppConfig(appConfig)
+			}()
 
 			if len(appConfig.Route) > 0 {
 				appContextEnviroment.RoutesIntercept[appConfig.Route] = appConfig.DestinationHost
@@ -70,4 +69,26 @@ func (service AppContextService) ReloadAppConfig() {
 		}
 	}
 
+}
+
+func (service AppContextService) runProcessAppConfig(appConfig model.AppConfig) {
+	pid, isRun := appContextEnviroment.AppsPidsRun[appConfig.Name]
+	if appConfig.RunOnStart && (!isRun || pid == 0) {
+
+		cmd := exec.Command(appConfig.PathExecutable)
+		err := cmd.Start()
+
+		if err == nil {
+			pid := cmd.Process.Pid
+			appContextEnviroment.AppsPidsRun[appConfig.Name] = pid
+
+			// use goroutine waiting, manage process
+			// this is important, otherwise the process becomes in S mode
+			go func() {
+				err = cmd.Wait()
+				log.Printf("Command finished with error: %v | pid %d | application %s", err, pid, appConfig.Name)
+				appContextEnviroment.AppsPidsRun[appConfig.Name] = 0
+			}()
+		}
+	}
 }

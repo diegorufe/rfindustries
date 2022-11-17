@@ -1,10 +1,10 @@
 {
     "AppsConfig": [
         {
-            "PathExecutable": "",
+            "PathExecutable": "C://programing//rfindustries//testExecutable//testExecutable.exe",
             "PathIcon": "",
             "Icon": "",
-            "Name": "",
+            "Name": "testExecutable",
             "Route" : "",
             "DestinationHost" : "",
             "RunOnStart" : false
