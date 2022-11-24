@@ -1,4 +1,4 @@
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../beans/context/AppContext";
 
 const APP_CONTEXT = new AppContext();
 
