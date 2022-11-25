@@ -1,0 +1,2 @@
+-- Datos de clientes
+INSERT INTO RF_ACCOUNTING_ACCOUNTING (CODE, NAME) VALUES ('2022', 'General');
