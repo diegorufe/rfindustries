@@ -22,22 +22,24 @@ public class BAseJDBCCrudRespositoryImpl<ENTITY extends BaseEntity<Long>> extend
     }
 
 
-    private List<ENTITY> insertUpdateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities, boolean create){
-        if(CollectionUtils.isNotEmpty(entities)){
+    private List<ENTITY> insertUpdateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities, boolean create) {
+        if (CollectionUtils.isNotEmpty(entities)) {
             entities.forEach(entity -> this.audit(baseCommonsParameters.getUserId(), entity, create));
             entities = StreamSupport.stream(this.saveAll(entities).spliterator(), false).toList();
         }
         return entities;
     }
 
-
+    @Transactional
     @Override
     public List<ENTITY> insertAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
-        return this.insertUpdateAll(baseCommonsParameters, entities,  true);
+        return this.insertUpdateAll(baseCommonsParameters, entities, true);
     }
 
+    @Transactional
     @Override
     public List<ENTITY> updateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
-        return this.insertUpdateAll(baseCommonsParameters, entities,  false);
+        return this.insertUpdateAll(baseCommonsParameters, entities, false);
     }
+
 }

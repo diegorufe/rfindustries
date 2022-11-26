@@ -44,4 +44,6 @@ public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
     }
 
     List<ENTITY> updateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
+
+    void delete(ENTITY entity);
 }
