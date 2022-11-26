@@ -1,7 +1,6 @@
 package com.rfindustries.accounting.controllers;
 
 import com.rfindustries.accounting.dao.AccountingDao;
-import com.rfindustries.accounting.entities.AccountingColumnDefinition;
 import com.rfindustries.accounting.entities.AccountingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

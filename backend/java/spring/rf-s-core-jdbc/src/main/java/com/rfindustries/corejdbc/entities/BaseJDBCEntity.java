@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class BaseJDBCEntity implements BaseEntity<Long> {
+
     @Id
     private Long id;
     private Integer userCreatedAtId;

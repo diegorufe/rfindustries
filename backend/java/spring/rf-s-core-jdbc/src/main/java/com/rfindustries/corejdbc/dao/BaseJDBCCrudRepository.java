@@ -7,4 +7,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface BaseJDBCCrudRepository<ENTITY extends BaseEntity<Long>> extends CrudRepository<ENTITY, Long>, BaseDao<ENTITY, Long> {
+
 }
