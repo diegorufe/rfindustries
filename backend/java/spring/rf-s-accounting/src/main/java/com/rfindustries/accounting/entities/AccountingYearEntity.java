@@ -2,6 +2,7 @@ package com.rfindustries.accounting.entities;
 
 import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
@@ -9,9 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
 @Table(AccountingYearEntityDefinition.TABLE)
 public class AccountingYearEntity extends BaseJDBCEntity {
 

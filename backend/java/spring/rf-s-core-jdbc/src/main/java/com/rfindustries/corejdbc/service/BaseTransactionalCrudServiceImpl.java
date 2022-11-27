@@ -4,13 +4,21 @@ import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import com.rfindustries.core.service.BaseCrudService;
 import com.rfindustries.core.service.BaseCrudServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public abstract class BaseTransactionalCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTITY extends BaseEntity<PK>, PK, DTO extends BaseDTO> extends BaseCrudServiceImpl<DAO, ENTITY, PK, DTO> {
+public abstract class BaseTransactionalCrudServiceImpl<
+        DAO extends BaseDao<ENTITY, PK>,
+        ENTITY extends BaseEntity<PK>,
+        PK,
+        DTO extends BaseDTO>
+        extends BaseCrudServiceImpl<DAO, ENTITY, PK, DTO>
+    implements BaseCrudService<DAO, ENTITY, PK, DTO>
+{
 
     @Autowired
     private DAO dao;
