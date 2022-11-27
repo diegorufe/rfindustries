@@ -31,7 +31,7 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
         return dto;
     }
 
-    void delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 
     default DTO actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto){

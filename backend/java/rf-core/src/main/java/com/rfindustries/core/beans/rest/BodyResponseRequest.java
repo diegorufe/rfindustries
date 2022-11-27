@@ -2,8 +2,10 @@ package com.rfindustries.core.beans.rest;
 
 import com.rfindustries.core.beans.Message;
 import com.rfindustries.core.constansts.MessageLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +14,15 @@ import java.util.Map;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BodyResponseRequest<T> {
     private T data;
     private Map<MessageLevel, List<Message>> messages;
+
+    public BodyResponseRequest(T data){
+        this.data = data;
+    }
 
     /**
      * Método para añadir mensajes a una respuesta

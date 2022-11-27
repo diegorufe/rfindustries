@@ -17,8 +17,7 @@ public abstract class BaseTransactionalCrudServiceImpl<
         PK,
         DTO extends BaseDTO>
         extends BaseCrudServiceImpl<DAO, ENTITY, PK, DTO>
-    implements BaseCrudService<DAO, ENTITY, PK, DTO>
-{
+        implements BaseCrudService<DAO, ENTITY, PK, DTO> {
 
     @Autowired
     private DAO dao;
@@ -55,7 +54,7 @@ public abstract class BaseTransactionalCrudServiceImpl<
 
     @Transactional
     @Override
-    public void delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
-        super.delete(baseCommonsParameters, dto);
+    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        return super.delete(baseCommonsParameters, dto);
     }
 }

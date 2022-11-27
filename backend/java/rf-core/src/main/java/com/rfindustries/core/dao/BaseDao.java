@@ -2,11 +2,9 @@ package com.rfindustries.core.dao;
 
 import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.core.entities.BaseEntity;
-import com.rfindustries.core.entities.Column;
 import com.rfindustries.core.features.BaseCommonsParameters;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
@@ -15,12 +13,12 @@ public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
         entity.audit(userId, create);
     }
 
-    default ENTITY insert(BaseCommonsParameters baseCommonsParameters, ENTITY entity){
+    default ENTITY insert(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
         ENTITY result = null;
-        if(entity != null){
+        if (entity != null) {
             List<ENTITY> entities = this.insertAll(baseCommonsParameters, List.of(entity));
 
-            if(CollectionUtils.isNotEmpty(entities)){
+            if (CollectionUtils.isNotEmpty(entities)) {
                 result = entities.get(0);
             }
         }
@@ -30,12 +28,12 @@ public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
 
     List<ENTITY> insertAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
 
-    default ENTITY update(BaseCommonsParameters baseCommonsParameters, ENTITY entity){
+    default ENTITY update(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
         ENTITY result = null;
-        if(entity != null){
+        if (entity != null) {
             List<ENTITY> entities = this.updateAll(baseCommonsParameters, List.of(entity));
 
-            if(CollectionUtils.isNotEmpty(entities)){
+            if (CollectionUtils.isNotEmpty(entities)) {
                 result = entities.get(0);
             }
         }
@@ -46,4 +44,25 @@ public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
     List<ENTITY> updateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
 
     void delete(ENTITY entity);
+
+    default boolean isBusinessCustomerRequired() {
+        return true;
+    }
+
+
+    default boolean isEnterpriseRequired() {
+        return true;
+    }
+
+    default void resolveBusinessCustomer(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
+        if (isBusinessCustomerRequired()) {
+            entity.resolveBusinessCustomer(baseCommonsParameters.getBusinessCustomerIdCastToDesire());
+        }
+    }
+
+    default void resolveEnterprise(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
+        if (isEnterpriseRequired()) {
+            entity.resolveEnterprise(baseCommonsParameters.getEnterpriseIdCastToDesire());
+        }
+    }
 }

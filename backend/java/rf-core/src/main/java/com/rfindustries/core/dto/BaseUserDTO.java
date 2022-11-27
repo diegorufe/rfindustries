@@ -2,9 +2,10 @@ package com.rfindustries.core.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class BaseUserDTO implements BaseDTO{
 
     private String nick;

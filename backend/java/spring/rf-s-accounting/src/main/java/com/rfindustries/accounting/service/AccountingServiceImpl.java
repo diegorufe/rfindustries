@@ -4,7 +4,9 @@ import com.rfindustries.accounting.dao.AccountingDao;
 import com.rfindustries.accounting.dto.AccountingDTO;
 import com.rfindustries.accounting.entities.AccountingEntity;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<AccountingDao, AccountingEntity, Long, AccountingDTO>
         implements AccountingService {
 
@@ -12,6 +14,8 @@ public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<Acco
     public AccountingEntity toEntity(AccountingDTO dto) {
         return AccountingEntity.builder()
                 .id(dto.getId())
+                .businessCustomerId(dto.getBusinessCustomerId())
+                .enterpriseId(dto.getEnterpriseId())
                 .createdAt(dto.getCreatedAt())
                 .updatedAt(dto.getUpdatedAt())
                 .userCreatedAtId(dto.resolverUserCreatedAtId())
@@ -25,6 +29,8 @@ public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<Acco
     public AccountingDTO toDTO(AccountingEntity entity) {
         return AccountingDTO.builder()
                 .id(entity.getId())
+                .businessCustomerId(entity.getBusinessCustomerId())
+                .enterpriseId(entity.getEnterpriseId())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .userCreatedAtId(entity.getUserCreatedAtId())
