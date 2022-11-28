@@ -1,18 +1,23 @@
-package com.rfindustries.accounting.service;
+package com.rfindustries.accounting.service.impl;
 
 import com.rfindustries.accounting.dao.AccountingDao;
+import com.rfindustries.accounting.dao.TaxDao;
 import com.rfindustries.accounting.dto.AccountingDTO;
+import com.rfindustries.accounting.dto.TaxDTO;
 import com.rfindustries.accounting.entities.AccountingEntity;
+import com.rfindustries.accounting.entities.TaxEntity;
+import com.rfindustries.accounting.service.AccountingService;
+import com.rfindustries.accounting.service.TaxService;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<AccountingDao, AccountingEntity, Long, AccountingDTO>
-        implements AccountingService {
+public class TaxServiceImpl extends BaseTransactionalCrudServiceImpl<TaxDao, TaxEntity, Long, TaxDTO>
+        implements TaxService {
 
     @Override
-    public AccountingEntity toEntity(AccountingDTO dto) {
-        return AccountingEntity.builder()
+    public TaxEntity toEntity(TaxDTO dto) {
+        return TaxEntity.builder()
                 .id(dto.getId())
                 .businessCustomerId(dto.getBusinessCustomerId())
                 .enterpriseId(dto.getEnterpriseId())
@@ -22,12 +27,13 @@ public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<Acco
                 .userUpdatedAtId(dto.resolverUserUpdatedAtId())
                 .code(dto.getCode())
                 .name(dto.getName())
+                .startDate(dto.getStartDate())
                 .build();
     }
 
     @Override
-    public AccountingDTO toDTO(AccountingEntity entity) {
-        return AccountingDTO.builder()
+    public TaxDTO toDTO(TaxEntity entity) {
+        return TaxDTO.builder()
                 .id(entity.getId())
                 .businessCustomerId(entity.getBusinessCustomerId())
                 .enterpriseId(entity.getEnterpriseId())
@@ -37,6 +43,7 @@ public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<Acco
                 .userUpdatedAtId(entity.getUserUpdatedAtId())
                 .code(entity.getCode())
                 .name(entity.getName())
+                .startDate(entity.getStartDate())
                 .build();
     }
 }
