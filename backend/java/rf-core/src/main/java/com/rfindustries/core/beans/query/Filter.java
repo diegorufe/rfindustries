@@ -2,11 +2,15 @@ package com.rfindustries.core.beans.query;
 
 import com.rfindustries.core.constansts.query.FilterOperator;
 import com.rfindustries.core.constansts.query.FilterType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public final class Filter<T> {
 
     private FilterType type;

@@ -16,7 +16,7 @@
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rf-s-core</name>
+	<name>rf-s-parent</name>
 	<description>Core projects</description>
 	<packaging>pom</packaging>
 	<properties>

@@ -1,13 +1,16 @@
 package com.rfindustries.core.beans.query;
 
 import com.rfindustries.core.constansts.query.JoinType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
 @Data
 @Builder
+@NoArgsConstructor
 public final class Join {
 
     private JoinType type;

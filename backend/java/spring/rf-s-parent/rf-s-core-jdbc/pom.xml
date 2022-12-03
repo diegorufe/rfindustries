@@ -6,7 +6,7 @@
 		<groupId>com.rfindustries</groupId>
 		<artifactId>rf-s-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>..</relativePath> <!-- lookup parent from repository -->
 	</parent>
 	<artifactId>rf-s-core-jdbc</artifactId>
 	<version>${core.libs.version}</version>
