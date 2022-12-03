@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<modules>
-		<module>./rf-s-accounting</module>
 		<module>./rf-s-core-jdbc</module>
 		<module>./rf-s-core-rest</module>
+		<module>./rf-s-accounting</module>
 	</modules>
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
@@ -61,12 +61,14 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

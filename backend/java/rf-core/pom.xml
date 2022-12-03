@@ -26,8 +26,7 @@
         <dependency>
             <groupId>com.rf</groupId>
             <artifactId>rflambdautils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>${rflambdautils.version}</scope>
+            <version>${rflambdautils.version}</version>
         </dependency>
     </dependencies>
 
