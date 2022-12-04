@@ -22,6 +22,8 @@ public class BodyResponseRequest<T> {
 
     private String token;
 
+    private Object userPreferences;
+
     public BodyResponseRequest(T data){
         this.data = data;
     }
