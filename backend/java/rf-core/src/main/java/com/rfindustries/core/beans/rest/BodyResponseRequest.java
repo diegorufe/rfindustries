@@ -20,6 +20,8 @@ public class BodyResponseRequest<T> {
     private T data;
     private Map<MessageLevel, List<Message>> messages;
 
+    private String token;
+
     public BodyResponseRequest(T data){
         this.data = data;
     }
