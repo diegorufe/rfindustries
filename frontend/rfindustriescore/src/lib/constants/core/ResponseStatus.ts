@@ -1,7 +1,5 @@
+export enum ResponseStatus {
+  SUCCESS,
 
-
-export enum ResponseStatus{
-    SUCCESS,
-
-    WRONG
+  WRONG,
 }

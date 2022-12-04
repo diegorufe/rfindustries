@@ -9,5 +9,20 @@ export {
   changeLocale,
 } from "./utils/ContextUtils";
 export { isNotNull, isNull } from "./utils/CommonUtils";
-export { getResponseMethodFromException } from "./utils/ErrorUtils";
+export {
+  getResponseMethodFromException,
+  applyFunctionWithHandlerError,
+} from "./utils/ErrorUtils";
 export { addMessageResponseMethod } from "./utils/MessageUtils";
+export { BaseController } from "./controller/BaseController";
+export { BaseCrudController } from "./controller/BaseCrudController";
+export { BaseService } from "./service/BaseService";
+export { BaseCrudService } from "./service/BaseCrudService";
+export { initReactivityObject, setReactiveData } from "./utils/ReactivityUtils";
+export { isEmpty, isNotEmpty } from "./utils/StringUtils";
+export {
+  fetchRequest,
+  postRequest,
+  deleteRequest,
+  putRequest,
+} from "./utils/HttpUtils";
