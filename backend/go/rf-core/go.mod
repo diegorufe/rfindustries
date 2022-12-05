@@ -1,3 +1,3 @@
-module rf-core
+module rfindustries/rf-core
 
 go 1.19

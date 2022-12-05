@@ -1,6 +1,6 @@
 package dao
 
-import "rf-core/pkg/features"
+import "rfindustries/rf-core/pkg/features"
 
 type BaseDao interface {
 	TableName(self BaseDao) string

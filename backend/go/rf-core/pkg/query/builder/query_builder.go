@@ -1,8 +1,8 @@
 package builder
 
 import (
-	"rf-core/pkg/features"
-	"rf-core/pkg/query"
+	"rfindustries/rf-core/pkg/features"
+	"rfindustries/rf-core/pkg/query"
 )
 
 type QueryBuilder struct {
