@@ -23,11 +23,11 @@ function getHeaders() {
   return headers;
 }
 
-export async function fetchRequest(
+export async function fetchRequest<T>(
   url: string,
   method: HttpMethod,
   body: any
-): Promise<ResponseMethod> {
+): Promise<ResponseMethod<T>> {
   const options: any = {
     method: method,
     headers: getHeaders(),
@@ -37,8 +37,8 @@ export async function fetchRequest(
     options.body = body;
   }
 
-  const responseMethod: ResponseMethod = await applyFunctionWithHandlerError(
-    async () => {
+  const responseMethod: ResponseMethod<any> =
+    await applyFunctionWithHandlerError(async () => {
       const responseFetch = new ResponseFetch();
       const response = await fetch(new Request(url, options));
       responseFetch.status = response.status;
@@ -48,11 +48,10 @@ export async function fetchRequest(
       }
 
       return responseFetch;
-    }
-  );
+    });
 
   if (isNotNull(responseMethod.data)) {
-    const responseFetch: ResponseFetch = responseMethod.data;
+    const responseFetch: ResponseFetch<any> = responseMethod.data;
     responseMethod.data = undefined;
     responseMethod.status = ResponseStatus.WRONG;
     responseMethod.httpStatus = responseFetch.status;
@@ -69,23 +68,30 @@ export async function fetchRequest(
   return responseMethod;
 }
 
-export async function postRequest(
+export async function postRequest<T>(
   url: string,
   body: any
-): Promise<ResponseMethod> {
+): Promise<ResponseMethod<T>> {
   return await fetchRequest(url, HttpMethod.POST, body);
 }
 
-export async function putRequest(
+export async function putRequest<T>(
   url: string,
   body: any
-): Promise<ResponseMethod> {
+): Promise<ResponseMethod<T>> {
   return await fetchRequest(url, HttpMethod.PUT, body);
 }
 
-export async function deleteRequest(
+export async function deleteRequest<T>(
   url: string,
   body: any
-): Promise<ResponseMethod> {
+): Promise<ResponseMethod<T>> {
   return await fetchRequest(url, HttpMethod.DELETE, body);
+}
+
+export async function getRequest<T>(
+  url: string,
+  body: any
+): Promise<ResponseMethod<T>> {
+  return await fetchRequest(url, HttpMethod.GET, body);
 }
