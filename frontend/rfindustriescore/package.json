@@ -1,11 +1,12 @@
 {
   "name": "rfindustriescore",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "main": "src/lib/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run fmt-chk && npm run test && tsc && vite build",
     "preview": "vite preview",
     "fmt-app": "prettier --write --ignore-unknown .",
     "fmt-chk": "prettier --check --ignore-unknown .",

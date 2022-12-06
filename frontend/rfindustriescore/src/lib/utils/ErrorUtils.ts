@@ -5,10 +5,10 @@ import { ResponseStatus } from "../constants/core/ResponseStatus";
 import { isNotNull } from "./CommonUtils";
 import { addMessageResponseMethod } from "./MessageUtils";
 
-export function getResponseMethodFromException(
+export function getResponseMethodFromException<T>(
   exception?: Error
-): ResponseMethod {
-  const response = new ResponseMethod();
+): ResponseMethod<T> {
+  const response: ResponseMethod<T> = new ResponseMethod();
 
   if (isNotNull(exception)) {
     response.error = exception;

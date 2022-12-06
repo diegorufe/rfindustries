@@ -1,8 +1,8 @@
 import { Message } from "../beans/core/Message";
 import { ResponseMethod } from "../beans/core/ResponseMethod";
 
-export function addMessageResponseMethod(
-  response: ResponseMethod,
+export function addMessageResponseMethod<T>(
+  response: ResponseMethod<T>,
   message: Message
 ) {
   let messages: Message[] = [];

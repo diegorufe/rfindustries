@@ -7,7 +7,7 @@ import {
 
 describe("testing MessageUtils", () => {
   test("Add message to response method", () => {
-    const response: ResponseMethod = new ResponseMethod();
+    const response: ResponseMethod<any> = new ResponseMethod();
     addMessageResponseMethod(
       response,
       new Message("SUCCESS", MessageLevel.SUCCESS)
