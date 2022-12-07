@@ -1,0 +1,7 @@
+{
+  "name": "rfindustriesvue",
+  "version": "0.0.1b",
+  "type": "module",
+  "main": "rfindustriesvue.es.js",
+  "types": "index.d.ts"
+}
