@@ -1,6 +1,6 @@
 {
   "name": "rfindustriescore",
-  "version": "0.0.1",
+  "version": "0.0.1b",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts"
