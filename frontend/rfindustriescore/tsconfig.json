@@ -9,11 +9,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    "noEmit": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "rootDir": "./",
+    "outDir": "./dist",
+    "declaration": true
   },
-  "include": ["src"]
+  "include": ["src/lib/*", "src/lib/package.json"]
 }
