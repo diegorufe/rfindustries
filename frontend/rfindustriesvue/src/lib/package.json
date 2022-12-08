@@ -3,5 +3,8 @@
   "version": "0.0.1b",
   "type": "module",
   "main": "rfindustriesvue.es.js",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "dependencies": {
+    "rfindustriescore": "file:../libs/rfindustriescore",
+  }
 }
