@@ -4,9 +4,6 @@ import { AppComponent } from "rfindustriesvue"
 
 <template>
   <AppComponent>
-    <template v-slot:appComponent-header>
-      <div>This is header2</div>
-    </template>
   </AppComponent>
 </template>
 

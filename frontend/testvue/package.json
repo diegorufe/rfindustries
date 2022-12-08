@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "rfindustriescore": "file:../rfindustriescore",
+    "help": "^3.0.2",
     "rfindustriesvue": "file:../rfindustriesvue",
     "vue": "^3.2.41"
   },

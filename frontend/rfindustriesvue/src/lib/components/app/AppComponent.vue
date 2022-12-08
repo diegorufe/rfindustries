@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { cssVarsAppComponent } from "rfindustriescore";
+import { cssAppComponent } from "rfindustriescore";
+import HeaderComponent from "../header/HeaderComponent.vue";
+import MenuComponent from "../menu/MenuComponent.vue";
 import StyleComponent from "../style/StyleComponent.vue";
 import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 </script>
@@ -7,11 +9,15 @@ import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 <template>
   <StyleComponent></StyleComponent>
   <StyleCssVarComponent
-    :css-vars-component="cssVarsAppComponent()"
+    :css-vars-component="cssAppComponent()"
   ></StyleCssVarComponent>
   <div class="AppComponent">
-    <slot name="appComponent-header"></slot>
-    <slot name="appComponent-menu"></slot>
+    <slot name="appComponent-header">
+      <HeaderComponent></HeaderComponent>
+    </slot>
+    <slot name="appComponent-menu">
+      <MenuComponent></MenuComponent>
+    </slot>
     <slot name="appComponent-body"></slot>
   </div>
 </template>

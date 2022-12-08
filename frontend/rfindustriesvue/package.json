@@ -1,6 +1,6 @@
 {
   "name": "rfindustriesvue",
-  "version": "0.0.1b",
+  "version": "0.0.0",
   "private": "true",
   "main": "./src/lib/index.ts",
   "scripts": {
