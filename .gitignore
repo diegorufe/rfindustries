@@ -34,3 +34,6 @@ package-lock.json
 /.idea/
 **/.mvn
 /.mvn
+
+**/__snapshots__
+/__snapshots__
