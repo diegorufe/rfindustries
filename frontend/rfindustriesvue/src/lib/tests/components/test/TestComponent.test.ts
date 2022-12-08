@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { TestComponent } from "../../index";
+import { TestComponent } from "../../../index";
 
 test("mount component", async () => {
   expect(TestComponent).toBeTruthy();
@@ -12,4 +12,5 @@ test("mount component", async () => {
 
   expect(wrapper.text()).toContain("TEST");
   expect(wrapper.html()).toMatchInlineSnapshot('"<p>TEST</p>"');
+  // expect(wrapper.html()).toMatchSnapshot()
 });

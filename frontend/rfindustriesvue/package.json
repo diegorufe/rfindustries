@@ -14,6 +14,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "rfindustriescore": "file:../rfindustriescore",
     "vue": "^3.2.41"
   },
   "devDependencies": {
