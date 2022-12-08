@@ -37,3 +37,6 @@ package-lock.json
 
 **/__snapshots__
 /__snapshots__
+
+**/coverage
+/coverage
