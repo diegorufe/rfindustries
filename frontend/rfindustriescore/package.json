@@ -1,9 +1,7 @@
 {
   "name": "rfindustriescore",
-  "private": true,
   "version": "0.0.1b",
-  "type": "module",
-  "main": "src/lib/index.ts",
+  "main": "./src/lib/index.ts",
   "scripts": {
     "build": "npm run clean && npm run fmt-chk && npm run test && tsc && cd ./dist/src/lib && npm pack",
     "fmt-app": "prettier --write --ignore-unknown ./src",

@@ -5,6 +5,7 @@ export { MessageLevel } from "./constants/core/MessageLevel";
 export { ResponseStatus } from "./constants/core/ResponseStatus";
 export { BaseController } from "./controller/BaseController";
 export { BaseCrudController } from "./controller/BaseCrudController";
+export * as CssVarProps from "./features/CssVarProps";
 export { BaseCrudService } from "./service/BaseCrudService";
 export { BaseService } from "./service/BaseService";
 export { isNotNull, isNull } from "./utils/CommonUtils";
@@ -29,7 +30,6 @@ export { initReactivityObject, setReactiveData } from "./utils/ReactivityUtils";
 export { isEmpty, isNotEmpty } from "./utils/StringUtils";
 export {
   cssVars,
-  defaultCssVarsProps
+  cssVarsAppComponent,
+  defaultCssVarsProps,
 } from "./utils/StyleUtils";
-
-export * as CssVarProps from "./features/CssVarProps";

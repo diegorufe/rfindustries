@@ -1,6 +1,8 @@
 {
   "name": "rfindustriesvue",
   "version": "0.0.1b",
+  "private": "true",
+  "main": "./src/lib/index.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly",
