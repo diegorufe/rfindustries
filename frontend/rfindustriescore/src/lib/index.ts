@@ -9,11 +9,20 @@ export * as CssVarProps from "./features/CssVarProps";
 export { BaseCrudService } from "./service/BaseCrudService";
 export { BaseService } from "./service/BaseService";
 export { isNotNull, isNull } from "./utils/CommonUtils";
+export { openCloseMenu } from "./utils/ComponentUtils";
 export {
   addLocaleResource,
   changeLocale,
   getAppContext,
 } from "./utils/ContextUtils";
+export {
+  addClassName,
+  findElementById,
+  findElementsByClassName,
+  findElementsByClassNameFirst,
+  hasClassName,
+  removeClassName,
+} from "./utils/DomUtils";
 export {
   applyFunctionWithHandlerError,
   getResponseMethodFromException,
@@ -30,6 +39,7 @@ export { initReactivityObject, setReactiveData } from "./utils/ReactivityUtils";
 export { isEmpty, isNotEmpty } from "./utils/StringUtils";
 export {
   cssAppComponent,
+  cssBodyComponent,
   cssHeaderComponent,
   cssMenuComponent,
   cssVars,

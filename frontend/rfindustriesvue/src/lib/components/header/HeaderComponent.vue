@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cssHeaderComponent } from "rfindustriescore";
+import { cssHeaderComponent, openCloseMenu } from "rfindustriescore";
 import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 </script>
 
@@ -7,7 +7,13 @@ import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
   <StyleCssVarComponent
     :css-vars-component="cssHeaderComponent()"
   ></StyleCssVarComponent>
-  <div class="HeaderComponent"></div>
+  <div class="HeaderComponent">
+    <button
+      type="button"
+      @click="openCloseMenu()"
+      class="CoreButtons fa fa-bars"
+    ></button>
+  </div>
 </template>
 
 <style scoped></style>

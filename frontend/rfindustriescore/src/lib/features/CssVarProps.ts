@@ -6,7 +6,10 @@ export interface CssVarProps {
   headerBackColor: string;
   headerFontColor: string;
   headerBorderBottomColor: string;
+  headerHeight: string;
   menuBackColor: string;
   menuFontColor: string;
   menuBorderRightColor: string;
+  bodyBackColor: string;
+  bodyFontColor: string;
 }

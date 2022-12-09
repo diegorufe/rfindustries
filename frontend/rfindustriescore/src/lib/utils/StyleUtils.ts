@@ -9,10 +9,13 @@ export function defaultCssVarsProps(): CssVarProps {
     appFontColor: "black",
     headerBackColor: "var(--appBackColor, white)",
     headerFontColor: "var(--appFontColor, black)",
+    headerHeight: "31px",
     headerBorderBottomColor: "#d3d3d3",
     menuBackColor: "#2f4050",
     menuFontColor: "white",
     menuBorderRightColor: "d3d3d3",
+    bodyBackColor: "var(--appBackColor, white)",
+    bodyFontColor: "var(--appFontColor, black)",
   } as CssVarProps;
 }
 
@@ -55,6 +58,15 @@ function cssCore(): string {
         color:  var(--appFontColor, black);
         box-sizing: border-box;
     } 
+
+    .CoreButtons {
+      float: left;
+      height: 30px;
+      width: 30px;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
   `;
 }
 
@@ -81,7 +93,7 @@ export function cssHeaderComponent(): string {
         .HeaderComponent {
             margin: 0;
             padding: 0;
-            height: 40px;
+            height: var(--headerHeight, 31px);
             width: 100%;
             float: left;
             background-color: var(--headerBackColor, white);
@@ -99,7 +111,7 @@ export function cssMenuComponent(): string {
         .MenuComponent {
             margin: 0;
             padding: 0;
-            height: calc(100% - 40px);
+            height: calc(100% - var(--headerHeight, 31px));
             min-width: 249px;
             max-width: 249px;
             float: left;
@@ -107,6 +119,33 @@ export function cssMenuComponent(): string {
             color:  var(--menuFontColor, white);
             border-right: 1px solid var(--menuBorderRightColor, #d3d3d3);
             box-sizing: border-box;
+        }
+
+        .MenuComponentHidden {
+          display: none;
+        }
+    </style>
+    `;
+}
+
+export function cssBodyComponent(): string {
+  return `
+    <style>
+        .BodyComponent {
+            margin: 0;
+            padding: 0;
+            height: calc(100% - var(--headerHeight, 31px));
+            min-width: calc(100% - 249px);
+            max-width: calc(100% - 249px);
+            float: left;
+            background-color: var(--bodyBackColor, #2f4050);
+            color:  var(--bodyFontColor, white);
+            box-sizing: border-box;
+        }
+
+        .BodyComponentFullScreen {
+          min-width: 100%;
+          max-width: 100%;
         }
     </style>
     `;

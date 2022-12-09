@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { cssAppComponent } from "rfindustriescore";
+import BodyComponent from "../body/BodyComponent.vue";
 import HeaderComponent from "../header/HeaderComponent.vue";
 import MenuComponent from "../menu/MenuComponent.vue";
 import StyleComponent from "../style/StyleComponent.vue";
@@ -18,7 +19,9 @@ import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
     <slot name="appComponent-menu">
       <MenuComponent></MenuComponent>
     </slot>
-    <slot name="appComponent-body"></slot>
+    <slot name="appComponent-body">
+      <BodyComponent></BodyComponent>
+    </slot>
   </div>
 </template>
 
