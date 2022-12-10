@@ -1,6 +1,8 @@
 import { MenuItem } from "../beans/core/MenuItem";
 
-export interface LoadMenu {
+interface LoadMenu {
   findMenuItems(): Promise<MenuItem[]>;
   searchInMenu(menuItems: MenuItem[], text: string): MenuItem[];
 }
+
+export type { LoadMenu };

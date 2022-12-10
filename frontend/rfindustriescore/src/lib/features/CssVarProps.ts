@@ -1,4 +1,4 @@
-export interface CssVarProps {
+interface CssVarProps {
   appFontFamily: string;
   appBackColor: string;
   appSecondaryBackColor: string;
@@ -13,3 +13,5 @@ export interface CssVarProps {
   bodyBackColor: string;
   bodyFontColor: string;
 }
+
+export type { CssVarProps };

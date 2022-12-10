@@ -1,4 +1,7 @@
 import { AppContext } from "../beans/context/AppContext";
+import { URLKeyParams } from "../constants/core/URLKeyParams";
+import { ModuleLoader } from "../features/ModuleLoader";
+import { isNotNull } from "./CommonUtils";
 
 const APP_CONTEXT = new AppContext();
 
@@ -26,4 +29,30 @@ export function addLocaleResource(locales: any[]) {
       }
     });
   }
+}
+
+export function loadAppContext(modules: ModuleLoader[]) {
+  modules.forEach((module) => {
+    module.loadI18n();
+    module.loadLazyComponents();
+  });
+
+  const url = new URL(window.location.href);
+  const key: string | null = url.searchParams.get(URLKeyParams.KEY);
+
+  if (isNotNull(key)) {
+    APP_CONTEXT.frameles = true;
+    APP_CONTEXT.key = key as string;
+  }
+}
+
+export async function loadComponentByKey(key: string): Promise<any> {
+  let component: any = null;
+  if (key in APP_CONTEXT.lazyComponents) {
+    const functionLoadComponent = APP_CONTEXT.lazyComponents[key];
+    // TODO handler error and show component error
+    component = await functionLoadComponent();
+  }
+
+  return component;
 }

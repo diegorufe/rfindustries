@@ -5,10 +5,12 @@ export { ResponseMethod } from "./beans/core/ResponseMethod";
 export { MessageLevel } from "./constants/core/MessageLevel";
 export { ResponseStatus } from "./constants/core/ResponseStatus";
 export { SessionKeyStorage } from "./constants/core/SessionKeyStorage";
+export { URLKeyParams } from "./constants/core/URLKeyParams";
 export { BaseController } from "./controller/BaseController";
 export { BaseCrudController } from "./controller/BaseCrudController";
-export * as CssVarProps from "./features/CssVarProps";
-export * as LoadMenu from "./features/LoadMenu";
+export type { CssVarProps } from "./features/CssVarProps";
+export type { LoadMenu } from "./features/LoadMenu";
+export type { ModuleLoader } from "./features/ModuleLoader";
 export { BaseCrudService } from "./service/BaseCrudService";
 export { BaseService } from "./service/BaseService";
 export { isNotNull, isNull } from "./utils/CommonUtils";
@@ -17,6 +19,8 @@ export {
   addLocaleResource,
   changeLocale,
   getAppContext,
+  loadAppContext,
+  loadComponentByKey,
 } from "./utils/ContextUtils";
 export {
   addClassName,
