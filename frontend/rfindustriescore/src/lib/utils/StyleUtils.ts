@@ -124,8 +124,55 @@ export function cssMenuComponent(): string {
         .MenuComponentHidden {
           display: none;
         }
+
+        .MenuComponentSearch{
+          float: left;
+          width: 100%;
+          box-sizing: border-box;
+          height = 31px;
+        }
+
+        .MenuComponentItems{
+          float: left;
+          width: 100%;
+          box-sizing: border-box;
+          height = calc(100% - 31px);
+          overflow: auto;
+        }
     </style>
     `;
+}
+
+export function cssMenuItemComponent(): string {
+  return `
+  <style>
+    .MenuItemComponent {
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .MenuItemComponentLabel{
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .MenuItemComponentChild{
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .MenuItemComponentChildLabel{
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+  `;
 }
 
 export function cssBodyComponent(): string {
