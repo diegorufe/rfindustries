@@ -11,6 +11,7 @@ export { BaseCrudController } from "./controller/BaseCrudController";
 export type { CssVarProps } from "./features/CssVarProps";
 export type { LoadMenu } from "./features/LoadMenu";
 export type { ModuleLoader } from "./features/ModuleLoader";
+export type { Reactivity } from "./features/Reactivity";
 export { BaseCrudService } from "./service/BaseCrudService";
 export { BaseService } from "./service/BaseService";
 export { isNotNull, isNull } from "./utils/CommonUtils";

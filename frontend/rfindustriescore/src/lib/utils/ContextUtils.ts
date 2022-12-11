@@ -1,6 +1,7 @@
 import { AppContext } from "../beans/context/AppContext";
 import { URLKeyParams } from "../constants/core/URLKeyParams";
 import { ModuleLoader } from "../features/ModuleLoader";
+import { I18nEn } from "../i18n/en/Locale";
 import { isNotNull } from "./CommonUtils";
 
 const APP_CONTEXT = new AppContext();
@@ -32,6 +33,8 @@ export function addLocaleResource(locales: any[]) {
 }
 
 export function loadAppContext(modules: ModuleLoader[]) {
+  addLocaleResource([I18nEn]);
+
   modules.forEach((module) => {
     module.loadI18n();
     module.loadLazyComponents();

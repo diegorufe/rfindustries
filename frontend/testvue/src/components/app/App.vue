@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import '@fortawesome/fontawesome-free/css/all.css';
-import { loadAppContext } from "rfindustriescore";
 import { AppComponent } from "rfindustriesvue";
+import { config } from '../../config/Config';
 
-// Load App context
-loadAppContext([]);
+// Configuramos la aplicación
+config();
 
 </script>
 

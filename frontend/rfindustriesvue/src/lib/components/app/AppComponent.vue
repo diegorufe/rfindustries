@@ -1,17 +1,26 @@
 <script setup lang="ts">
-import { cssAppComponent, getAppContext } from "rfindustriescore";
+import {
+  cssAppComponent,
+  getAppContext,
+  loadComponentByKey,
+} from "rfindustriescore";
+import { defineAsyncComponent } from "vue";
+import { setReactivityFeature } from "../../utils/ReactivityVueUtils";
 import BodyComponent from "../body/BodyComponent.vue";
 import HeaderComponent from "../header/HeaderComponent.vue";
 import MenuComponent from "../menu/MenuComponent.vue";
 import StyleComponent from "../style/StyleComponent.vue";
 import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 
+// Fijamos la funcionalidad para fijar la reactividad
+setReactivityFeature();
+
 const context = getAppContext();
 
 let KeyComponent: null;
 
 if (context.frameles) {
-  // TODO get component by key
+  KeyComponent = defineAsyncComponent(() => loadComponentByKey(context.key!));
 }
 </script>
 
@@ -20,25 +29,25 @@ if (context.frameles) {
   <StyleCssVarComponent
     :css-vars-component="cssAppComponent()"
   ></StyleCssVarComponent>
-  <div class="AppComponent">
-    <template v-if="context.frameles">
-      <Suspense>
+  <Suspense>
+    <div class="AppComponent">
+      <template v-if="context.frameles">
         <component :is="KeyComponent"></component>
-      </Suspense>
-    </template>
+      </template>
 
-    <template v-else>
-      <slot name="appComponent-header">
-        <HeaderComponent></HeaderComponent>
-      </slot>
-      <slot name="appComponent-menu">
-        <MenuComponent></MenuComponent>
-      </slot>
-      <slot name="appComponent-body">
-        <BodyComponent></BodyComponent>
-      </slot>
-    </template>
-  </div>
+      <template v-else>
+        <slot name="appComponent-header">
+          <HeaderComponent></HeaderComponent>
+        </slot>
+        <slot name="appComponent-menu">
+          <MenuComponent></MenuComponent>
+        </slot>
+        <slot name="appComponent-body">
+          <BodyComponent></BodyComponent>
+        </slot>
+      </template>
+    </div>
+  </Suspense>
 </template>
 
 <style scoped></style>

@@ -48,6 +48,10 @@ export function cssVars(
 
 function cssCore(): string {
   return `
+   * {
+      box-sizing: border-box;
+   }
+   
     body, html, #app, #App {
         font-family: var(--appFontFamily);
         margin: 0;
@@ -56,7 +60,6 @@ function cssCore(): string {
         width: 100%;
         float: left;
         color:  var(--appFontColor, black);
-        box-sizing: border-box;
     } 
 
     .CoreButtons {
@@ -66,6 +69,10 @@ function cssCore(): string {
       border: none;
       cursor: pointer;
       background-color: transparent;
+    }
+
+    input {
+      outline: none !important;
     }
   `;
 }
@@ -81,7 +88,6 @@ export function cssAppComponent(): string {
             float: left;
             background-color: var(--appBackColor, white);
             color:  var(--appFontColor, black);
-            box-sizing: border-box;
         }
     </style>
     `;
@@ -99,7 +105,6 @@ export function cssHeaderComponent(): string {
             background-color: var(--headerBackColor, white);
             color:  var(--headerFontColor, black);
             border-bottom: 1px solid var(--headerBorderBottomColor, #d3d3d3);
-            box-sizing: border-box;
         }
     </style>
     `;
@@ -118,7 +123,6 @@ export function cssMenuComponent(): string {
             background-color: var(--menuBackColor, #2f4050);
             color:  var(--menuFontColor, white);
             border-right: 1px solid var(--menuBorderRightColor, #d3d3d3);
-            box-sizing: border-box;
         }
 
         .MenuComponentHidden {
@@ -128,14 +132,19 @@ export function cssMenuComponent(): string {
         .MenuComponentSearch{
           float: left;
           width: 100%;
-          box-sizing: border-box;
-          height = 31px;
+          height : 31px;
+        }
+
+        .MenuComponentSearchInput{
+          margin: 10px;
+          width: 90%;
+          border-radius: 10px;
+          padding-left: 13px;
         }
 
         .MenuComponentItems{
           float: left;
           width: 100%;
-          box-sizing: border-box;
           height = calc(100% - 31px);
           overflow: auto;
         }
@@ -149,27 +158,23 @@ export function cssMenuItemComponent(): string {
     .MenuItemComponent {
       float: left;
       width: 100%;
-      box-sizing: border-box;
       cursor: pointer;
     }
 
     .MenuItemComponentLabel{
       float: left;
       width: 100%;
-      box-sizing: border-box;
     }
 
     .MenuItemComponentChild{
       float: left;
       width: 100%;
-      box-sizing: border-box;
       cursor: pointer;
     }
 
     .MenuItemComponentChildLabel{
       float: left;
       width: 100%;
-      box-sizing: border-box;
     }
   </style>
   `;
@@ -187,7 +192,6 @@ export function cssBodyComponent(): string {
             float: left;
             background-color: var(--bodyBackColor, #2f4050);
             color:  var(--bodyFontColor, white);
-            box-sizing: border-box;
         }
 
         .BodyComponentFullScreen {

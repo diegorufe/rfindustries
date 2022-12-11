@@ -40,7 +40,12 @@ function search(event: any) {
   ></StyleCssVarComponent>
   <div class="MenuComponent">
     <div class="MenuComponentSearch">
-      <input type="text" @keyup="search" />
+      <input
+        class="MenuComponentSearchInput"
+        type="text"
+        @keyup="search"
+        :placeholder="context.translate('rf.search')"
+      />
     </div>
     <div :key="menuKey" class="MenuComponentItems">
       <template v-for="menuItem in searchMenuItems">
