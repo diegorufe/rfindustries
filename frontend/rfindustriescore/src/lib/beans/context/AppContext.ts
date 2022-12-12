@@ -2,6 +2,7 @@ import { LoadMenu } from "../../features/LoadMenu";
 import { Reactivity } from "../../features/Reactivity";
 import { LoadMenuService } from "../../service/menu/LoadMenuService";
 import { isNotNull, isNull } from "../../utils/CommonUtils";
+import { Tab } from "../core/Tab";
 
 export class AppContext {
   i18nLocales: { [key: string]: { [key: string]: any } } = {};
@@ -9,8 +10,10 @@ export class AppContext {
   loaderMenu: LoadMenu = new LoadMenuService();
   frameles: boolean = false;
   key?: string;
+  tabKey?: string;
   lazyComponents: { [key: string]: Function } = {};
   reactivity?: Reactivity;
+  tabs: Tab[] = [];
 
   translate(key: string, data?: any[]): string {
     const keys = key.split(".");

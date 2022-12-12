@@ -6,5 +6,6 @@ export { default as MenuComponent } from "./components/menu/MenuComponent.vue";
 export { default as MenuItemComponent } from "./components/menu/MenuItemComponent.vue";
 export { default as StyleComponent } from "./components/style/StyleComponent.vue";
 export { default as StyleCssVarComponent } from "./components/style/StyleCssVarComponent.vue";
+export { default as TabViewComponent } from "./components/tabview/TabViewComponent.vue";
 export { default as TestComponent } from "./components/test/TestComponent.vue";
 export { setReactivityFeature } from "./utils/ReactivityVueUtils";

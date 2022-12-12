@@ -1,3 +1,4 @@
+import { TagName } from "../constants/dom/TagName";
 import { isNotNull, isNull } from "./CommonUtils";
 
 export function findElementsByClassName(
@@ -37,4 +38,14 @@ export function addClassName(element: Element, className: string): void {
 
 export function removeClassName(element: Element, className: string): void {
   element.classList.remove(className);
+}
+
+export function createDiv(): HTMLElement {
+  const element = document.createElement(TagName.DIV);
+  return element;
+}
+
+export function createIFrame(): HTMLElement {
+  const element = document.createElement(TagName.IFRAME);
+  return element;
 }

@@ -6,6 +6,7 @@ export { MessageLevel } from "./constants/core/MessageLevel";
 export { ResponseStatus } from "./constants/core/ResponseStatus";
 export { SessionKeyStorage } from "./constants/core/SessionKeyStorage";
 export { URLKeyParams } from "./constants/core/URLKeyParams";
+export { TagName } from "./constants/dom/TagName";
 export { BaseController } from "./controller/BaseController";
 export { BaseCrudController } from "./controller/BaseCrudController";
 export type { CssVarProps } from "./features/CssVarProps";
@@ -25,6 +26,8 @@ export {
 } from "./utils/ContextUtils";
 export {
   addClassName,
+  createDiv,
+  createIFrame,
   findElementById,
   findElementsByClassName,
   findElementsByClassNameFirst,
@@ -45,13 +48,21 @@ export {
 export { addMessageResponseMethod } from "./utils/MessageUtils";
 export { initReactivityObject, setReactiveData } from "./utils/ReactivityUtils";
 export { clearSession, getMenuItems, setMenuItems } from "./utils/SessionUtils";
-export { isEmpty, isNotEmpty } from "./utils/StringUtils";
+export {
+  chr4,
+  isEmpty,
+  isNotEmpty,
+  uniqueId,
+  uniqueIDChr4,
+} from "./utils/StringUtils";
 export {
   cssAppComponent,
   cssBodyComponent,
   cssHeaderComponent,
   cssMenuComponent,
   cssMenuItemComponent,
+  cssTabViewComponent,
   cssVars,
   defaultCssVarsProps,
 } from "./utils/StyleUtils";
+export { addTab, changeTab, clearTabs, removeTab } from "./utils/TabUtils";

@@ -42,10 +42,12 @@ export function loadAppContext(modules: ModuleLoader[]) {
 
   const url = new URL(window.location.href);
   const key: string | null = url.searchParams.get(URLKeyParams.KEY);
+  const tab: string | null = url.searchParams.get(URLKeyParams.TAB);
 
   if (isNotNull(key)) {
     APP_CONTEXT.frameles = true;
     APP_CONTEXT.key = key as string;
+    APP_CONTEXT.tabKey = tab as string;
   }
 }
 

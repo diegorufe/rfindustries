@@ -51,29 +51,38 @@ function cssCore(): string {
    * {
       box-sizing: border-box;
    }
+
    
-    body, html, #app, #App {
-        font-family: var(--appFontFamily);
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        float: left;
-        color:  var(--appFontColor, black);
-    } 
-
-    .CoreButtons {
+  input {
+    outline: none !important;
+  }
+   
+  body, html, #app, #App {
+      font-family: var(--appFontFamily);
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
       float: left;
-      height: 30px;
-      width: 30px;
-      border: none;
-      cursor: pointer;
-      background-color: transparent;
-    }
+      color:  var(--appFontColor, black);
+  } 
 
-    input {
-      outline: none !important;
-    }
+  .CoreButtons {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  .IFrameBody{
+    border: none;
+    height: 100%;
+    width: 100%;
+    float: left;
+  }
+
   `;
 }
 
@@ -198,6 +207,52 @@ export function cssBodyComponent(): string {
           min-width: 100%;
           max-width: 100%;
         }
+    </style>
+    `;
+}
+
+export function cssTabViewComponent(): string {
+  return `
+    <style>
+      .TabViewComponent {
+        float: left;
+        width: 100%;
+        heigth: 100%;
+      }
+    
+      .TabViewComponentHeaders {
+        float: left;
+        width: 100%;
+        height : 31px;
+      }
+    
+      .TabViewComponentHeader {
+        float: left;
+        height : 100%;
+        display: none;
+      }
+    
+      .TabViewComponentHeaderActive {
+        display: block;
+      }
+    
+      
+      .TabViewComponentBodys {
+        float: left;
+        width: 100%;
+        height : calc(100% - 31px);
+      }
+    
+      .TabViewComponentBody {
+        float: left;
+        width: 100%;
+        heigth: 100%;
+        display: none;
+      }
+    
+      .TabViewComponentBodyActive {
+        display: block;
+      }
     </style>
     `;
 }
