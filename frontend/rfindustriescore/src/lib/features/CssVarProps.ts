@@ -12,6 +12,8 @@ interface CssVarProps {
   menuBorderRightColor: string;
   bodyBackColor: string;
   bodyFontColor: string;
+  tabViewHeaderItemActiveBackColor: string;
+  tabViewHeaderItemActiveFontColor: string;
 }
 
 export type { CssVarProps };

@@ -2,10 +2,12 @@ export { AppContext } from "./beans/context/AppContext";
 export { MenuItem } from "./beans/core/MenuItem";
 export { Message } from "./beans/core/Message";
 export { ResponseMethod } from "./beans/core/ResponseMethod";
+export { EventMessage } from "./beans/dom/EventMessage";
 export { MessageLevel } from "./constants/core/MessageLevel";
 export { ResponseStatus } from "./constants/core/ResponseStatus";
 export { SessionKeyStorage } from "./constants/core/SessionKeyStorage";
 export { URLKeyParams } from "./constants/core/URLKeyParams";
+export { EventType } from "./constants/dom/EventType";
 export { TagName } from "./constants/dom/TagName";
 export { BaseController } from "./controller/BaseController";
 export { BaseCrudController } from "./controller/BaseCrudController";
@@ -45,6 +47,13 @@ export {
   postRequest,
   putRequest,
 } from "./utils/HttpUtils";
+export {
+  addMessageEventListener,
+  addTabEvent,
+  changeTabEvent,
+  closeAllTabsEvent,
+  closeTabEvent,
+} from "./utils/MessageEventUtils";
 export { addMessageResponseMethod } from "./utils/MessageUtils";
 export { initReactivityObject, setReactiveData } from "./utils/ReactivityUtils";
 export { clearSession, getMenuItems, setMenuItems } from "./utils/SessionUtils";

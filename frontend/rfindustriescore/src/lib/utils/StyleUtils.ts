@@ -16,6 +16,8 @@ export function defaultCssVarsProps(): CssVarProps {
     menuBorderRightColor: "d3d3d3",
     bodyBackColor: "var(--appBackColor, white)",
     bodyFontColor: "var(--appFontColor, black)",
+    tabViewHeaderItemActiveBackColor: "#2f4050",
+    tabViewHeaderItemActiveFontColor: "white",
   } as CssVarProps;
 }
 
@@ -50,6 +52,9 @@ function cssCore(): string {
   return `
    * {
       box-sizing: border-box;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
    }
 
    
@@ -217,7 +222,7 @@ export function cssTabViewComponent(): string {
       .TabViewComponent {
         float: left;
         width: 100%;
-        heigth: 100%;
+        height: 100%;
       }
     
       .TabViewComponentHeaders {
@@ -229,13 +234,29 @@ export function cssTabViewComponent(): string {
       .TabViewComponentHeader {
         float: left;
         height : 100%;
-        display: none;
+        padding: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+        text-align: center;
       }
     
       .TabViewComponentHeaderActive {
-        display: block;
+        border-radius: 0 9px 0 0;
+        background: var(--tabViewHeaderItemActiveBackColor, black);
+        color: var(--tabViewHeaderItemActiveFontColor, white);
       }
-    
+
+      .TabViewComponentHeaderTitle{
+        float: left;
+        cursor: pointer;
+      }
+
+      .TabViewComponentHeaderIcon{
+        float: left;
+        margin-left: 6px;
+        font-size: 12px;
+        cursor: pointer;
+      }
       
       .TabViewComponentBodys {
         float: left;
@@ -246,8 +267,9 @@ export function cssTabViewComponent(): string {
       .TabViewComponentBody {
         float: left;
         width: 100%;
-        heigth: 100%;
+        height: 100%;
         display: none;
+        border-top: 1px solid var(--tabViewHeaderItemActiveBackColor, transparent);
       }
     
       .TabViewComponentBodyActive {

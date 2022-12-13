@@ -10,6 +10,7 @@ import {
   hasClassName,
   removeClassName,
 } from "./DomUtils";
+import { changeTabEvent, closeTabEvent } from "./MessageEventUtils";
 import { uniqueId } from "./StringUtils";
 
 export function clearTabs() {
@@ -30,8 +31,24 @@ export function addTab(key: string, title: string) {
   const header = createDiv();
   header.id = tab.id + "Header";
   addClassName(header, "TabViewComponentHeader");
-  header.innerText = tab.title;
   tabViewComponentHeaders?.appendChild(header);
+
+  const headerTitle = createDiv();
+  addClassName(headerTitle, "TabViewComponentHeaderTitle");
+  headerTitle.innerText = tab.title;
+  headerTitle.onclick = () => {
+    changeTabEvent(tab.id);
+  };
+  header.appendChild(headerTitle);
+
+  const headerIcon = createDiv();
+  addClassName(headerIcon, "TabViewComponentHeaderIcon");
+  addClassName(headerIcon, "fa-solid");
+  addClassName(headerIcon, "fa-circle-xmark");
+  headerIcon.onclick = () => {
+    closeTabEvent(tab.id);
+  };
+  header.appendChild(headerIcon);
 
   // body
   const body = createDiv();
@@ -82,7 +99,10 @@ export function removeTab(id: string) {
   context.tabs.splice(removeTab, 1);
 
   if (activeTab == removeTab && context.tabs.length > 0) {
-    changeTab(context.tabs[activeTab--].id);
+    if (activeTab == 0) {
+      activeTab = 1;
+    }
+    changeTab(context.tabs[--activeTab].id);
   }
 }
 

@@ -3,6 +3,7 @@ import { URLKeyParams } from "../constants/core/URLKeyParams";
 import { ModuleLoader } from "../features/ModuleLoader";
 import { I18nEn } from "../i18n/en/Locale";
 import { isNotNull } from "./CommonUtils";
+import { addMessageEventListener } from "./MessageEventUtils";
 
 const APP_CONTEXT = new AppContext();
 
@@ -48,6 +49,11 @@ export function loadAppContext(modules: ModuleLoader[]) {
     APP_CONTEXT.frameles = true;
     APP_CONTEXT.key = key as string;
     APP_CONTEXT.tabKey = tab as string;
+  }
+
+  // If application isnt frameles add listener postMessages
+  if (!APP_CONTEXT.frameles) {
+    addMessageEventListener();
   }
 }
 

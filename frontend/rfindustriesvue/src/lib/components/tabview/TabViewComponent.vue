@@ -9,7 +9,6 @@ import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
   ></StyleCssVarComponent>
   <div class="TabViewComponent" id="TabViewComponent">
     <div class="TabViewComponentHeaders" id="TabViewComponentHeaders"></div>
-    <div class="TabViewComponentHeaders" id="TabViewComponentHeaders"></div>
     <div class="TabViewComponentBodys" id="TabViewComponentBodys"></div>
   </div>
 </template>
