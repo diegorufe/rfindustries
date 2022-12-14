@@ -12,6 +12,7 @@
 		<module>./rf-s-core-jdbc</module>
 		<module>./rf-s-core-rest</module>
 		<module>./rf-s-accounting</module>
+		<module>./rf-s-commons</module>
 	</modules>
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
