@@ -33,4 +33,6 @@ type QueryBuilderType int
 
 const (
 	Postgress QueryBuilderType = 0
+	Mysql     QueryBuilderType = 1
+	SqLite    QueryBuilderType = 2
 )
