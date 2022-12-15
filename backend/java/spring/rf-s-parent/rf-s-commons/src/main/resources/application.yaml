@@ -17,3 +17,7 @@ server:
   servlet:
     contextPath: /commons
 
+grpc:
+  server:
+    port: 5102
+
