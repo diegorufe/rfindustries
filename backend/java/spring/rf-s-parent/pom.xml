@@ -13,6 +13,8 @@
 		<module>./rf-s-core-rest</module>
 		<module>./rf-s-accounting</module>
 		<module>./rf-s-commons</module>
+		<module>./rf-s-core-grpc-server</module>
+		<module>./rf-s-core-grpc-client</module>
 	</modules>
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
@@ -28,6 +30,7 @@
 		<core.java.lib.version>${core.libs.version}</core.java.lib.version>
 		<rflambdautils.version>0.0.1-SNAPSHOT</rflambdautils.version>
 		<lombok.version>1.18.24</lombok.version>
+		<grpc.version>2.14.0.RELEASE</grpc.version>
 	</properties>
 	<dependencies>
 		<dependency>
