@@ -41,17 +41,18 @@ function clickMenuItemChild(menuItem: MenuItem) {
     <div class="MenuItemComponentLabel">
       {{ props.menuItem.label }}
     </div>
-
-    <template v-if="open" v-for="child in props.menuItem.menuItems">
-      <div
-        class="MenuItemComponentChild"
-        @click="() => clickMenuItemChild(child)"
-      >
-        <div class="MenuItemComponentChildLabel">
-          {{ props.menuItem.label }}
+    <div class="MenuItemComponentChidls">
+      <template v-if="open" v-for="child in props.menuItem.menuItems">
+        <div
+          class="MenuItemComponentChild"
+          @click="() => clickMenuItemChild(child)"
+        >
+          <div class="MenuItemComponentChildLabel">
+            {{ props.menuItem.label }}
+          </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 

@@ -49,3 +49,14 @@ export function createIFrame(): HTMLElement {
   const element = document.createElement(TagName.IFRAME);
   return element;
 }
+
+export function createInput(): HTMLElement {
+  const element = document.createElement(TagName.INPUT);
+  return element;
+}
+
+export function createInputText(): HTMLElement {
+  const element = createInput();
+  element.setAttribute("type", "text");
+  return element;
+}

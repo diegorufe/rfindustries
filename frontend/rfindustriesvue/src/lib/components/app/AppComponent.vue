@@ -40,7 +40,8 @@ if (context.frameles) {
           <HeaderComponent></HeaderComponent>
         </slot>
         <slot name="appComponent-menu">
-          <MenuComponent></MenuComponent>
+          <!-- <MenuComponent></MenuComponent> -->
+          <menu-component></menu-component>
         </slot>
         <slot name="appComponent-body">
           <BodyComponent></BodyComponent>

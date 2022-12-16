@@ -3,6 +3,9 @@ export { MenuItem } from "./beans/core/MenuItem";
 export { Message } from "./beans/core/Message";
 export { ResponseMethod } from "./beans/core/ResponseMethod";
 export { EventMessage } from "./beans/dom/EventMessage";
+export { BaseHTMLElement } from "./components/core/BaseHTMLElement";
+export { MenuComponent } from "./components/menu/MenuComponent";
+export { MenuItemComponent } from "./components/menu/MenuItemComponent";
 export { MessageLevel } from "./constants/core/MessageLevel";
 export { ResponseStatus } from "./constants/core/ResponseStatus";
 export { SessionKeyStorage } from "./constants/core/SessionKeyStorage";
@@ -30,6 +33,8 @@ export {
   addClassName,
   createDiv,
   createIFrame,
+  createInput,
+  createInputText,
   findElementById,
   findElementsByClassName,
   findElementsByClassNameFirst,

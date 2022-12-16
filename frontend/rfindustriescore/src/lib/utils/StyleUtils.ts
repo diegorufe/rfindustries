@@ -180,6 +180,11 @@ export function cssMenuItemComponent(): string {
       width: 100%;
     }
 
+    .MenuItemComponentChidls{
+      float: left;
+      width: 100%;
+    }
+
     .MenuItemComponentChild{
       float: left;
       width: 100%;
