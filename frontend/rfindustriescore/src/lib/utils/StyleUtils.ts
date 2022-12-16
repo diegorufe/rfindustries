@@ -12,7 +12,7 @@ export function defaultCssVarsProps(): CssVarProps {
     headerHeight: "31px",
     headerBorderBottomColor: "#d3d3d3",
     menuBackColor: "#2f4050",
-    menuFontColor: "white",
+    menuFontColor: "#d1d5db",
     menuBorderRightColor: "d3d3d3",
     bodyBackColor: "var(--appBackColor, white)",
     bodyFontColor: "var(--appFontColor, black)",
@@ -120,6 +120,15 @@ export function cssHeaderComponent(): string {
             color:  var(--headerFontColor, black);
             border-bottom: 1px solid var(--headerBorderBottomColor, #d3d3d3);
         }
+
+        .HeaderComponentLeft{
+          float:left;
+          min-width: 249px;
+          max-width: 249px;
+        }
+        .HeaderComponentMiddle{
+          float:left;
+        }
     </style>
     `;
 }
@@ -137,6 +146,7 @@ export function cssMenuComponent(): string {
             background-color: var(--menuBackColor, #2f4050);
             color:  var(--menuFontColor, white);
             border-right: 1px solid var(--menuBorderRightColor, #d3d3d3);
+            font-weight: 600;
         }
 
         .MenuComponentHidden {
@@ -159,8 +169,9 @@ export function cssMenuComponent(): string {
         .MenuComponentItems{
           float: left;
           width: 100%;
-          height = calc(100% - 31px);
+          height: calc(100% - 31px);
           overflow: auto;
+          padding-top: 10px;
         }
     </style>
     `;
@@ -173,11 +184,16 @@ export function cssMenuItemComponent(): string {
       float: left;
       width: 100%;
       cursor: pointer;
+      padding-top: 10px;
+      border-bottom: 1px solid var(--menuFontColor, white);
+      padding-bottom: 5px;
     }
 
     .MenuItemComponentLabel{
       float: left;
-      width: 100%;
+      width: calc(100% - 10px);
+      padding-left: 10px;
+      font-size: 18px;
     }
 
     .MenuItemComponentChidls{
@@ -189,11 +205,15 @@ export function cssMenuItemComponent(): string {
       float: left;
       width: 100%;
       cursor: pointer;
+      margin-top: 5px;
+      margin-bottom: 5px
     }
 
     .MenuItemComponentChildLabel{
       float: left;
-      width: 100%;
+      width: calc(100% - 30px);
+      padding-left: 20px;
+      font-size: 14px;
     }
   </style>
   `;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cssMenuItemComponent, MenuItem } from "rfindustriescore";
+import { addTabEvent, cssMenuItemComponent, MenuItem } from "rfindustriescore";
 import { ref } from "vue";
 import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 
@@ -16,19 +16,19 @@ const props = defineProps({
 
 const open = ref(props.forceOpen);
 
-function clickMenuItem() {
-  if (!props.forceOpen) {
-    if (props.menuItem.key) {
-      // TODO
-    } else {
-      open.value = !open.value;
-    }
+function clickMenuItem(event: any) {
+  const target = event.target as HTMLElement;
+  if (
+    target.classList.contains("MenuItemComponent") ||
+    (target.classList.contains("MenuItemComponentLabel") && !props.forceOpen)
+  ) {
+    open.value = !open.value;
   }
 }
 
 function clickMenuItemChild(menuItem: MenuItem) {
   if (menuItem.key) {
-    // TODO
+    addTabEvent(menuItem.key, menuItem.label);
   }
 }
 </script>
@@ -48,7 +48,7 @@ function clickMenuItemChild(menuItem: MenuItem) {
           @click="() => clickMenuItemChild(child)"
         >
           <div class="MenuItemComponentChildLabel">
-            {{ props.menuItem.label }}
+            {{ child.label }}
           </div>
         </div>
       </template>

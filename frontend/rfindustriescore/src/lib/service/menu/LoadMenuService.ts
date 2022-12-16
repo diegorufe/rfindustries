@@ -11,7 +11,7 @@ export class LoadMenuService implements LoadMenu {
     const arrayMenuItems: MenuItem[] = [];
 
     for (const menuItem of menuItems) {
-      if (this.containsTextMenuItem(text, menuItem)) {
+      if (this.containsTextMenuItem(text, menuItem, true)) {
         arrayMenuItems.push(menuItem);
       }
     }
@@ -19,15 +19,20 @@ export class LoadMenuService implements LoadMenu {
     return arrayMenuItems;
   }
 
-  private containsTextMenuItem(text: string, menuItem: MenuItem): boolean {
+  private containsTextMenuItem(
+    text: string,
+    menuItem: MenuItem,
+    first: boolean
+  ): boolean {
     const textUpper: string = text.toUpperCase();
-    let containsMenu: boolean =
-      menuItem.label.toUpperCase().includes(textUpper) ||
-      menuItem.hashtags.toUpperCase().includes(textUpper);
+    let containsMenu: boolean = first
+      ? false
+      : menuItem.label.toUpperCase().includes(textUpper) ||
+        menuItem.hashtags.toUpperCase().includes(textUpper);
 
     if (!containsMenu && menuItem.menuItems.length > 0) {
       for (const child of menuItem.menuItems) {
-        if (this.containsTextMenuItem(text, child)) {
+        if (this.containsTextMenuItem(text, child, false)) {
           containsMenu = true;
           break;
         }

@@ -13,6 +13,19 @@ export function getMenuItems(): MenuItem[] {
     menuItems = JSON.parse(resultSessionStorage as string);
   }
 
+  if (menuItems.length == 0) {
+    const menu = new MenuItem();
+    menu.label = "DEV";
+
+    const menuTest = new MenuItem();
+    menuTest.label = "TEST";
+    menuTest.key = "TEST";
+
+    menu.menuItems.push(menuTest);
+
+    menuItems.push(menu);
+  }
+
   return menuItems;
 }
 

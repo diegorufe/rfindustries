@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { cssHeaderComponent, openCloseMenu } from "rfindustriescore";
+import {
+  closeAllTabsEvent,
+  cssHeaderComponent,
+  openCloseMenu,
+} from "rfindustriescore";
 import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
 </script>
 
@@ -8,11 +12,21 @@ import StyleCssVarComponent from "../style/StyleCssVarComponent.vue";
     :css-vars-component="cssHeaderComponent()"
   ></StyleCssVarComponent>
   <div class="HeaderComponent">
-    <button
-      type="button"
-      @click="openCloseMenu()"
-      class="CoreButtons fa fa-bars"
-    ></button>
+    <div class="HeaderComponentLeft">
+      <button
+        type="button"
+        @click="openCloseMenu()"
+        class="CoreButtons fa fa-bars"
+      ></button>
+    </div>
+
+    <div class="HeaderComponentMiddle">
+      <button
+        type="button"
+        @click="closeAllTabsEvent()"
+        class="CoreButtons fa-solid fa-rectangle-xmark"
+      ></button>
+    </div>
   </div>
 </template>
 
