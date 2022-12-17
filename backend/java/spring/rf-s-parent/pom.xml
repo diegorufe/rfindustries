@@ -33,6 +33,7 @@
 		<grpc.version>2.14.0.RELEASE</grpc.version>
 		<motd.version>1.7.0</motd.version>
 		<xolstice.version>0.6.1</xolstice.version>
+		<javax.annotation.version>1.3.2</javax.annotation.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,6 +65,15 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>${javax.annotation.version}</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
