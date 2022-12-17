@@ -14,7 +14,7 @@ public class GrpcExceptionAdviceHandler {
 
 
     @GrpcExceptionHandler(Throwable.class)
-    public StatusRuntimeException handler() {
+    public StatusRuntimeException handler(Throwable throwable) {
 
 
 //        Status status = Status.newBuilder()
@@ -25,7 +25,7 @@ public class GrpcExceptionAdviceHandler {
 
         Status status = Status.newBuilder()
                 .setCode(500)
-                .setMessage("Error")
+                .setMessage(throwable.getMessage())
                 .build();
 
         return StatusProto.toStatusRuntimeException(status);
