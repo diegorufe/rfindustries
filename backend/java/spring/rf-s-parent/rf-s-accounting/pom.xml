@@ -31,6 +31,18 @@
 			<version>${core.libs.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.rfindustries</groupId>
+			<artifactId>rf-s-core-grpc-client</artifactId>
+			<version>${core.libs.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.rfindustries</groupId>
+			<artifactId>rf-s-shared</artifactId>
+			<version>${core.libs.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

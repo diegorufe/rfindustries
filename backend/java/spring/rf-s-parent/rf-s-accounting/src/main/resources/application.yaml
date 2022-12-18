@@ -20,3 +20,8 @@ server:
 scheduling:
   syncData: '0 0/30 * * * ?'
 
+grpc:
+  client:
+    taxes: static://localhost:5102
+    negotiation-type: plaintext
+

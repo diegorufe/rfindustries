@@ -28,5 +28,5 @@ import org.springframework.context.annotation.Configuration;
         net.devh.boot.grpc.server.autoconfigure.GrpcServerSecurityAutoConfiguration.class,
         net.devh.boot.grpc.server.autoconfigure.GrpcServerTraceAutoConfiguration.class
 })
-public class GrpcConfig {
+public class GrpcServerConfig {
 }
