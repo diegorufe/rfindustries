@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+package taxes;
+
+option java_package = "com.rfindustries.shared.proto";
+option java_multiple_files = true;
+
+message FindByIdTaxRequest {
+  int64 id = 1;
+}
+
+message Tax {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  int64 business_customer_id = 4;
+  int64 enterprise_id = 5;
+}
+
+message ListTax {
+  repeated Tax taxes = 1;
+}
+
+message FindAllTaxesRequest {
+  int64 business_customer_id = 1;
+  int64 enterprise_id = 2;
+}
+
+service TaxService {
+  rpc findTaxById(FindByIdTaxRequest) returns (Tax) {};
+  rpc findAllTaxes(FindAllTaxesRequest) returns (ListTax) {};
+}

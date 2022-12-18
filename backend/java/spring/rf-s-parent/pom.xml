@@ -15,6 +15,7 @@
 		<module>./rf-s-commons</module>
 		<module>./rf-s-core-grpc-server</module>
 		<module>./rf-s-core-grpc-client</module>
+		<module>./rf-s-shared</module>
 	</modules>
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
@@ -34,6 +35,7 @@
 		<motd.version>1.7.0</motd.version>
 		<xolstice.version>0.6.1</xolstice.version>
 		<javax.annotation.version>1.3.2</javax.annotation.version>
+		<grpc.google.version>1.51.0</grpc.google.version>
 	</properties>
 	<dependencies>
 		<dependency>

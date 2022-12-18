@@ -1,4 +1,4 @@
-package com.rfindustries.corerest.controllers;
+package com.rfindustries.shared;
 
 import com.rfindustries.core.beans.rest.BodyRequest;
 import com.rfindustries.core.beans.rest.BodyResponseRequest;

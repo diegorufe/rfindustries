@@ -47,7 +47,7 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
         if (CollectionUtils.isNotEmpty(dtos)) {
             List<ENTITY> entities = dtos.stream().map(dto ->
                     this.toEntity(this.actionDoBeforeInsertUpdate(baseCommonsParameters, dto, false))
-            ).collect(Collectors.toList());
+            ).toList();
 
             if (CollectionUtils.isNotEmpty(entities)) {
                 result = this.getDao().updateAll(baseCommonsParameters, entities).stream().map(entity -> this.actionDoAfterInsertUpdate(baseCommonsParameters, this.toDTO(entity), false)).collect(Collectors.toList());
@@ -63,5 +63,10 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
         this.getDao().delete(this.toEntity(dto));
         this.actionDoAfterDelete(baseCommonsParameters, dto);
         return true;
+    }
+
+    @Override
+    public DTO findById(PK pk) {
+        return this.toDTO(this.getDao().findById(pk).orElseThrow());
     }
 }

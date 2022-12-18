@@ -40,4 +40,6 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     default void actionDoAfterDelete(BaseCommonsParameters baseCommonsParameters, DTO dto){
     }
+
+    DTO findById(PK pk);
 }

@@ -1,6 +1,5 @@
-package com.rfindustries.corejdbc.dto;
+package com.rfindustries.core.dto;
 
-import com.rfindustries.core.dto.BaseDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

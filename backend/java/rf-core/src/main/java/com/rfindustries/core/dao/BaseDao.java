@@ -6,6 +6,7 @@ import com.rfindustries.core.features.BaseCommonsParameters;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
     default <T> void audit(T userId, ENTITY entity, boolean create) {
@@ -64,5 +65,9 @@ public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
         if (isEnterpriseRequired()) {
             entity.resolveEnterprise(baseCommonsParameters.getEnterpriseIdCastToDesire());
         }
+    }
+
+    default Optional<ENTITY> findById(PK id){
+        return Optional.empty();
     }
 }

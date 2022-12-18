@@ -1,5 +1,6 @@
 package com.rfindustries.accounting.entities;
 
+import com.rfindustries.accounting.constants.EntitiesDefinition;
 import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
-@Table(AccountingYearEntityDefinition.TABLE)
+@Table(EntitiesDefinition.TABLE_ACCOUNTING_YEAR)
 public class AccountingYearEntity extends BaseJDBCEntity {
 
     private String code;

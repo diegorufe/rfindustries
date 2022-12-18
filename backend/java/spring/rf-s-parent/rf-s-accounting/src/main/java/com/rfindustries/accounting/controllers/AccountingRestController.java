@@ -4,7 +4,7 @@ import com.rfindustries.accounting.dao.AccountingDao;
 import com.rfindustries.accounting.dto.AccountingDTO;
 import com.rfindustries.accounting.entities.AccountingEntity;
 import com.rfindustries.accounting.service.AccountingService;
-import com.rfindustries.corerest.controllers.BaseRestCrudControllerImpl;
+import com.rfindustries.shared.BaseRestCrudControllerImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.rfindustries.accounting.dto;
+package com.rfindustries.commons.dto;
 
-import com.rfindustries.core.dto.BaseJDBCDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,9 +9,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class AccountingDTO extends BaseJDBCDTO {
-
-    private String code;
-    private String name;
-
+public class TaxDTO extends com.rfindustries.shared.commons.dto.TaxDTO {
 }

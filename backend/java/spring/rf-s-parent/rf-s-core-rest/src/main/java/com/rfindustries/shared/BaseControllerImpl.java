@@ -1,4 +1,4 @@
-package com.rfindustries.corerest.controllers;
+package com.rfindustries.shared;
 
 import com.rfindustries.core.controllers.BaseController;
 import com.rfindustries.core.features.BaseCommonsParameters;

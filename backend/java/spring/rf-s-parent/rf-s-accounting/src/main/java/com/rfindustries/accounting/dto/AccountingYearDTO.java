@@ -1,6 +1,6 @@
 package com.rfindustries.accounting.dto;
 
-import com.rfindustries.corejdbc.dto.BaseJDBCDTO;
+import com.rfindustries.core.dto.BaseJDBCDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
