@@ -1,0 +1,23 @@
+package com.rfindustries.commons.entities;
+
+import com.rfindustries.commons.constants.EntitiesDefinition;
+import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@Table(EntitiesDefinition.TABLE_TAX_VERSION)
+public class TaxVersionEntity extends BaseJDBCEntity {
+
+    private LocalDate startTime;
+    private BigDecimal rate;
+
+}

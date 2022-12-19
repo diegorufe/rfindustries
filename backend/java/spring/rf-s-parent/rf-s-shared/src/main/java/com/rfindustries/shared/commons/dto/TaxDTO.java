@@ -16,8 +16,8 @@ public class TaxDTO extends BaseJDBCDTO {
     private String code;
     private String name;
 
-    public static TaxDTO fromTax(Tax tax){
-        return TaxDTO.builder()
+    public static TaxDTO fromTax(Tax tax) {
+        return tax == null ? null : TaxDTO.builder()
                 .id(tax.getId())
                 .code(tax.getCode())
                 .name(tax.getName())

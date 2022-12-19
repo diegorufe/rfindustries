@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 public class TaxServiceImpl extends TaxGrpcServiceImpl implements TaxGrpcService {
 
     @GrpcClient("taxes")
-    private TaxServiceGrpc.TaxServiceBlockingStub taxServiceBlockingStub;
+    private TaxServiceGrpc.TaxServiceFutureStub futureStub;
 
     @Override
-    public TaxServiceGrpc.TaxServiceBlockingStub getStub() {
-        return taxServiceBlockingStub;
+    public TaxServiceGrpc.TaxServiceFutureStub getFutureStub() {
+        return futureStub;
     }
 }
