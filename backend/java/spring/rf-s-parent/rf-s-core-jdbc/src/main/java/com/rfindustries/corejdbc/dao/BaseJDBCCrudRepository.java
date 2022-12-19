@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @NoRepositoryBean
 public interface BaseJDBCCrudRepository<ENTITY extends BaseEntity<Long>> extends CrudRepository<ENTITY, Long>, BaseDao<ENTITY, Long> {
 
@@ -21,4 +23,7 @@ public interface BaseJDBCCrudRepository<ENTITY extends BaseEntity<Long>> extends
     default ENTITY insert(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
         return BaseDao.super.insert(baseCommonsParameters, entity);
     }
+
+    @Override
+    Optional<ENTITY> findById(Long aLong);
 }

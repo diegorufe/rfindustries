@@ -20,8 +20,18 @@ server:
 scheduling:
   syncData: '0 0/30 * * * ?'
 
+commons:
+  grpc:
+    address: static://localhost:5102
+    negotiation-type: plaintext
+
+
 grpc:
   client:
-    taxes: static://localhost:5102
-    negotiation-type: plaintext
+    taxes:
+      address: ${commons.grpc.address}
+      negotiation-type: ${commons.grpc.negotiation-type}
+    taxesVersions:
+      address: ${commons.grpc.address}
+      negotiation-type: ${commons.grpc.negotiation-type}
 

@@ -1,4 +1,4 @@
-package com.rfindustries.commons.service.impl;
+package com.rfindustries.commons.grpc.service.impl;
 
 import com.rfindustries.shared.commons.service.TaxGrpcService;
 import com.rfindustries.shared.commons.service.impl.TaxGrpcServiceImpl;
