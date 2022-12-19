@@ -1,10 +1,12 @@
 syntax = "proto3";
 
+package commons.taxesversions;
+
 import "google/type/date.proto";
 import "google/type/decimal.proto";
 import "taxes.proto";
+import "google/protobuf/wrappers.proto";
 
-package commons.taxesversions;
 
 option java_package = "com.rfindustries.shared.proto";
 option java_multiple_files = true;
@@ -20,7 +22,7 @@ message TaxVersion {
   google.type.Date starDate = 3;
   google.type.Decimal  rate = 4;
   int64 business_customer_id = 5;
-  int64 enterprise_id = 6;
+  google.protobuf.Int64Value enterprise_id = 6;
   commons.taxes.Tax tax = 7;
 }
 
