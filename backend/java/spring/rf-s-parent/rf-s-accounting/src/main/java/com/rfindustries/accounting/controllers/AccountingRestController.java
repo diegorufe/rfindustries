@@ -44,7 +44,8 @@ public class AccountingRestController extends BaseRestCrudControllerImpl<Account
     }
 
     @GetMapping("/text-grpc")
-    public ResponseEntity<TaxDTO> testGrpc(@RequestParam Long id){
+    public ResponseEntity<TaxDTO> testGrpc(@RequestParam Long id) {
         return ResponseEntity.ok(this.taxGrpcService.findById(id));
     }
+
 }

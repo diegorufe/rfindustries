@@ -4,6 +4,7 @@ import com.rfindustries.commons.constants.EntitiesDefinition;
 import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @Table(EntitiesDefinition.TABLE_TAX_VERSION)
+@NoArgsConstructor
 public class TaxVersionEntity extends BaseJDBCEntity {
 
     private LocalDate startTime;

@@ -2,6 +2,7 @@ package com.rfindustries.shared.commons.dto;
 
 import com.rfindustries.core.dto.BaseJDBCDTO;
 import com.rfindustries.shared.proto.Tax;
+import com.rfindustries.shared.utils.ProtoUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,12 +18,12 @@ public class TaxDTO extends BaseJDBCDTO {
     private String name;
 
     public static TaxDTO fromTax(Tax tax) {
-        return tax == null ? null : TaxDTO.builder()
+        return tax == null ? null : builder()
                 .id(tax.getId())
                 .code(tax.getCode())
                 .name(tax.getName())
                 .businessCustomerId(tax.getBusinessCustomerId())
-                .enterpriseId(tax.getEnterpriseId())
+                .enterpriseId(ProtoUtils.getLongValue(tax.hasEnterpriseId() ? tax.getEnterpriseId() : null))
                 .build();
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @Table(EntitiesDefinition.TABLE_ACCOUNTING)
+@NoArgsConstructor
 public class AccountingEntity extends BaseJDBCEntity {
 
     private String code;

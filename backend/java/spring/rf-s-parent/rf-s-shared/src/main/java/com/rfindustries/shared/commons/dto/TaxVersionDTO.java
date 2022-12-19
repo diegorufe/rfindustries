@@ -31,7 +31,7 @@ public class TaxVersionDTO extends BaseJDBCDTO {
                 .taxId(taxVersion.getTaxId())
                 .tax(TaxDTO.fromTax(taxVersion.getTax()))
                 .businessCustomerId(taxVersion.getBusinessCustomerId())
-                .enterpriseId(taxVersion.getEnterpriseId())
+                .enterpriseId(ProtoUtils.getLongValue(taxVersion.getEnterpriseId()))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.rfindustries.shared.commons.service;
 
+import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import com.rfindustries.shared.proto.TaxVersion;
 import com.rfindustries.shared.proto.TaxVersionServiceGrpc;
 
@@ -10,5 +11,5 @@ public interface TaxVersionGrpcService {
 
     TaxVersionServiceGrpc.TaxVersionServiceFutureStub getFutureStub();
 
-    Optional<TaxVersion> findByTaxIdAndDate(Long taxId, LocalDate date);
+    Optional<TaxVersionDTO> findByTaxIdAndDate(Long taxId, LocalDate date);
 }

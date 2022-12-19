@@ -1,6 +1,7 @@
 package com.rfindustries.shared.utils;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.protobuf.Int64Value;
 import com.google.protobuf.Timestamp;
 import com.google.type.Date;
 import com.google.type.Decimal;
@@ -73,5 +74,13 @@ public final class ProtoUtils {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Int64Value toInt64Value(Long value){
+        return value == null ? null : Int64Value.of(value);
+    }
+
+    public static  Long getLongValue(Int64Value value){
+        return value == null ? null : value.getValue();
     }
 }
