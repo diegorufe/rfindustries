@@ -6,7 +6,6 @@ import com.rfindustries.accounting.entities.AccountingEntity;
 import com.rfindustries.accounting.service.AccountingService;
 import com.rfindustries.shared.BaseRestCrudControllerImpl;
 import com.rfindustries.shared.commons.dto.TaxDTO;
-import com.rfindustries.shared.commons.service.TaxGrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

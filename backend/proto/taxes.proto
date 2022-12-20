@@ -8,9 +8,6 @@ import "google/protobuf/wrappers.proto";
 option java_package = "com.rfindustries.shared.proto";
 option java_multiple_files = true;
 
-message FindByIdTaxRequest {
-  int64 id = 1;
-}
 
 message Tax {
   int64 id = 1;
@@ -18,18 +15,4 @@ message Tax {
   string name = 3;
   int64 business_customer_id = 4;
   google.protobuf.Int64Value enterprise_id = 5;
-}
-
-message ListTax {
-  repeated Tax taxes = 1;
-}
-
-message FindAllTaxesRequest {
-  int64 business_customer_id = 1;
-  google.protobuf.Int64Value enterprise_id = 2;
-}
-
-service TaxService {
-  rpc findTaxById(FindByIdTaxRequest) returns (Tax) {};
-  rpc findAllTaxes(FindAllTaxesRequest) returns (ListTax) {};
 }
