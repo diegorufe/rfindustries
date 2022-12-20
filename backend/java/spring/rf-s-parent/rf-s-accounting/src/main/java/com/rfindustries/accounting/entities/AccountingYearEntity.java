@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Table(EntityDefinition.TABLE_ACCOUNTING_YEAR)
 public class AccountingYearEntity extends BaseJDBCEntity {
 
-    private Short code;
+    private String code;
     private String name;
     private Long accountingId;
     private LocalDate startDate;

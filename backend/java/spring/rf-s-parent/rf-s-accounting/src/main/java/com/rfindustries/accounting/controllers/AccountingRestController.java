@@ -5,14 +5,11 @@ import com.rfindustries.accounting.dto.AccountingDTO;
 import com.rfindustries.accounting.entities.AccountingEntity;
 import com.rfindustries.accounting.service.AccountingService;
 import com.rfindustries.shared.BaseRestCrudControllerImpl;
-import com.rfindustries.shared.commons.dto.TaxDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
@@ -20,8 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @RequestMapping(AccountingService.ROUTE)
 public class AccountingRestController extends BaseRestCrudControllerImpl<AccountingService, AccountingDao, AccountingEntity, Long, AccountingDTO> {
 
-    @Autowired
-    private TaxGrpcService taxGrpcService;
 
     @GetMapping("/text-file")
     public ResponseEntity<StreamingResponseBody> streamContentAsFile() {
@@ -42,9 +37,5 @@ public class AccountingRestController extends BaseRestCrudControllerImpl<Account
                 .body(responseBody);
     }
 
-    @GetMapping("/text-grpc")
-    public ResponseEntity<TaxDTO> testGrpc(@RequestParam Long id) {
-        return ResponseEntity.ok(this.taxGrpcService.findById(id));
-    }
 
 }
