@@ -1,0 +1,18 @@
+package com.rfindustries.accounting.dto;
+
+import com.rfindustries.core.dto.BaseJDBCDTO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+public class LedgerAccountDTO extends BaseJDBCDTO {
+
+    private String code;
+    private String name;
+
+}

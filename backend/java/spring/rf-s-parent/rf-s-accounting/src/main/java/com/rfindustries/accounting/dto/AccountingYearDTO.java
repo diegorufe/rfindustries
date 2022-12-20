@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class AccountingYearDTO extends BaseJDBCDTO {
-    private String code;
+    private Short code;
     private String name;
     private Long accountingId;
     private LocalDate startDate;

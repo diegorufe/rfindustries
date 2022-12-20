@@ -1,6 +1,6 @@
 package com.rfindustries.commons.entities;
 
-import com.rfindustries.commons.constants.EntitiesDefinition;
+import com.rfindustries.commons.constants.EntityDefinition;
 import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
-@Table(EntitiesDefinition.TABLE_TAX_VERSION)
+@Table(EntityDefinition.TABLE_TAX_VERSION)
 @NoArgsConstructor
 public class TaxVersionEntity extends BaseJDBCEntity {
 
