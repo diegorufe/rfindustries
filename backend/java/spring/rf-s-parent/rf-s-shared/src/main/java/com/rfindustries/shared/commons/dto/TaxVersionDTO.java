@@ -1,7 +1,7 @@
 package com.rfindustries.shared.commons.dto;
 
 import com.rfindustries.core.dto.BaseJDBCDTO;
-import com.rfindustries.shared.proto.Tax;
+import com.rfindustries.shared.commons.constants.TaxVersionType;
 import com.rfindustries.shared.proto.TaxVersion;
 import com.rfindustries.shared.utils.ProtoUtils;
 import lombok.Data;
@@ -19,19 +19,21 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TaxVersionDTO extends BaseJDBCDTO {
     private LocalDate startDate;
-    private BigDecimal rate;
+    private BigDecimal value;
+    private TaxVersionType type;
     private Long taxId;
     private TaxDTO tax;
 
     public static TaxVersionDTO fromTaxVersion(TaxVersion taxVersion){
-        return TaxVersionDTO.builder()
+        return builder()
                 .id(taxVersion.getId())
                 .startDate(ProtoUtils.fromGoogleDate(taxVersion.getStarDate()))
-                .rate(ProtoUtils.fromGoogleDecimal(taxVersion.getRate()))
+                .value(ProtoUtils.fromGoogleDecimal(taxVersion.getValue()))
                 .taxId(taxVersion.getTaxId())
                 .tax(TaxDTO.fromTax(taxVersion.getTax()))
                 .businessCustomerId(taxVersion.getBusinessCustomerId())
                 .enterpriseId(ProtoUtils.getLongValue(taxVersion.getEnterpriseId()))
+                .type(TaxVersionType.findByType(taxVersion.getType().getNumber()))
                 .build();
     }
 }

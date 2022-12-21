@@ -20,6 +20,7 @@ import java.time.LocalDate;
 public class TaxVersionEntity extends BaseJDBCEntity {
 
     private LocalDate startTime;
-    private BigDecimal rate;
+    private BigDecimal value;
+    private Byte type;
 
 }

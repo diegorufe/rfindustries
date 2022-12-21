@@ -16,14 +16,20 @@ message FindTaxVersionRequest {
   google.type.Date date = 2;
 }
 
+enum TaxVersionType {
+  RATE = 0;
+  AMOUNT = 1;
+}
+
 message TaxVersion {
   int64 id = 1;
   int64 taxId = 2;
   google.type.Date starDate = 3;
-  google.type.Decimal  rate = 4;
+  google.type.Decimal  value = 4;
   int64 business_customer_id = 5;
   google.protobuf.Int64Value enterprise_id = 6;
   commons.taxes.Tax tax = 7;
+  TaxVersionType type = 8;
 }
 
 service TaxVersionService {
