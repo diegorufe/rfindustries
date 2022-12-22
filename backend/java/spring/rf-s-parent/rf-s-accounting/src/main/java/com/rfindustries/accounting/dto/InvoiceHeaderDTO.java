@@ -1,14 +1,11 @@
 package com.rfindustries.accounting.dto;
 
-import com.rfindustries.accounting.constants.EntityDefinition;
 import com.rfindustries.core.dto.BaseJDBCDTO;
-import com.rfindustries.corejdbc.entities.BaseJDBCEntity;
-import com.rfindustries.shared.accounting.InvoiceType;
+import com.rfindustries.shared.accounting.InvoiceHeaderType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InvoiceHeaderDTO extends BaseJDBCDTO {
 
-    private InvoiceType type;
+    private InvoiceHeaderType type;
     private String code;
     private Integer number;
     private LocalDateTime dateTime;
