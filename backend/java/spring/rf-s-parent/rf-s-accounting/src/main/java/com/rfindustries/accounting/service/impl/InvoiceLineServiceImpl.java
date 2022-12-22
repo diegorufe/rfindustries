@@ -1,11 +1,8 @@
 package com.rfindustries.accounting.service.impl;
 
-import com.rfindustries.accounting.dao.InvoiceHeaderDao;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
 import com.rfindustries.accounting.dto.*;
-import com.rfindustries.accounting.entities.InvoiceHeaderEntity;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
-import com.rfindustries.accounting.service.InvoiceHeaderService;
 import com.rfindustries.accounting.service.InvoiceLineService;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import com.rfindustries.shared.accounting.InvoiceLineType;
@@ -33,7 +30,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                 .amount(dto.getAmount())
                 .total(dto.getTotal())
                 .description(dto.getDescription())
-                .taxVersions(TaxVersionDTO.taxVersionsToStringIds(dto.getTaxVersions()))
+                .taxVersions(TaxVersionDTO.taxVersionsToIds(dto.getTaxVersions()))
                 .build();
     }
 

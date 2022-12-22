@@ -1,8 +1,6 @@
 package com.rfindustries.shared.commons.dto;
 
-import com.rf.collections.utils.CollectionUtils;
 import com.rf.collections.utils.StringUtils;
-import com.rfindustries.core.constansts.RFConstants;
 import com.rfindustries.core.dto.BaseJDBCDTO;
 import com.rfindustries.shared.commons.constants.TaxVersionType;
 import com.rfindustries.shared.proto.TaxVersion;
@@ -15,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Data
@@ -42,11 +39,11 @@ public class TaxVersionDTO extends BaseJDBCDTO {
                 .build();
     }
 
-    public static String taxVersionsToStringIds(Collection<TaxVersionDTO> taxVersions) {
-        return taxVersions == null ? null : CollectionUtils.collectionToStringIds(taxVersions.stream().map(TaxVersionDTO::getId).toList());
+    public static String taxVersionsToIds(Collection<TaxVersionDTO> taxVersions) {
+        return taxVersions == null ? null : StringUtils.collectionToHashtagsIds(taxVersions.stream().map(TaxVersionDTO::getId).toList());
     }
 
     public static Set<TaxVersionDTO> idsToTaxVersionDTOs(String taxVersions) {
-        return CollectionUtils.idsStringToSet(taxVersions, id-> TaxVersionDTO.builder().id(Long.valueOf(id)).build());
+        return StringUtils.idsHashtagsToSet(taxVersions, id-> TaxVersionDTO.builder().id(Long.valueOf(id)).build());
     }
 }
