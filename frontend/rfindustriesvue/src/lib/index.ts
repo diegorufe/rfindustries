@@ -1,6 +1,7 @@
 export { ReactivityVue } from "./beans/ReactivityVue";
 export { default as AppComponent } from "./components/app/AppComponent.vue";
 export { default as BodyComponent } from "./components/body/BodyComponent.vue";
+export { default as CrudContainerComponent } from "./components/containers/crud/CrudContainerComponent.vue";
 export { default as HeaderComponent } from "./components/header/HeaderComponent.vue";
 export { default as MenuComponent } from "./components/menu/MenuComponent.vue";
 export { default as MenuItemComponent } from "./components/menu/MenuItemComponent.vue";

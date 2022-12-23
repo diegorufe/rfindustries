@@ -303,3 +303,46 @@ export function cssTabViewComponent(): string {
     </style>
     `;
 }
+
+export function cssCrudContainerComponent(): string {
+  return `
+    <style>
+        .CrudContainerComponent {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            float: left;
+            position: relative;
+        }
+
+        .CrudContainerComponentToolBar {
+          width: 100%;
+          float: left;
+          height: 50px
+        }
+
+        .CrudContainerComponentBody {
+          width: 100%;
+          float: left;
+          height: calc(100vh - 50px);
+          padding: 5px;
+        }
+    </style>
+    `;
+}
+
+export function cssToolBarCrudComponent(): string {
+  return `
+    <style>
+        .ToolBarCrudComponent {
+            margin: 0;
+            padding: 5px;
+            height: 50px;
+            width: 100%;
+            float: left;
+        }
+
+    </style>
+  `;
+}

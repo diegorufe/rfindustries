@@ -6,7 +6,7 @@ import {
 } from "../utils/ReactivityUtils";
 import { BaseController } from "./BaseController";
 
-export abstract class BaseCrudController<
+export class BaseCrudController<
   SERVICE extends BaseCrudService<DTO>,
   DTO extends BaseDTO
 > extends BaseController {
@@ -19,7 +19,7 @@ export abstract class BaseCrudController<
     this.init();
   }
 
-  abstract instanceService(): void;
+  instanceService(): void {}
 
   init(): void {
     this.initReactivityElement();
