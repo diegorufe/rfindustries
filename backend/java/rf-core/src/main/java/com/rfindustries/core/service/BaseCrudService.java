@@ -23,6 +23,8 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     DTO toDTO(ENTITY entity);
 
+    DTO instanceDTO();
+
     default DTO actionDoAfterInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean create){
         return dto;
     }

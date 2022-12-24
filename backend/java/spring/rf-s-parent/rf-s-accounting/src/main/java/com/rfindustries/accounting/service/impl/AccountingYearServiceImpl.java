@@ -46,4 +46,9 @@ public class AccountingYearServiceImpl extends BaseTransactionalCrudServiceImpl<
                 .endDate(entity.getEndDate())
                 .build();
     }
+
+    @Override
+    public AccountingYearDTO instanceDTO() {
+        return AccountingYearDTO.builder().build();
+    }
 }

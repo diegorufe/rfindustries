@@ -51,4 +51,9 @@ public class InvoiceHeaderServiceImpl extends BaseTransactionalCrudServiceImpl<I
                 .ledgerAccount(LedgerAccountDTO.builder().id(entity.getLedgerAccountId()).build())
                 .build();
     }
+
+    @Override
+    public InvoiceHeaderDTO instanceDTO() {
+        return InvoiceHeaderDTO.builder().build();
+    }
 }

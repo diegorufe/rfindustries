@@ -40,4 +40,9 @@ public class AccountingServiceImpl extends BaseTransactionalCrudServiceImpl<Acco
                 .name(entity.getName())
                 .build();
     }
+
+    @Override
+    public AccountingDTO instanceDTO() {
+        return AccountingDTO.builder().build();
+    }
 }

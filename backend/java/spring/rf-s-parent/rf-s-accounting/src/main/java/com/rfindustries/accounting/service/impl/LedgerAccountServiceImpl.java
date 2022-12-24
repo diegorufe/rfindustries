@@ -40,4 +40,9 @@ public class LedgerAccountServiceImpl extends BaseTransactionalCrudServiceImpl<L
                 .name(entity.getName())
                 .build();
     }
+
+    @Override
+    public LedgerAccountDTO instanceDTO() {
+        return LedgerAccountDTO.builder().build();
+    }
 }

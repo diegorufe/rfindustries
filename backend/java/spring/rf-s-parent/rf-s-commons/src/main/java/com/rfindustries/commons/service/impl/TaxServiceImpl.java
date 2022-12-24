@@ -40,4 +40,9 @@ public class TaxServiceImpl extends BaseTransactionalCrudServiceImpl<TaxDao, Tax
                 .name(entity.getName())
                 .build();
     }
+
+    @Override
+    public TaxDTO instanceDTO() {
+        return TaxDTO.builder().build();
+    }
 }

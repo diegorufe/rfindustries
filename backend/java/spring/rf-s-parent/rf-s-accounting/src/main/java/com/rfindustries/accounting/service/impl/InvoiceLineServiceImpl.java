@@ -50,4 +50,9 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                 .taxVersions(TaxVersionDTO.idsToTaxVersionDTOs(entity.getTaxVersions()))
                 .build();
     }
+
+    @Override
+    public InvoiceLineDTO instanceDTO() {
+        return InvoiceLineDTO.builder().build();
+    }
 }
