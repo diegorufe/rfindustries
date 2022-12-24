@@ -1,10 +1,11 @@
-package com.rfindustries.core.service;
+package com.rfindustries.core.service.impl;
 
 import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import com.rfindustries.core.service.BaseCrudService;
 
 import java.util.ArrayList;
 import java.util.List;

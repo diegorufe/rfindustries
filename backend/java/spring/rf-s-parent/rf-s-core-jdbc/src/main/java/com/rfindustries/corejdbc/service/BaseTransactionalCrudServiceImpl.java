@@ -5,7 +5,7 @@ import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.service.BaseCrudService;
-import com.rfindustries.core.service.BaseCrudServiceImpl;
+import com.rfindustries.core.service.impl.BaseCrudServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
