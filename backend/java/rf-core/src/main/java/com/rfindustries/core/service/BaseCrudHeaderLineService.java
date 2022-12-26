@@ -5,6 +5,7 @@ import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
 import com.rfindustries.core.dto.BaseOptionHeaderLineDTO;
 import com.rfindustries.core.entities.BaseEntity;
+import com.rfindustries.core.features.BaseCommonsParameters;
 
 public interface BaseCrudHeaderLineService<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
@@ -20,10 +21,10 @@ public interface BaseCrudHeaderLineService<
 
     DTO instanceDTO();
 
-    DTO goAdd();
+    DTO goAdd(BaseCommonsParameters baseCommonsParameters);
 
-    DTO goRead(HEADER_PK headerPk);
+    DTO goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
-    DTO goEdit(HEADER_PK headerPk);
+    DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
 }

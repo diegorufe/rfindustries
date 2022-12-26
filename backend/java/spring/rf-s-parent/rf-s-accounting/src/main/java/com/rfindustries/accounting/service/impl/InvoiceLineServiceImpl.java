@@ -1,13 +1,19 @@
 package com.rfindustries.accounting.service.impl;
 
+import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
-import com.rfindustries.accounting.dto.*;
+import com.rfindustries.accounting.dto.InvoiceHeaderDTO;
+import com.rfindustries.accounting.dto.InvoiceLineDTO;
+import com.rfindustries.accounting.dto.LedgerAccountDTO;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
 import com.rfindustries.accounting.service.InvoiceLineService;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import com.rfindustries.shared.accounting.InvoiceLineType;
 import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<InvoiceLineDao, InvoiceLineEntity, Long, InvoiceLineDTO>
@@ -54,5 +60,27 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
     @Override
     public InvoiceLineDTO instanceDTO() {
         return InvoiceLineDTO.builder().build();
+    }
+
+    @Override
+    public List<InvoiceLineDTO> findAllByInvoiceId(Long invoiceId) {
+        List<InvoiceLineDTO> result = new ArrayList<>();
+
+        if (invoiceId != null) {
+            List<InvoiceLineEntity> entities = this.getDao().findAllByInvoiceId(invoiceId);
+
+            if (CollectionUtils.isNotEmpty(entities)) {
+                result = entities.stream().map(this::toDTO).toList();
+            }
+        }
+
+        // TODO find tax versions dtos
+
+        return result;
+    }
+
+    @Override
+    public <HEADER_PK> List<InvoiceLineDTO> findByHeaderPk(HEADER_PK headerPk) {
+        return this.findAllByInvoiceId((Long) headerPk);
     }
 }

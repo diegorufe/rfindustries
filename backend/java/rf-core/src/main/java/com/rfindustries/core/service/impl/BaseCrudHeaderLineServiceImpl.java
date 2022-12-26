@@ -5,8 +5,12 @@ import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
 import com.rfindustries.core.dto.BaseOptionHeaderLineDTO;
 import com.rfindustries.core.entities.BaseEntity;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.service.BaseCrudHeaderLineService;
 import com.rfindustries.core.service.BaseCrudService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseCrudHeaderLineServiceImpl<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
@@ -23,17 +27,32 @@ public abstract class BaseCrudHeaderLineServiceImpl<
 
 
     @Override
-    public DTO goAdd() {
+    public DTO goAdd(BaseCommonsParameters baseCommonsParameters) {
+        DTO dto = this.instanceDTO();
+        dto.setHeader(this.getHeaderService().goAdd(baseCommonsParameters));
+        dto.setLines(new ArrayList<>());
+
         return this.instanceDTO();
     }
 
     @Override
-    public DTO goRead(HEADER_PK headerPk) {
-        return null;
+    public DTO goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        HEADER_DTO header = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+        DTO dto = this.instanceDTO();
+        dto.setHeader(header);
+        return dto;
     }
 
     @Override
-    public DTO goEdit(HEADER_PK headerPk) {
-        return null;
+    public DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        HEADER_DTO header = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+        List<LINE_DTO> lines = this.getLineService().findByHeaderPk(headerPk);
+
+        DTO dto = this.instanceDTO();
+
+        dto.setHeader(header);
+        dto.setLines(lines);
+
+        return dto;
     }
 }

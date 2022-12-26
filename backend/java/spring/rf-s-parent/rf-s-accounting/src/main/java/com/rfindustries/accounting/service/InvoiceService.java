@@ -17,4 +17,6 @@ public interface InvoiceService
         InvoiceLineService, InvoiceLineDao, InvoiceLineEntity, Long, InvoiceLineDTO,
         OptionInvoiceDTO
         > {
+
+
 }

@@ -25,23 +25,37 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     DTO instanceDTO();
 
-    default DTO actionDoAfterInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean create){
+    default DTO actionDoAfterInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean create) {
         return dto;
     }
 
-    default DTO actionDoBeforeInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean create){
+    default DTO actionDoBeforeInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean create) {
         return dto;
     }
 
     boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 
-    default DTO actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto){
+    default DTO actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return dto;
     }
 
-    default void actionDoAfterDelete(BaseCommonsParameters baseCommonsParameters, DTO dto){
+    default void actionDoAfterDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
     }
 
     DTO findById(PK pk);
+
+    default <HEADER_PK> List<DTO> findByHeaderPk(HEADER_PK headerPk) {
+        return List.of();
+    }
+
+    DTO goRead(BaseCommonsParameters baseCommonsParameters, PK pk);
+
+    DTO goEdit(BaseCommonsParameters baseCommonsParameters, PK pk);
+
+    DTO goAdd(BaseCommonsParameters baseCommonsParameters);
+
+    default <HEADER_PK> long deleteByHeaderPk(HEADER_PK headerPk){
+        return 0;
+    }
 }

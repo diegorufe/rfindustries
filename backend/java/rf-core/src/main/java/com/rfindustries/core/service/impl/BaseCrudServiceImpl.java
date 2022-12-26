@@ -70,4 +70,19 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
     public DTO findById(PK pk) {
         return this.toDTO(this.getDao().findById(pk).orElseThrow());
     }
+
+    @Override
+    public DTO goRead(BaseCommonsParameters baseCommonsParameters, PK pk) {
+        return this.findById(pk);
+    }
+
+    @Override
+    public DTO goAdd(BaseCommonsParameters baseCommonsParameters) {
+        return this.instanceDTO();
+    }
+
+    @Override
+    public DTO goEdit(BaseCommonsParameters baseCommonsParameters, PK pk) {
+        return this.findById(pk);
+    }
 }

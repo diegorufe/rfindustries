@@ -2,6 +2,8 @@ package com.rfindustries.accounting.constants;
 
 import com.rfindustries.corejdbc.entities.BaseJDBCEntityDefinition;
 
+import java.math.BigDecimal;
+
 public final class EntityDefinition extends BaseJDBCEntityDefinition {
 
     public static final String TABLE_ACCOUNTING = "RF_ACCOUNTING_ACCOUNTING";
@@ -20,6 +22,22 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String LEDGER_ACCOUNT_ID = "LEDGER_ACCOUNT_ID";
     public static final String DATE = "DATE";
     public static final String DATE_TIME = "DATE_TIME";
+    public static final String TYPE = "TYPE";
+    public static final String INVOICE_HEADER_ID = "INVOICE_HEADER_ID";
+    public static final String DESCRIPTION = "DESCRIPTION";
+    public static final String AMOUNT = "AMOUNT";
+    public static final String TOTAL = "TOTAL";
+    public static final String TAX_VERSIONS = "TAX_VERSIONS";
+
+
+    private Byte type;
+    private Long invoiceHeaderId;
+    private Long ledgerAccountId;
+    private Integer number;
+    private String description;
+    private BigDecimal amount;
+    private BigDecimal total;
+    private String taxVersions;
 
     private EntityDefinition(){
         // NOT implemented
