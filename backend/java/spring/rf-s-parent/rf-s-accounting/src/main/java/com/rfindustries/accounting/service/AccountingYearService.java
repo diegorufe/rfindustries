@@ -9,4 +9,6 @@ import com.rfindustries.core.service.BaseCrudService;
 
 public interface AccountingYearService extends BaseCrudService<AccountingYearDao, AccountingYearEntity, Long, AccountingYearDTO> {
     String ROUTE = RouteConstants.BASE_API_MODULES + AccountingConstants.ROUTE + "/accounting-years";
+
+
 }

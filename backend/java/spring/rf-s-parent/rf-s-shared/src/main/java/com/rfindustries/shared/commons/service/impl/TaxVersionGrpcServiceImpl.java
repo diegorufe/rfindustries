@@ -10,6 +10,8 @@ import com.rfindustries.shared.utils.ProtoUtils;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static com.rfindustries.shared.utils.SharedMapperUtils.fromTaxVersion;
+
 public abstract class TaxVersionGrpcServiceImpl implements TaxVersionGrpcService {
 
     @Override
@@ -20,6 +22,6 @@ public abstract class TaxVersionGrpcServiceImpl implements TaxVersionGrpcService
                 .build();
         ListenableFuture<TaxVersion> listenableFuture = this.getFutureStub().findTaxVersionByTaxIdAndDate(findTaxVersionRequest);
         TaxVersion taxVersion = ProtoUtils.get(listenableFuture);
-        return Optional.of(TaxVersionDTO.fromTaxVersion(taxVersion));
+        return Optional.of(fromTaxVersion(taxVersion));
     }
 }

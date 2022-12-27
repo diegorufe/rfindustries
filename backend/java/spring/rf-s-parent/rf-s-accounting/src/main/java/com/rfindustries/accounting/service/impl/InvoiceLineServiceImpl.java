@@ -2,14 +2,11 @@ package com.rfindustries.accounting.service.impl;
 
 import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
-import com.rfindustries.accounting.dto.InvoiceHeaderDTO;
 import com.rfindustries.accounting.dto.InvoiceLineDTO;
-import com.rfindustries.accounting.dto.LedgerAccountDTO;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
 import com.rfindustries.accounting.service.InvoiceLineService;
+import com.rfindustries.accounting.utils.AccountingMapperUtils;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
-import com.rfindustries.shared.accounting.InvoiceLineType;
-import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,42 +19,12 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public InvoiceLineEntity toEntity(InvoiceLineDTO dto) {
-        return InvoiceLineEntity.builder()
-                .id(dto.getId())
-                .businessCustomerId(dto.getBusinessCustomerId())
-                .enterpriseId(dto.getEnterpriseId())
-                .createdAt(dto.getCreatedAt())
-                .updatedAt(dto.getUpdatedAt())
-                .userCreatedAtId(dto.resolverUserCreatedAtId())
-                .userUpdatedAtId(dto.resolverUserUpdatedAtId())
-                .invoiceHeaderId(dto.getInvoiceHeader() == null ? null : dto.getInvoiceHeader().getId())
-                .ledgerAccountId(dto.getLedgerAccount() == null ? null : dto.getLedgerAccount().getId())
-                .dateTime(dto.getDateTime())
-                .type(dto.getType().getType())
-                .number(dto.getNumber())
-                .amount(dto.getAmount())
-                .total(dto.getTotal())
-                .description(dto.getDescription())
-                .taxVersions(TaxVersionDTO.taxVersionsToIds(dto.getTaxVersions()))
-                .build();
+        return AccountingMapperUtils.toInvoiceLineEntity(dto);
     }
 
     @Override
     public InvoiceLineDTO toDTO(InvoiceLineEntity entity) {
-        return InvoiceLineDTO.builder()
-                .id(entity.getId())
-                .businessCustomerId(entity.getBusinessCustomerId())
-                .enterpriseId(entity.getEnterpriseId())
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .userCreatedAtId(entity.getUserCreatedAtId())
-                .userUpdatedAtId(entity.getUserUpdatedAtId())
-                .invoiceHeader(InvoiceHeaderDTO.builder().id(entity.getInvoiceHeaderId()).build())
-                .ledgerAccount(LedgerAccountDTO.builder().id(entity.getLedgerAccountId()).build())
-                .dateTime(entity.getDateTime())
-                .type(InvoiceLineType.getByType(entity.getType()))
-                .taxVersions(TaxVersionDTO.idsToTaxVersionDTOs(entity.getTaxVersions()))
-                .build();
+        return AccountingMapperUtils.toInvoiceLineDTO(entity);
     }
 
     @Override

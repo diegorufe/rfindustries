@@ -1,4 +1,4 @@
-package com.rfindustries.commons.entities.mappings.entitymappings;
+package com.rfindustries.commons.entities.mappers.entities;
 
 import com.rfindustries.commons.entities.TaxEntity;
 import com.rfindustries.commons.entities.TaxVersionEntity;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaxVersionWithTaxMapping {
+public class TaxVersionWithTaxEntity {
     private TaxVersionEntity taxVersion;
     private TaxEntity tax;
 }

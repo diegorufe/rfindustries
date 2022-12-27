@@ -4,6 +4,7 @@ import com.rfindustries.commons.dao.TaxDao;
 import com.rfindustries.commons.dto.TaxDTO;
 import com.rfindustries.commons.entities.TaxEntity;
 import com.rfindustries.commons.service.TaxService;
+import com.rfindustries.commons.utils.CommonsMapperUtils;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -13,32 +14,12 @@ public class TaxServiceImpl extends BaseTransactionalCrudServiceImpl<TaxDao, Tax
 
     @Override
     public TaxEntity toEntity(TaxDTO dto) {
-        return TaxEntity.builder()
-                .id(dto.getId())
-                .businessCustomerId(dto.getBusinessCustomerId())
-                .enterpriseId(dto.getEnterpriseId())
-                .createdAt(dto.getCreatedAt())
-                .updatedAt(dto.getUpdatedAt())
-                .userCreatedAtId(dto.resolverUserCreatedAtId())
-                .userUpdatedAtId(dto.resolverUserUpdatedAtId())
-                .code(dto.getCode())
-                .name(dto.getName())
-                .build();
+        return CommonsMapperUtils.toTaxEntity(dto);
     }
 
     @Override
     public TaxDTO toDTO(TaxEntity entity) {
-        return TaxDTO.builder()
-                .id(entity.getId())
-                .businessCustomerId(entity.getBusinessCustomerId())
-                .enterpriseId(entity.getEnterpriseId())
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .userCreatedAtId(entity.getUserCreatedAtId())
-                .userUpdatedAtId(entity.getUserUpdatedAtId())
-                .code(entity.getCode())
-                .name(entity.getName())
-                .build();
+        return CommonsMapperUtils.toTaxDTO(entity);
     }
 
     @Override

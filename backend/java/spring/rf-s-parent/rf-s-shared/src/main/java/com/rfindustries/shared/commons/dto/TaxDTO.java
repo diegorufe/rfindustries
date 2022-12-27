@@ -16,14 +16,4 @@ import lombok.experimental.SuperBuilder;
 public class TaxDTO extends BaseJDBCDTO {
     private String code;
     private String name;
-
-    public static TaxDTO fromTax(Tax tax) {
-        return tax == null ? null : builder()
-                .id(tax.getId())
-                .code(tax.getCode())
-                .name(tax.getName())
-                .businessCustomerId(tax.getBusinessCustomerId())
-                .enterpriseId(ProtoUtils.getLongValue(tax.hasEnterpriseId() ? tax.getEnterpriseId() : null))
-                .build();
-    }
 }

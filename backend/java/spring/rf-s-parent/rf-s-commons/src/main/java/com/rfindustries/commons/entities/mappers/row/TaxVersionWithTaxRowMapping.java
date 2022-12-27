@@ -1,22 +1,22 @@
-package com.rfindustries.commons.entities.mappings.rowmappings;
+package com.rfindustries.commons.entities.mappers.row;
 
 
 import com.rfindustries.commons.constants.EntityDefinition;
 import com.rfindustries.commons.entities.TaxEntity;
 import com.rfindustries.commons.entities.TaxVersionEntity;
-import com.rfindustries.commons.entities.mappings.entitymappings.TaxVersionWithTaxMapping;
+import com.rfindustries.commons.entities.mappers.entities.TaxVersionWithTaxEntity;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TaxVersionWithTaxRowMapping implements RowMapper<TaxVersionWithTaxMapping> {
+public class TaxVersionWithTaxRowMapping implements RowMapper<TaxVersionWithTaxEntity> {
 
     private final String ALIAS_TAX_TABLE = "tx_";
 
     @Override
-    public TaxVersionWithTaxMapping mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return TaxVersionWithTaxMapping.builder()
+    public TaxVersionWithTaxEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return TaxVersionWithTaxEntity.builder()
                 .taxVersion(TaxVersionEntity.builder()
                         .id(rs.getLong(EntityDefinition.ID))
                         .type(rs.getByte(EntityDefinition.TYPE))
