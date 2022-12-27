@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class InvoiceLineDTO extends BaseJDBCDTO {
 
+    private LocalDateTime dateTime;
     private InvoiceLineType type;
     private InvoiceHeaderDTO invoiceHeader;
     private LedgerAccountDTO ledgerAccount;

@@ -20,7 +20,7 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class TaxVersionDTO extends BaseJDBCDTO {
-    private LocalDate startTime;
+    private LocalDate startDate;
     private BigDecimal value;
     private TaxVersionType type;
     private Long taxId;
@@ -29,7 +29,7 @@ public class TaxVersionDTO extends BaseJDBCDTO {
     public static TaxVersionDTO fromTaxVersion(TaxVersion taxVersion) {
         return builder()
                 .id(taxVersion.getId())
-                .startTime(ProtoUtils.fromGoogleDate(taxVersion.getStarDate()))
+                .startDate(ProtoUtils.fromGoogleDate(taxVersion.getStarDate()))
                 .value(ProtoUtils.fromGoogleDecimal(taxVersion.getValue()))
                 .taxId(taxVersion.getTaxId())
                 .tax(TaxDTO.fromTax(taxVersion.getTax()))

@@ -10,4 +10,6 @@ import java.util.List;
 public interface InvoiceLineService extends BaseCrudService<InvoiceLineDao, InvoiceLineEntity, Long, InvoiceLineDTO> {
 
     List<InvoiceLineDTO> findAllByInvoiceId(Long invoiceId);
+
+    long deleteAllByInvoiceId(Long invoiceId);
 }

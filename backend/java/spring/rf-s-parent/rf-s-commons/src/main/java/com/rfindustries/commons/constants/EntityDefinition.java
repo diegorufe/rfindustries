@@ -10,6 +10,9 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String NAME = "NAME";
     public static final String START_DATE = "START_DATE";
     public static final String RATE = "RATE";
+    public static final String TAX_ID = "TAX_ID";
+    public static final String TYPE = "TYPE";
+    public static final String VALUE = "VALUE";
 
     private EntityDefinition(){
         // NOT implemented

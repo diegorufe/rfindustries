@@ -1,12 +1,15 @@
 package com.rfindustries.commons.service.impl;
 
 import com.rfindustries.commons.dao.TaxVersionDao;
+import com.rfindustries.commons.dto.TaxVersionDTO;
 import com.rfindustries.commons.entities.TaxVersionEntity;
 import com.rfindustries.commons.service.TaxVersionService;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import com.rfindustries.shared.commons.constants.TaxVersionType;
-import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxVersionDao, TaxVersionEntity, Long, TaxVersionDTO>
@@ -22,7 +25,7 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
                 .updatedAt(dto.getUpdatedAt())
                 .userCreatedAtId(dto.resolverUserCreatedAtId())
                 .userUpdatedAtId(dto.resolverUserUpdatedAtId())
-                .startTime(dto.getStartTime())
+                .startDate(dto.getStartDate())
                 .type(dto.getType() == null ? null : dto.getType().getType())
                 .value(dto.getValue())
                 .build();
@@ -38,7 +41,7 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
                 .updatedAt(entity.getUpdatedAt())
                 .userCreatedAtId(entity.getUserCreatedAtId())
                 .userUpdatedAtId(entity.getUserUpdatedAtId())
-                .startTime(entity.getStartTime())
+                .startDate(entity.getStartDate())
                 .type(TaxVersionType.findByType(entity.getType()))
                 .value(entity.getValue())
                 .build();
@@ -47,5 +50,16 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
     @Override
     public TaxVersionDTO instanceDTO() {
         return TaxVersionDTO.builder().build();
+    }
+
+    @Override
+    public Optional<TaxVersionDTO> findTaxVersionByTaxIdAndDate(Long taxId, LocalDate startDate) {
+        TaxVersionDTO result = null;
+
+        if(taxId != null && startDate != null){
+            result  = TaxVersionDTO.fromTaxVersionWithTaxMapping(this.getDao().findTaxVersionByTaxIdAndDate(taxId, startDate));
+        }
+
+        return Optional.ofNullable(result);
     }
 }

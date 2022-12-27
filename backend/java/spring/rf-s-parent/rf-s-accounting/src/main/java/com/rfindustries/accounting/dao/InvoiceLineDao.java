@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public interface InvoiceLineDao extends BaseJDBCCrudRepository<InvoiceLineEntity> {
 
-    @Query("SELECT * FROM " + EntityDefinition.TABLE_INVOICE_LINE + " WHERE " + EntityDefinition.INVOICE_HEADER_ID + " = :invoiceId ORDER BY " + EntityDefinition.NUMBER)
+    @Query("SELECT * FROM RF_ACCOUNTING_INVOICE_LINES WHERE INVOICE_HEADER_ID = :INVOICE_HEADER_ID ORDER BY number ")
+
     List<InvoiceLineEntity> findAllByInvoiceId(@Param(EntityDefinition.INVOICE_HEADER_ID) Long invoiceId);
+
+    @Query("DELETE FROM RF_ACCOUNTING_INVOICE_LINES WHERE INVOICE_HEADER_ID = :INVOICE_HEADER_ID ")
+    long deleteAllByInvoiceId(@Param(EntityDefinition.INVOICE_HEADER_ID) Long invoiceId);
 }

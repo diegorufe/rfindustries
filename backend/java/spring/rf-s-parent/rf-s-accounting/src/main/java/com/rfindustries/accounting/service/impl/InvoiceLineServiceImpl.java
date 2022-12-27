@@ -11,6 +11,7 @@ import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import com.rfindustries.shared.accounting.InvoiceLineType;
 import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                 .userUpdatedAtId(dto.resolverUserUpdatedAtId())
                 .invoiceHeaderId(dto.getInvoiceHeader() == null ? null : dto.getInvoiceHeader().getId())
                 .ledgerAccountId(dto.getLedgerAccount() == null ? null : dto.getLedgerAccount().getId())
+                .dateTime(dto.getDateTime())
                 .type(dto.getType().getType())
                 .number(dto.getNumber())
                 .amount(dto.getAmount())
@@ -52,6 +54,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                 .userUpdatedAtId(entity.getUserUpdatedAtId())
                 .invoiceHeader(InvoiceHeaderDTO.builder().id(entity.getInvoiceHeaderId()).build())
                 .ledgerAccount(LedgerAccountDTO.builder().id(entity.getLedgerAccountId()).build())
+                .dateTime(entity.getDateTime())
                 .type(InvoiceLineType.getByType(entity.getType()))
                 .taxVersions(TaxVersionDTO.idsToTaxVersionDTOs(entity.getTaxVersions()))
                 .build();
@@ -82,5 +85,17 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
     @Override
     public <HEADER_PK> List<InvoiceLineDTO> findByHeaderPk(HEADER_PK headerPk) {
         return this.findAllByInvoiceId((Long) headerPk);
+    }
+
+    @Transactional
+    @Override
+    public <HEADER_PK> long deleteByHeaderPk(HEADER_PK headerPk) {
+        return this.deleteAllByInvoiceId((Long) headerPk);
+    }
+
+    @Transactional
+    @Override
+    public long deleteAllByInvoiceId(Long invoiceId) {
+        return this.getDao().deleteAllByInvoiceId(invoiceId);
     }
 }

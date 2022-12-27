@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InvoiceLineEntity extends BaseJDBCEntity {
 
+    private LocalDateTime dateTime;
     private Byte type;
     private Long invoiceHeaderId;
     private Long ledgerAccountId;
