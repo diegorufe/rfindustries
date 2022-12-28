@@ -27,4 +27,6 @@ public interface BaseCrudHeaderLineService<
 
     DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
+    DTO upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
+
 }

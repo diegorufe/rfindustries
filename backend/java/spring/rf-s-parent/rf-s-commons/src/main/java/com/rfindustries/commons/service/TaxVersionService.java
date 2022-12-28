@@ -9,9 +9,12 @@ import com.rfindustries.core.service.BaseCrudService;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TaxVersionService extends BaseCrudService<TaxVersionDao, TaxVersionEntity, Long, TaxVersionDTO> {
     String ROUTE = RouteConstants.BASE_API_MODULES + CommonsConstants.ROUTE + "/tax-versions";
 
     Optional<TaxVersionDTO> findTaxVersionByTaxIdAndDate(Long taxId, LocalDate startDate);
+
+    Set<TaxVersionDTO> findTaxVersionsByIds(Set<Long> ids);
 }

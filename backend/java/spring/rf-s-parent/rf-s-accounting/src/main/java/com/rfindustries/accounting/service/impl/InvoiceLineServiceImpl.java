@@ -1,21 +1,28 @@
 package com.rfindustries.accounting.service.impl;
 
 import com.rf.collections.utils.CollectionUtils;
+import com.rf.collections.utils.StringUtils;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
 import com.rfindustries.accounting.dto.InvoiceLineDTO;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
 import com.rfindustries.accounting.service.InvoiceLineService;
 import com.rfindustries.accounting.utils.AccountingMapperUtils;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
+import com.rfindustries.shared.commons.dto.TaxVersionDTO;
+import com.rfindustries.shared.commons.service.TaxVersionGrpcService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<InvoiceLineDao, InvoiceLineEntity, Long, InvoiceLineDTO>
         implements InvoiceLineService {
+
+    @Autowired
+    private TaxVersionGrpcService taxVersionGrpcService;
 
     @Override
     public InvoiceLineEntity toEntity(InvoiceLineDTO dto) {
@@ -24,7 +31,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public InvoiceLineDTO toDTO(InvoiceLineEntity entity) {
-        return AccountingMapperUtils.toInvoiceLineDTO(entity);
+        return this.entitiesToDTOs(List.of(entity)).get(0);
     }
 
     @Override
@@ -34,19 +41,54 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public List<InvoiceLineDTO> findAllByInvoiceId(Long invoiceId) {
+        return this.entitiesToDTOs(this.getDao().findAllByInvoiceId(invoiceId));
+    }
+
+    private List<InvoiceLineDTO> entitiesToDTOs(List<InvoiceLineEntity> entities) {
         List<InvoiceLineDTO> result = new ArrayList<>();
 
-        if (invoiceId != null) {
-            List<InvoiceLineEntity> entities = this.getDao().findAllByInvoiceId(invoiceId);
+        if (CollectionUtils.isNotEmpty(entities)) {
+            final Map<Long, TaxVersionDTO> mapTaxVersion = new HashMap<>();
+            result = entities.stream().map(e -> {
+                InvoiceLineDTO dto = AccountingMapperUtils.toInvoiceLineDTO(e);
+                final Set<TaxVersionDTO> taxVersionsLine = new LinkedHashSet<>();
 
-            if (CollectionUtils.isNotEmpty(entities)) {
-                result = entities.stream().map(this::toDTO).toList();
-            }
+                if (StringUtils.isNotBlank(e.getTaxVersions())) {
+                    Set<Long> ids = this.filterIdsTaxVersions(mapTaxVersion, taxVersionsLine, e.getTaxVersions());
+
+                    if (CollectionUtils.isNotEmpty(ids)) {
+                        Set<TaxVersionDTO> taxVersionFind = this.taxVersionGrpcService.findTaxVersionsByIds(ids);
+
+                        if (CollectionUtils.isNotEmpty(taxVersionFind)) {
+                            taxVersionFind.forEach(v -> {
+                                mapTaxVersion.put(v.getId(), v);
+                                taxVersionsLine.add(v);
+                            });
+                        }
+                    }
+                }
+
+
+                dto.setTaxVersions(taxVersionsLine);
+
+                return dto;
+            }).toList();
         }
 
-        // TODO find tax versions dtos
-
         return result;
+    }
+
+    private Set<Long> filterIdsTaxVersions(final Map<Long, TaxVersionDTO> mapTaxVersion, final Set<TaxVersionDTO> taxVersionsLine, String taxVersionsIds) {
+        return StringUtils.idsHashtagsToSet(taxVersionsIds, Long::parseLong).stream().filter(id -> {
+            boolean valid = true;
+
+            if (mapTaxVersion.containsKey(id)) {
+                taxVersionsLine.add(mapTaxVersion.get(id));
+                valid = false;
+            }
+
+            return valid;
+        }).collect(Collectors.toSet());
     }
 
     @Override
