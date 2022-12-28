@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,5 +107,23 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
     @Override
     public long deleteAllByInvoiceId(Long invoiceId) {
         return this.getDao().deleteAllByInvoiceId(invoiceId);
+    }
+
+    @Override
+    public void calculateTotal(InvoiceLineDTO dto) {
+        if(dto != null){
+            dto.setTotal(BigDecimal.ZERO);
+
+            if(dto.getAmount() == null){
+                dto.setAmount(BigDecimal.ZERO);
+            }
+
+            if(dto.getAmount().compareTo(BigDecimal.ZERO) > 0 && CollectionUtils.isNotEmpty(dto.getTaxVersions())){
+
+                dto.getTaxVersions().forEach(tv->{
+                    // TODO
+                });
+            }
+        }
     }
 }

@@ -12,4 +12,6 @@ public interface InvoiceLineService extends BaseCrudService<InvoiceLineDao, Invo
     List<InvoiceLineDTO> findAllByInvoiceId(Long invoiceId);
 
     long deleteAllByInvoiceId(Long invoiceId);
+
+    void calculateTotal(InvoiceLineDTO dto);
 }

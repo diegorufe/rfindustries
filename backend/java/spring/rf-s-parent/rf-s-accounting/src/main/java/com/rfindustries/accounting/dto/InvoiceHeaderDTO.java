@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,5 +23,8 @@ public class InvoiceHeaderDTO extends BaseJDBCDTO {
     private AccountingDTO accounting;
     private AccountingYearDTO accountingYear;
     private LedgerAccountDTO ledgerAccount;
+    private BigDecimal totalBase;
+    private BigDecimal totalTaxes;
+    private BigDecimal total;
 
 }

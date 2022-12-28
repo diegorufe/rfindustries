@@ -26,4 +26,9 @@ public class InvoiceHeaderServiceImpl extends BaseTransactionalCrudServiceImpl<I
     public InvoiceHeaderDTO instanceDTO() {
         return InvoiceHeaderDTO.builder().build();
     }
+
+    @Override
+    public int updateTotals(InvoiceHeaderDTO dto) {
+        return dto == null ? -1 : this.getDao().updateTotals(dto.getId(), dto.getTotalBase(), dto.getTotalTaxes(), dto.getTotal());
+    }
 }

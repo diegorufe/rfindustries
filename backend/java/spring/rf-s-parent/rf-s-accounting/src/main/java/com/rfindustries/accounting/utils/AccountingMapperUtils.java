@@ -125,6 +125,9 @@ public final class AccountingMapperUtils {
                 .accountingId(dto.getAccounting() == null ? null : dto.getAccounting().getId())
                 .accountingYearId(dto.getAccountingYear() == null ? null : dto.getAccountingYear().getId())
                 .ledgerAccountId(dto.getLedgerAccount() == null ? null : dto.getLedgerAccount().getId())
+                .totalBase(dto.getTotalBase())
+                .totalTaxes(dto.getTotalTaxes())
+                .total(dto.getTotal())
                 .build();
     }
 
@@ -143,6 +146,9 @@ public final class AccountingMapperUtils {
                 .accounting(AccountingDTO.builder().id(entity.getAccountingId()).build())
                 .accountingYear(AccountingYearDTO.builder().id(entity.getAccountingYearId()).build())
                 .ledgerAccount(LedgerAccountDTO.builder().id(entity.getLedgerAccountId()).build())
+                .totalBase(entity.getTotalBase())
+                .totalTaxes(entity.getTotalTaxes())
+                .total(entity.getTotal())
                 .build();
     }
 

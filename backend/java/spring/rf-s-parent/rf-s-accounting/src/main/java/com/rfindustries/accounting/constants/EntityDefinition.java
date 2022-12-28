@@ -9,9 +9,7 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String TABLE_ACCOUNTING = "RF_ACCOUNTING_ACCOUNTING";
     public static final String TABLE_ACCOUNTING_YEAR = "RF_ACCOUNTING_ACCOUNTING_YEARS";
     public static final String TABLE_LEDGER_ACCOUNT = "RF_ACCOUNTING_LEDGER_ACCOUNTS";
-
     public static final String TABLE_INVOICE_HEADER = "RF_ACCOUNTING_INVOICE_HEADERS";
-
     public static final String TABLE_INVOICE_LINE = "RF_ACCOUNTING_INVOICE_LINES";
 
     public static final String CODE = "CODE";
@@ -28,16 +26,8 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String AMOUNT = "AMOUNT";
     public static final String TOTAL = "TOTAL";
     public static final String TAX_VERSIONS = "TAX_VERSIONS";
-
-
-    private Byte type;
-    private Long invoiceHeaderId;
-    private Long ledgerAccountId;
-    private Integer number;
-    private String description;
-    private BigDecimal amount;
-    private BigDecimal total;
-    private String taxVersions;
+    public static final String TOTAL_BASE = "TOTAL_BASE";
+    public static final String TOTAL_TAXES = "TOTAL_TAXES";
 
     private EntityDefinition(){
         // NOT implemented

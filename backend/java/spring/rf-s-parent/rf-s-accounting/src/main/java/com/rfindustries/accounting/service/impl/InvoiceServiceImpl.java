@@ -17,6 +17,7 @@ import com.rfindustries.corejdbc.service.BaseTransactionalCrudHeaderLineServiceI
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,22 +56,35 @@ public class InvoiceServiceImpl
     }
 
     private void upsertLines(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto, boolean insert) {
+        final InvoiceHeaderDTO header = dto.getHeader();
+        header.setTotal(BigDecimal.ZERO);
+        header.setTotalBase(BigDecimal.ZERO);
+        header.setTotalTaxes(BigDecimal.ZERO);
+
         // delete old lines
         if (!insert) {
             this.getLineService().deleteAllByInvoiceId(dto.getHeader().getId());
         }
 
         if (CollectionUtils.isNotEmpty(dto.getLines())) {
+
             AtomicInteger counter = new AtomicInteger(1);
             final List<InvoiceLineDTO> lines = new ArrayList<>();
 
             dto.getLines().forEach(line -> {
                 line.setNumber(counter.getAndIncrement());
 
-                // TODO calculate amount
+                this.getLineService().calculateTotal(line);
+
+                header.setTotalBase(header.getTotalBase().add(line.getAmount()));
+                header.setTotalTaxes(header.getTotalTaxes().add(line.getTotal().subtract(line.getAmount())));
+                header.setTotal(header.getTotal().add(line.getTotal()));
             });
 
             dto.setLines(lines);
         }
+
+        // Update totals
+        this.getHeaderService().updateTotals(header);
     }
 }

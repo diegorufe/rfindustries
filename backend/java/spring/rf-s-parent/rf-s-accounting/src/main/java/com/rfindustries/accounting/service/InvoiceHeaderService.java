@@ -7,4 +7,5 @@ import com.rfindustries.core.service.BaseCrudService;
 
 public interface InvoiceHeaderService extends BaseCrudService<InvoiceHeaderDao, InvoiceHeaderEntity, Long, InvoiceHeaderDTO> {
 
+    int updateTotals(InvoiceHeaderDTO dto);
 }
