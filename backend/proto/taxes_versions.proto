@@ -32,6 +32,16 @@ message TaxVersion {
   TaxVersionType type = 8;
 }
 
+message FindTaxVersionByIdsRequest {
+  repeated int64 id = 1;
+}
+
+message ListTaxVersion {
+  repeated TaxVersion taxVersion = 1;
+}
+
+
 service TaxVersionService {
   rpc findTaxVersionByTaxIdAndDate(FindTaxVersionRequest) returns (TaxVersion) {};
+  rpc findTaxVersionsByIds(FindTaxVersionByIdsRequest) returns (ListTaxVersion) {};
 }
