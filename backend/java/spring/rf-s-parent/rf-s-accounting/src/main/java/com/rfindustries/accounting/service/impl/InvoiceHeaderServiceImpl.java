@@ -5,6 +5,7 @@ import com.rfindustries.accounting.dto.InvoiceHeaderDTO;
 import com.rfindustries.accounting.entities.InvoiceHeaderEntity;
 import com.rfindustries.accounting.service.InvoiceHeaderService;
 import com.rfindustries.accounting.utils.AccountingMapperUtils;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ public class InvoiceHeaderServiceImpl extends BaseTransactionalCrudServiceImpl<I
         implements InvoiceHeaderService {
 
     @Override
-    public InvoiceHeaderEntity toEntity(InvoiceHeaderDTO dto) {
+    public InvoiceHeaderEntity toEntity(BaseCommonsParameters baseCommonsParameters, InvoiceHeaderDTO dto) {
         return AccountingMapperUtils.toInvoiceHeaderEntity(dto);
     }
 
     @Override
-    public InvoiceHeaderDTO toDTO(InvoiceHeaderEntity entity) {
+    public InvoiceHeaderDTO toDTO(BaseCommonsParameters baseCommonsParameters, InvoiceHeaderEntity entity) {
         return AccountingMapperUtils.toInvoiceHeaderDTO(entity);
     }
 

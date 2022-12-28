@@ -5,6 +5,7 @@ import com.rfindustries.accounting.dto.AccountingYearDTO;
 import com.rfindustries.accounting.entities.AccountingYearEntity;
 import com.rfindustries.accounting.service.AccountingYearService;
 import com.rfindustries.accounting.utils.AccountingMapperUtils;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ public class AccountingYearServiceImpl extends BaseTransactionalCrudServiceImpl<
         implements AccountingYearService {
 
     @Override
-    public AccountingYearEntity toEntity(AccountingYearDTO dto) {
+    public AccountingYearEntity toEntity(BaseCommonsParameters baseCommonsParameters, AccountingYearDTO dto) {
         return AccountingMapperUtils.toAccountingYearEntity(dto);
     }
 
     @Override
-    public AccountingYearDTO toDTO(AccountingYearEntity entity) {
+    public AccountingYearDTO toDTO(BaseCommonsParameters baseCommonsParameters, AccountingYearEntity entity) {
         return AccountingMapperUtils.toAccountingYearDTO(entity);
     }
 

@@ -63,7 +63,7 @@ public class InvoiceServiceImpl
 
         // delete old lines
         if (!insert) {
-            this.getLineService().deleteAllByInvoiceId(dto.getHeader().getId());
+            this.getLineService().deleteAllByInvoiceId(baseCommonsParameters, dto.getHeader().getId());
         }
 
         if (CollectionUtils.isNotEmpty(dto.getLines())) {
@@ -74,7 +74,7 @@ public class InvoiceServiceImpl
             dto.getLines().forEach(line -> {
                 line.setNumber(counter.getAndIncrement());
 
-                this.getLineService().calculateTotal(line);
+                this.getLineService().calculateTotal(baseCommonsParameters, line);
 
                 header.setTotalBase(header.getTotalBase().add(line.getAmount()));
                 header.setTotalTaxes(header.getTotalTaxes().add(line.getTotal().subtract(line.getAmount())));

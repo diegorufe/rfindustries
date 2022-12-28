@@ -20,11 +20,11 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
 
         if (CollectionUtils.isNotEmpty(dtos)) {
             List<ENTITY> entities = dtos.stream().map(dto ->
-                    this.toEntity(this.actionDoBeforeInsertUpdate(baseCommonsParameters, dto, true))
+                    this.toEntity(baseCommonsParameters, this.actionDoBeforeInsertUpdate(baseCommonsParameters, dto, true))
             ).toList();
 
             if (CollectionUtils.isNotEmpty(entities)) {
-                result = this.getDao().insertAll(baseCommonsParameters, entities).stream().map(entity -> this.actionDoAfterInsertUpdate(baseCommonsParameters, this.toDTO(entity), true)).toList();
+                result = this.getDao().insertAll(baseCommonsParameters, entities).stream().map(entity -> this.actionDoAfterInsertUpdate(baseCommonsParameters, this.toDTO(baseCommonsParameters, entity), true)).toList();
             }
         }
 
@@ -47,13 +47,14 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
 
         if (CollectionUtils.isNotEmpty(dtos)) {
             List<ENTITY> entities = dtos.stream().map(dto ->
-                    this.toEntity(this.actionDoBeforeInsertUpdate(baseCommonsParameters, dto, false))
+                    this.toEntity(baseCommonsParameters, this.actionDoBeforeInsertUpdate(baseCommonsParameters, dto, false))
             ).toList();
 
             if (CollectionUtils.isNotEmpty(entities)) {
-                result = this.getDao().updateAll(baseCommonsParameters, entities).stream().map(entity -> this.actionDoAfterInsertUpdate(baseCommonsParameters, this.toDTO(entity), false)).collect(Collectors.toList());
+                result = this.getDao().updateAll(baseCommonsParameters, entities).stream().map(entity -> this.actionDoAfterInsertUpdate(baseCommonsParameters, this.toDTO(baseCommonsParameters, entity), false)).collect(Collectors.toList());
             }
         }
+
 
         return result;
     }
@@ -61,19 +62,19 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
     @Override
     public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         dto = this.actionDoBeforeDelete(baseCommonsParameters, dto);
-        this.getDao().delete(this.toEntity(dto));
+        this.getDao().delete(this.toEntity(baseCommonsParameters, dto));
         this.actionDoAfterDelete(baseCommonsParameters, dto);
         return true;
     }
 
     @Override
-    public DTO findById(PK pk) {
-        return this.toDTO(this.getDao().findById(pk).orElseThrow());
+    public DTO findById(BaseCommonsParameters baseCommonsParameters, PK pk) {
+        return this.toDTO(baseCommonsParameters, this.getDao().findById(pk).orElseThrow());
     }
 
     @Override
     public DTO goRead(BaseCommonsParameters baseCommonsParameters, PK pk) {
-        return this.findById(pk);
+        return this.findById(baseCommonsParameters, pk);
     }
 
     @Override
@@ -83,6 +84,6 @@ public abstract class BaseCrudServiceImpl<DAO extends BaseDao<ENTITY, PK>, ENTIT
 
     @Override
     public DTO goEdit(BaseCommonsParameters baseCommonsParameters, PK pk) {
-        return this.findById(pk);
+        return this.findById(baseCommonsParameters, pk);
     }
 }

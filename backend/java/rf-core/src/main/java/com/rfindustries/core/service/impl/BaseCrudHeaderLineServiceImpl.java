@@ -46,7 +46,7 @@ public abstract class BaseCrudHeaderLineServiceImpl<
     @Override
     public DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
         HEADER_DTO header = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
-        List<LINE_DTO> lines = this.getLineService().findByHeaderPk(headerPk);
+        List<LINE_DTO> lines = this.getLineService().findByHeaderPk(baseCommonsParameters, headerPk);
 
         DTO dto = this.instanceDTO();
 

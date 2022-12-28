@@ -1,5 +1,6 @@
 package com.rfindustries.core.features;
 
+import com.rfindustries.core.beans.PrecisionOperation;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,6 +17,9 @@ public class BaseCommonsParametersImpl implements BaseCommonsParameters{
 
     @Builder.Default
     private Map<String, Object> cacheProcess = new HashMap<>();
+
+    @Builder.Default
+    private PrecisionOperation precisionOperation = PrecisionOperation.builder().build();
 
     @Override
     public Object getUserId() {
@@ -35,5 +39,10 @@ public class BaseCommonsParametersImpl implements BaseCommonsParameters{
     @Override
     public Map<String, Object> getCacheProcess() {
         return cacheProcess;
+    }
+
+    @Override
+    public PrecisionOperation getPrecisionOperation() {
+        return precisionOperation;
     }
 }
