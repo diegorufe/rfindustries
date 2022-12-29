@@ -58,32 +58,37 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
             final Map<Long, TaxVersionDTO> mapTaxVersion = new HashMap<>();
             result = entities.stream().map(e -> {
                 InvoiceLineDTO dto = AccountingMapperUtils.toInvoiceLineDTO(e);
-                final Set<TaxVersionDTO> taxVersionsLine = new LinkedHashSet<>();
-
-                if (StringUtils.isNotBlank(e.getTaxVersions())) {
-                    Set<Long> ids = this.filterIdsTaxVersions(baseCommonsParameters, mapTaxVersion, taxVersionsLine, e.getTaxVersions());
-
-                    if (CollectionUtils.isNotEmpty(ids)) {
-                        Set<TaxVersionDTO> taxVersionFind = this.taxVersionGrpcService.findTaxVersionsByIds(ids);
-
-                        if (CollectionUtils.isNotEmpty(taxVersionFind)) {
-                            taxVersionFind.forEach(v -> {
-                                mapTaxVersion.put(v.getId(), v);
-                                taxVersionsLine.add(v);
-                                this.cacheManager.putTaxVersion(baseCommonsParameters, v);
-                            });
-                        }
-                    }
-                }
-
-
-                dto.setTaxVersions(taxVersionsLine);
-
+                this.resolveTagVersions(baseCommonsParameters, dto, mapTaxVersion, e.getTaxVersions());
                 return dto;
             }).toList();
         }
 
         return result;
+    }
+
+    private void resolveTagVersions(BaseCommonsParameters baseCommonsParameters, InvoiceLineDTO dto, final Map<Long, TaxVersionDTO> mapTaxVersion, String taxVersions) {
+        final Set<TaxVersionDTO> taxVersionsLine = new LinkedHashSet<>();
+
+        if (StringUtils.isNotBlank(taxVersions)) {
+            Set<Long> ids = this.filterIdsTaxVersions(baseCommonsParameters, mapTaxVersion, taxVersionsLine, taxVersions);
+
+            if (CollectionUtils.isNotEmpty(ids)) {
+                Set<TaxVersionDTO> taxVersionFind = this.taxVersionGrpcService.findTaxVersionsByIds(ids);
+
+                if (CollectionUtils.isNotEmpty(taxVersionFind)) {
+                    taxVersionFind.forEach(v -> {
+                        mapTaxVersion.put(v.getId(), v);
+                        taxVersionsLine.add(v);
+                        this.cacheManager.putTaxVersion(baseCommonsParameters, v);
+                    });
+                }
+            }
+
+
+        }
+
+        dto.setTaxVersions(taxVersionsLine);
+
     }
 
     private Set<Long> filterIdsTaxVersions(BaseCommonsParameters baseCommonsParameters, final Map<Long, TaxVersionDTO> mapTaxVersion, final Set<TaxVersionDTO> taxVersionsLine, String taxVersionsIds) {
@@ -157,7 +162,14 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public void recalculate(BaseCommonsParameters baseCommonsParameters, InvoiceLineDTO dto) {
-        // TODO find all tax versions
+        Set<TaxVersionDTO> taxVersions = dto.getTaxVersions();
+
+        if (CollectionUtils.isNotEmpty(taxVersions)) {
+            final Map<Long, TaxVersionDTO> mapTaxVersion = new HashMap<>();
+            StringBuilder builder = new StringBuilder();
+            taxVersions.forEach(tv -> builder.append(StringUtils.createHashtag(tv.getId().toString())));
+            this.resolveTagVersions(baseCommonsParameters, dto, mapTaxVersion, builder.toString());
+        }
 
         this.calculateTotal(baseCommonsParameters, dto);
     }

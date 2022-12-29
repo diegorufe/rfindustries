@@ -1,51 +1,39 @@
 package com.rfindustries.accounting.cache;
 
+import com.rfindustries.core.beans.cache.CacheValue;
+import com.rfindustries.core.constansts.SchedulingConstants;
 import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.shared.commons.dto.TaxVersionDTO;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.rfindustries.core.utils.CacheUtils.*;
+
 @Component
 public class CacheManager {
 
-    private ConcurrentHashMap<Long, ConcurrentHashMap<Long, TaxVersionDTO>> taxVersions = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Long, ConcurrentHashMap<Long, CacheValue<TaxVersionDTO>>> taxVersions = new ConcurrentHashMap<>();
 
 
     public Optional<TaxVersionDTO> findTaxVersion(BaseCommonsParameters baseCommonsParameters, Long id) {
-        TaxVersionDTO dto = null;
-
-        if (baseCommonsParameters != null && baseCommonsParameters.getBusinessCustomerId() != null) {
-            ConcurrentHashMap<Long, TaxVersionDTO> cacheTaxVersions = taxVersions.getOrDefault(baseCommonsParameters.getBusinessCustomerId(), null);
-
-            if (id != null && cacheTaxVersions != null && cacheTaxVersions.containsKey(id)) {
-                dto = cacheTaxVersions.get(id);
-            }
-        }
-
-        return Optional.ofNullable(dto);
+        return findCacheValueBusinessCustomer(baseCommonsParameters, this.taxVersions, id);
     }
 
     public TaxVersionDTO putTaxVersion(BaseCommonsParameters baseCommonsParameters, TaxVersionDTO dto) {
-        if (baseCommonsParameters != null && baseCommonsParameters.getBusinessCustomerId() != null && dto != null) {
-            ConcurrentHashMap<Long, TaxVersionDTO> cacheTaxVersions = taxVersions.getOrDefault(baseCommonsParameters.getBusinessCustomerId(), null);
-            boolean addMap = false;
-
-            if(cacheTaxVersions == null){
-                cacheTaxVersions = new ConcurrentHashMap<>();
-                addMap = true;
-            }
-            cacheTaxVersions.put(dto.getId(), dto);
-
-            if(addMap){
-                this.taxVersions.put((Long) baseCommonsParameters.getBusinessCustomerId(), cacheTaxVersions);
-            }
-        }
-        return dto;
+        return putCacheValueBusinessCustomer(baseCommonsParameters, this.taxVersions, dto, dto.getId());
     }
 
-    public void clearTaxVersions() {
-        this.taxVersions.clear();
+    @Scheduled(cron = SchedulingConstants.SPRING_CRON_JOB_CLEAR_CACHE)
+    public void clearCache() {
+        this.clearCacheTaxVersions();
     }
+
+    private void clearCacheTaxVersions() {
+        clearValuesCache(this.taxVersions);
+    }
+
+
 }
