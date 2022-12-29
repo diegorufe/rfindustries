@@ -27,4 +27,12 @@ public interface BaseRestHeaderLineCrudController<
     ResponseEntity<BodyResponseRequest<DTO>> update(BodyRequest<DTO> bodyRequest);
 
     ResponseEntity<BodyResponseRequest<Boolean>> delete(BodyRequest<DTO> bodyRequest);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goRead(HEADER_PK pk);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goEdit(HEADER_PK pk);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goAdd();
+
+    ResponseEntity<BodyResponseRequest<DTO>> calculate(BodyRequest<DTO> bodyRequest);
 }

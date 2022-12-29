@@ -5,10 +5,12 @@ import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
 import com.rfindustries.core.dto.BaseOptionHeaderLineDTO;
 import com.rfindustries.core.entities.BaseEntity;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.service.BaseCrudHeaderLineService;
 import com.rfindustries.core.service.BaseCrudService;
 import com.rfindustries.core.service.impl.BaseCrudHeaderLineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class BaseTransactionalCrudHeaderLineServiceImpl<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
@@ -44,5 +46,11 @@ public abstract class BaseTransactionalCrudHeaderLineServiceImpl<
     @Override
     public LINE_SERVICE getLineService() {
         return lineService;
+    }
+
+    @Transactional
+    @Override
+    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        return super.delete(baseCommonsParameters, dto);
     }
 }

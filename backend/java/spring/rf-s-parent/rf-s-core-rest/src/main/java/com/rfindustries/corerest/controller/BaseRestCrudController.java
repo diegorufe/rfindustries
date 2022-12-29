@@ -24,4 +24,10 @@ public interface BaseRestCrudController<
     ResponseEntity<BodyResponseRequest<DTO>> update(BodyRequest<DTO> bodyRequest);
 
     ResponseEntity<BodyResponseRequest<Boolean>> delete(BodyRequest<DTO> bodyRequest);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goRead(PK pk);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goEdit(PK pk);
+
+    ResponseEntity<BodyResponseRequest<DTO>> goAdd();
 }

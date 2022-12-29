@@ -14,6 +14,8 @@ public interface BaseCrudController<
         >
         extends BaseController {
 
+    String REQUEST_PARAM_PK = "pk";
+
     SERVICE getService();
 
 

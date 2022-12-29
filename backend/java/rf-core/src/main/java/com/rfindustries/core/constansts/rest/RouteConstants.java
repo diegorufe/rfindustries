@@ -17,6 +17,8 @@ public final class RouteConstants {
 
     public static final String GO_READ = "/go-read";
 
+    public static final String CALCULATE = "/calculate";
+
     private RouteConstants() {
         // NOT implemented
     }

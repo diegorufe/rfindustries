@@ -39,4 +39,8 @@ public interface BaseCrudHeaderLineService<
 
     boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
+    DTO addLine(BaseCommonsParameters baseCommonsParameters, DTO dto);
+
+    DTO calculate(BaseCommonsParameters baseCommonsParameters, DTO dto);
+
 }

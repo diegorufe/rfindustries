@@ -15,4 +15,6 @@ public interface InvoiceLineService extends BaseCrudService<InvoiceLineDao, Invo
     long deleteAllByInvoiceId(BaseCommonsParameters baseCommonsParameters, Long invoiceId);
 
     void calculateTotal(BaseCommonsParameters baseCommonsParameters, InvoiceLineDTO dto);
+
+    void recalculate(BaseCommonsParameters baseCommonsParameters, InvoiceLineDTO dto);
 }

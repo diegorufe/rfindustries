@@ -43,7 +43,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public InvoiceLineDTO instanceDTO() {
-        return InvoiceLineDTO.builder().build();
+        return InvoiceLineDTO.builder().amount(BigDecimal.ZERO).total(BigDecimal.ZERO).build();
     }
 
     @Override
@@ -153,5 +153,12 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
             dto.setTotal(BigDecimalUtils.scale(dto.getTotal(), baseCommonsParameters.getPrecisionOperation().getAmount()));
         }
+    }
+
+    @Override
+    public void recalculate(BaseCommonsParameters baseCommonsParameters, InvoiceLineDTO dto) {
+        // TODO find all tax versions
+
+        this.calculateTotal(baseCommonsParameters, dto);
     }
 }

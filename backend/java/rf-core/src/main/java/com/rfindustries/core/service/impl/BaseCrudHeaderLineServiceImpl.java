@@ -63,4 +63,13 @@ public abstract class BaseCrudHeaderLineServiceImpl<
         this.getHeaderService().delete(baseCommonsParameters, dto.getHeader());
         return true;
     }
+
+    @Override
+    public DTO addLine(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        if (dto.getLines() == null) {
+            dto.setLines(new ArrayList<>());
+        }
+        dto.getLines().add(this.getLineService().instanceDTO());
+        return dto;
+    }
 }

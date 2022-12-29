@@ -14,6 +14,7 @@ import com.rfindustries.accounting.service.InvoiceHeaderService;
 import com.rfindustries.accounting.service.InvoiceLineService;
 import com.rfindustries.accounting.service.InvoiceService;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import com.rfindustries.core.features.CalculationType;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudHeaderLineServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -75,6 +77,7 @@ public class InvoiceServiceImpl
 
             dto.getLines().forEach(line -> {
                 line.setNumber(counter.getAndIncrement());
+                line.setDateTime(header.getDateTime());
 
                 this.getLineService().calculateTotal(baseCommonsParameters, line);
 
@@ -99,11 +102,19 @@ public class InvoiceServiceImpl
     }
 
     @Override
-    public InvoiceDTO calculateInvoice(BaseCommonsParameters baseCommonsParameters, CalculationInvoiceType calculationInvoiceType, InvoiceDTO dto) {
+    public InvoiceDTO calculate(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+        Set<CalculationType> calculationTypes = dto.getOptions() == null ? null : dto.getOptions().getCalculationTypes();
 
-        switch (calculationInvoiceType) {
-            case CALCULATE_TOTAL_LINE -> this.calculateTotalLine(baseCommonsParameters, dto);
-            case CALCULATE_TOTAL_INVOICE -> this.calculateTotalInvoice(baseCommonsParameters, dto);
+        if (calculationTypes != null) {
+            calculationTypes.forEach(type -> {
+                switch ((CalculationInvoiceType) type) {
+                    case ADD_LINE -> this.addLine(baseCommonsParameters, dto);
+                    case CALCULATE_TOTAL_LINE -> this.calculateTotalLine(baseCommonsParameters, dto);
+                    case CALCULATE_TOTAL_INVOICE -> this.calculateTotalInvoice(baseCommonsParameters, dto);
+                    case FIND_TAX_VERSION -> this.findTaxVersion(baseCommonsParameters, dto);
+                    case RECALCULATE_LINES -> this.recalculateLines(baseCommonsParameters, dto);
+                }
+            });
         }
 
         return dto;
@@ -113,8 +124,6 @@ public class InvoiceServiceImpl
         if (dto.getOptions() != null && dto.getOptions().getLineIndex() != null && dto.getOptions().getLineIndex().compareTo(0) >= 0 && CollectionUtils.isNotEmpty(dto.getLines())) {
             this.getLineService().calculateTotal(baseCommonsParameters, dto.getLines().get(dto.getOptions().getLineIndex()));
         }
-
-        this.calculateTotalInvoice(baseCommonsParameters, dto);
     }
 
     private void calculateTotalInvoice(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
@@ -129,6 +138,21 @@ public class InvoiceServiceImpl
                 header.setTotalBase(header.getTotalBase().add(line.getAmount()));
                 header.setTotalTaxes(header.getTotalTaxes().add(line.getTotal().subtract(line.getAmount())));
                 header.setTotal(header.getTotal().add(line.getTotal()));
+            });
+        }
+    }
+
+    private void findTaxVersion(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+        if (dto.getOptions() != null && dto.getOptions().getLineIndex() != null && dto.getOptions().getLineIndex().compareTo(0) >= 0 && CollectionUtils.isNotEmpty(dto.getLines())) {
+            this.getLineService().recalculate(baseCommonsParameters, dto.getLines().get(dto.getOptions().getLineIndex()));
+        }
+    }
+
+    private void recalculateLines(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+        if (CollectionUtils.isNotEmpty(dto.getLines())) {
+            dto.getLines().forEach(line -> {
+                line.setDateTime(dto.getHeader().getDateTime());
+                this.getLineService().recalculate(baseCommonsParameters, line);
             });
         }
     }
