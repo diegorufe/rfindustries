@@ -1,6 +1,7 @@
 package com.rfindustries.accounting.service.impl;
 
 import com.rf.collections.utils.CollectionUtils;
+import com.rfindustries.accounting.constants.CalculationInvoiceType;
 import com.rfindustries.accounting.dao.InvoiceHeaderDao;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
 import com.rfindustries.accounting.dto.InvoiceDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -86,5 +88,48 @@ public class InvoiceServiceImpl
 
         // Update totals
         this.getHeaderService().updateTotals(header);
+    }
+
+    @Override
+    public InvoiceDTO goAdd(BaseCommonsParameters baseCommonsParameters) {
+        InvoiceDTO dto = super.goAdd(baseCommonsParameters);
+        dto.getHeader().setDateTime(LocalDateTime.now());
+
+        return dto;
+    }
+
+    @Override
+    public InvoiceDTO calculateInvoice(BaseCommonsParameters baseCommonsParameters, CalculationInvoiceType calculationInvoiceType, InvoiceDTO dto) {
+
+        switch (calculationInvoiceType) {
+            case CALCULATE_TOTAL_LINE -> this.calculateTotalLine(baseCommonsParameters, dto);
+            case CALCULATE_TOTAL_INVOICE -> this.calculateTotalInvoice(baseCommonsParameters, dto);
+        }
+
+        return dto;
+    }
+
+    private void calculateTotalLine(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+        if (dto.getOptions() != null && dto.getOptions().getLineIndex() != null && dto.getOptions().getLineIndex().compareTo(0) >= 0 && CollectionUtils.isNotEmpty(dto.getLines())) {
+            this.getLineService().calculateTotal(baseCommonsParameters, dto.getLines().get(dto.getOptions().getLineIndex()));
+        }
+
+        this.calculateTotalInvoice(baseCommonsParameters, dto);
+    }
+
+    private void calculateTotalInvoice(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+
+        final InvoiceHeaderDTO header = dto.getHeader();
+        header.setTotal(BigDecimal.ZERO);
+        header.setTotalBase(BigDecimal.ZERO);
+        header.setTotalTaxes(BigDecimal.ZERO);
+
+        if (CollectionUtils.isNotEmpty(dto.getLines())) {
+            dto.getLines().forEach(line -> {
+                header.setTotalBase(header.getTotalBase().add(line.getAmount()));
+                header.setTotalTaxes(header.getTotalTaxes().add(line.getTotal().subtract(line.getAmount())));
+                header.setTotal(header.getTotal().add(line.getTotal()));
+            });
+        }
     }
 }

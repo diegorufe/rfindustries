@@ -1,13 +1,13 @@
-package com.rfindustries.shared;
+package com.rfindustries.corerest.controller.impl;
 
 import com.rfindustries.core.beans.rest.BodyRequest;
 import com.rfindustries.core.beans.rest.BodyResponseRequest;
 import com.rfindustries.core.constansts.rest.RouteConstants;
-import com.rfindustries.core.controllers.BaseCrudController;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.service.BaseCrudService;
+import com.rfindustries.corerest.controller.BaseRestCrudController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +23,7 @@ public abstract class BaseRestCrudControllerImpl<
         DTO extends BaseDTO
         >
         extends BaseControllerImpl
-        implements BaseCrudController<SERVICE, DAO, ENTITY, PK, DTO> {
+        implements BaseRestCrudController<SERVICE, DAO, ENTITY, PK, DTO> {
 
     @Autowired
     private SERVICE service;
@@ -34,16 +34,19 @@ public abstract class BaseRestCrudControllerImpl<
     }
 
     @PostMapping(RouteConstants.INSERT)
+    @Override
     public ResponseEntity<BodyResponseRequest<DTO>> insert(@RequestBody BodyRequest<DTO> bodyRequest) {
         return ResponseEntity.ok(new BodyResponseRequest<>(this.service.insert(this.resolveCommonsParameters(), bodyRequest.getData())));
     }
 
     @PutMapping(RouteConstants.UPDATE)
+    @Override
     public ResponseEntity<BodyResponseRequest<DTO>> update(@RequestBody BodyRequest<DTO> bodyRequest) {
         return ResponseEntity.ok(new BodyResponseRequest<>(this.service.update(this.resolveCommonsParameters(), bodyRequest.getData())));
     }
 
     @DeleteMapping(RouteConstants.DELETE)
+    @Override
     public ResponseEntity<BodyResponseRequest<Boolean>> delete(@RequestBody BodyRequest<DTO> bodyRequest) {
         return ResponseEntity.ok(new BodyResponseRequest<>(this.service.delete(this.resolveCommonsParameters(), bodyRequest.getData())));
     }

@@ -32,7 +32,7 @@ public abstract class BaseCrudHeaderLineServiceImpl<
         dto.setHeader(this.getHeaderService().goAdd(baseCommonsParameters));
         dto.setLines(new ArrayList<>());
 
-        return this.instanceDTO();
+        return dto;
     }
 
     @Override
@@ -54,5 +54,13 @@ public abstract class BaseCrudHeaderLineServiceImpl<
         dto.setLines(lines);
 
         return dto;
+    }
+
+    @Override
+    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        // TODO check validations
+        this.getLineService().findByHeaderPk(baseCommonsParameters, this.getHeaderService().resolvePK(dto.getHeader()));
+        this.getHeaderService().delete(baseCommonsParameters, dto.getHeader());
+        return true;
     }
 }

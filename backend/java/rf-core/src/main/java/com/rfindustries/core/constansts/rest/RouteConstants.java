@@ -11,6 +11,12 @@ public final class RouteConstants {
 
     public static final String DELETE = "/delete";
 
+    public static final String GO_ADD = "/go-add";
+
+    public static final String GO_EDIT = "/go-edit";
+
+    public static final String GO_READ = "/go-read";
+
     private RouteConstants() {
         // NOT implemented
     }

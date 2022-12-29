@@ -9,8 +9,16 @@ import com.rfindustries.core.features.BaseCommonsParameters;
 
 public interface BaseCrudHeaderLineService<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
-        HEADER_SERVICE extends BaseCrudService<HEADER_DAO, HEADER_ENTITY, HEADER_PK, HEADER_DTO>, HEADER_DAO extends BaseDao<HEADER_ENTITY, HEADER_PK>, HEADER_ENTITY extends BaseEntity<HEADER_PK>, HEADER_PK, HEADER_DTO extends BaseDTO,
-        LINE_SERVICE extends BaseCrudService<LINE_DAO, LINE_ENTITY, LINE_PK, LINE_DTO>, LINE_DAO extends BaseDao<LINE_ENTITY, LINE_PK>, LINE_ENTITY extends BaseEntity<LINE_PK>, LINE_PK, LINE_DTO extends BaseDTO,
+        HEADER_SERVICE extends BaseCrudService<HEADER_DAO, HEADER_ENTITY, HEADER_PK, HEADER_DTO>,
+        HEADER_DAO extends BaseDao<HEADER_ENTITY, HEADER_PK>,
+        HEADER_ENTITY extends BaseEntity<HEADER_PK>,
+        HEADER_PK,
+        HEADER_DTO extends BaseDTO,
+        LINE_SERVICE extends BaseCrudService<LINE_DAO, LINE_ENTITY, LINE_PK, LINE_DTO>,
+        LINE_DAO extends BaseDao<LINE_ENTITY, LINE_PK>,
+        LINE_ENTITY extends BaseEntity<LINE_PK>,
+        LINE_PK,
+        LINE_DTO extends BaseDTO,
         OPTION extends BaseOptionHeaderLineDTO
         > {
 
@@ -28,5 +36,7 @@ public interface BaseCrudHeaderLineService<
     DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
     DTO upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
+
+    boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 }

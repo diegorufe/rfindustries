@@ -8,4 +8,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class BaseOptionHeaderLineDTO {
+    private Integer lineIndex;
 }

@@ -132,6 +132,8 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                 dto.setAmount(BigDecimal.ZERO);
             }
 
+            dto.setAmount(BigDecimalUtils.scale(dto.getAmount(), baseCommonsParameters.getPrecisionOperation().getAmount()));
+
             if (dto.getAmount().compareTo(BigDecimal.ZERO) > 0 && CollectionUtils.isNotEmpty(dto.getTaxVersions())) {
 
                 dto.getTaxVersions().forEach(tv -> {
@@ -148,6 +150,8 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
                     }
                 });
             }
+
+            dto.setTotal(BigDecimalUtils.scale(dto.getTotal(), baseCommonsParameters.getPrecisionOperation().getAmount()));
         }
     }
 }

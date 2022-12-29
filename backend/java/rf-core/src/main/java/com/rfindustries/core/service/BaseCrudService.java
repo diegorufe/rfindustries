@@ -58,4 +58,8 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
     default <HEADER_PK> long deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
         return 0;
     }
+
+    default PK resolvePK(DTO dto) {
+        return null;
+    }
 }
