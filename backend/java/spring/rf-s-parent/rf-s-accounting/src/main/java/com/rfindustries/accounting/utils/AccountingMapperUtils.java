@@ -1,5 +1,6 @@
 package com.rfindustries.accounting.utils;
 
+import com.rfindustries.accounting.constants.SerieType;
 import com.rfindustries.accounting.dto.*;
 import com.rfindustries.accounting.entities.*;
 import com.rfindustries.shared.accounting.InvoiceLineType;
@@ -187,6 +188,42 @@ public final class AccountingMapperUtils {
                 .dateTime(entity.getDateTime())
                 .type(InvoiceLineType.getByType(entity.getType()))
                 .taxVersions(SharedMapperUtils.idsToTaxVersionDTOs(entity.getTaxVersions()))
+                .build();
+    }
+
+    public static SerieEntity toSerieEntity(SerieDTO dto) {
+        return SerieEntity.builder()
+                .id(dto.getId())
+                .businessCustomerId(dto.getBusinessCustomerId())
+                .enterpriseId(dto.getEnterpriseId())
+                .createdAt(dto.getCreatedAt())
+                .updatedAt(dto.getUpdatedAt())
+                .userCreatedAtId(dto.getUserCreatedAtId())
+                .userUpdatedAtId(dto.getUserUpdatedAtId())
+                .accountingId(dto.getAccounting() == null ? null : dto.getAccounting().getId())
+                .accountingYearId(dto.getAccountingYear() == null ? null : dto.getAccountingYear().getId())
+                .code(dto.getCode())
+                .name(dto.getName())
+                .number(dto.getNumber())
+                .type(dto.getType().getType())
+                .build();
+    }
+
+    public static SerieDTO toSerieDTO(SerieEntity entity) {
+        return SerieDTO.builder()
+                .id(entity.getId())
+                .businessCustomerId(entity.getBusinessCustomerId())
+                .enterpriseId(entity.getEnterpriseId())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .userCreatedAtId(entity.getUserCreatedAtId())
+                .userUpdatedAtId(entity.getUserUpdatedAtId())
+                .accounting(AccountingDTO.builder().id(entity.getAccountingId()).build())
+                .accountingYear(AccountingYearDTO.builder().id(entity.getAccountingYearId()).build())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .number(entity.getNumber())
+                .type(SerieType.getByType(entity.getType()))
                 .build();
     }
 }
