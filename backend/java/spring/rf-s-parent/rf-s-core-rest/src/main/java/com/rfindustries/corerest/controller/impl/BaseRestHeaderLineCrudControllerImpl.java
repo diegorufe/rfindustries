@@ -24,7 +24,11 @@ public abstract class BaseRestHeaderLineCrudControllerImpl<
         HEADER_ENTITY extends BaseEntity<HEADER_PK>,
         HEADER_PK,
         HEADER_DTO extends BaseDTO,
-        LINE_SERVICE extends BaseCrudService<LINE_DAO, LINE_ENTITY, LINE_PK, LINE_DTO>, LINE_DAO extends BaseDao<LINE_ENTITY, LINE_PK>, LINE_ENTITY extends BaseEntity<LINE_PK>, LINE_PK, LINE_DTO extends BaseDTO,
+        LINE_SERVICE extends BaseCrudService<LINE_DAO, LINE_ENTITY, LINE_PK, LINE_DTO>,
+        LINE_DAO extends BaseDao<LINE_ENTITY, LINE_PK>,
+        LINE_ENTITY extends BaseEntity<LINE_PK>,
+        LINE_PK,
+        LINE_DTO extends BaseDTO,
         OPTION extends BaseOptionHeaderLineDTO
         >
         extends BaseControllerImpl

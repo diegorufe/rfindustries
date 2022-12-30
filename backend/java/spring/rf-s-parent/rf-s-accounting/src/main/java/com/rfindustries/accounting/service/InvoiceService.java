@@ -1,5 +1,6 @@
 package com.rfindustries.accounting.service;
 
+import com.rfindustries.accounting.constants.AccountingConstants;
 import com.rfindustries.accounting.dao.InvoiceHeaderDao;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
 import com.rfindustries.accounting.dto.InvoiceDTO;
@@ -8,6 +9,7 @@ import com.rfindustries.accounting.dto.InvoiceLineDTO;
 import com.rfindustries.accounting.dto.OptionInvoiceDTO;
 import com.rfindustries.accounting.entities.InvoiceHeaderEntity;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
+import com.rfindustries.core.constansts.rest.RouteConstants;
 import com.rfindustries.core.service.BaseCrudHeaderLineService;
 
 public interface InvoiceService
@@ -18,4 +20,5 @@ public interface InvoiceService
         OptionInvoiceDTO
         > {
 
+    String ROUTE = RouteConstants.BASE_API_MODULES + AccountingConstants.ROUTE + "/invoices";
 }
