@@ -7,6 +7,7 @@ import com.rfindustries.shared.commons.dto.TaxVersionDTO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +16,7 @@ import static com.rfindustries.core.utils.CacheUtils.*;
 @Component
 public class CacheManager {
 
-    private ConcurrentHashMap<Long, ConcurrentHashMap<Long, CacheValue<TaxVersionDTO>>> taxVersions = new ConcurrentHashMap<>();
+    private Map<Long, Map<Long, CacheValue<TaxVersionDTO>>> taxVersions = new ConcurrentHashMap<>();
 
 
     public Optional<TaxVersionDTO> findTaxVersion(BaseCommonsParameters baseCommonsParameters, Long id) {

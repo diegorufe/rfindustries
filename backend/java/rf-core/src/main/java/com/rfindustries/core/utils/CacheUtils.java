@@ -4,6 +4,7 @@ import com.rfindustries.core.beans.cache.CacheValue;
 import com.rfindustries.core.constansts.SchedulingConstants;
 import com.rfindustries.core.features.BaseCommonsParameters;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,8 +14,8 @@ public final class CacheUtils {
         // NOT implemented
     }
 
-    public static <PK, SK, V> void clearValuesCache(ConcurrentHashMap<PK, ConcurrentHashMap<SK, CacheValue<V>>> mapValues) {
-        long now = System.currentTimeMillis();
+    public static <PK, SK, V> void clearValuesCache(Map<PK, Map<SK, CacheValue<V>>> mapValues) {
+        final long now = System.currentTimeMillis();
         mapValues.forEach((k, v) -> {
             if (v != null) {
                 v.forEach((kt, vt) -> {
@@ -26,11 +27,11 @@ public final class CacheUtils {
         });
     }
 
-    public static <PK, SK, V> Optional<V> findCacheValue(PK pk, ConcurrentHashMap<PK, ConcurrentHashMap<SK, CacheValue<V>>> mapValues, SK sk) {
+    public static <PK, SK, V> Optional<V> findCacheValue(PK pk, Map<PK, Map<SK, CacheValue<V>>> mapValues, SK sk) {
         V value = null;
 
         if (pk != null) {
-            ConcurrentHashMap<SK, CacheValue<V>> cacheTaxVersions = mapValues.getOrDefault(pk, null);
+            Map<SK, CacheValue<V>> cacheTaxVersions = mapValues.getOrDefault(pk, null);
 
             if (sk != null && cacheTaxVersions != null && cacheTaxVersions.containsKey(sk)) {
                 value = cacheTaxVersions.get(sk).getAndAudit();
@@ -40,9 +41,9 @@ public final class CacheUtils {
         return Optional.ofNullable(value);
     }
 
-    public static <PK, SK, V> V putCacheValue(PK pk, ConcurrentHashMap<PK, ConcurrentHashMap<SK, CacheValue<V>>> mapValues, V value, SK sk) {
+    public static <PK, SK, V> V putCacheValue(PK pk, Map<PK, Map<SK, CacheValue<V>>> mapValues, V value, SK sk) {
         if (pk != null && value != null) {
-            ConcurrentHashMap<SK, CacheValue<V>> cacheTaxVersions = mapValues.getOrDefault(pk, null);
+            Map<SK, CacheValue<V>> cacheTaxVersions = mapValues.getOrDefault(pk, null);
             boolean addMap = false;
 
             if (cacheTaxVersions == null) {
@@ -58,12 +59,12 @@ public final class CacheUtils {
         return value;
     }
 
-    public static <PK, SK, V> Optional<V> findCacheValueBusinessCustomer(BaseCommonsParameters baseCommonsParameters, ConcurrentHashMap<PK, ConcurrentHashMap<SK, CacheValue<V>>> mapValues, SK id) {
+    public static <PK, SK, V> Optional<V> findCacheValueBusinessCustomer(BaseCommonsParameters baseCommonsParameters, Map<PK, Map<SK, CacheValue<V>>> mapValues, SK id) {
         return baseCommonsParameters == null || baseCommonsParameters.getBusinessCustomerId() == null ? Optional.empty() : findCacheValue((PK) baseCommonsParameters.getBusinessCustomerId(), mapValues, id);
     }
 
 
-    public static <PK, SK, V> V putCacheValueBusinessCustomer(BaseCommonsParameters baseCommonsParameters, ConcurrentHashMap<PK, ConcurrentHashMap<SK, CacheValue<V>>> mapValues, V value, SK sk) {
+    public static <PK, SK, V> V putCacheValueBusinessCustomer(BaseCommonsParameters baseCommonsParameters, Map<PK, Map<SK, CacheValue<V>>> mapValues, V value, SK sk) {
         return baseCommonsParameters == null || baseCommonsParameters.getBusinessCustomerId() == null ? value : putCacheValue((PK) baseCommonsParameters.getBusinessCustomerId(), mapValues, value, sk);
     }
 }
