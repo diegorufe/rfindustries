@@ -12,6 +12,8 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String TABLE_INVOICE_HEADER = "RF_ACCOUNTING_INVOICE_HEADERS";
     public static final String TABLE_INVOICE_LINE = "RF_ACCOUNTING_INVOICE_LINES";
 
+    public static final String TABLE_CONFIGURATIONS = "RF_ACCOUNTING_CONFIGURATIONS";
+
     public static final String TABLE_SERIE = "RF_ACCOUNTING_SERIES";
 
     public static final String CODE = "CODE";
