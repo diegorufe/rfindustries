@@ -9,6 +9,7 @@ import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
 import com.rfindustries.core.dto.BaseOptionHeaderLineDTO;
 import com.rfindustries.core.entities.BaseEntity;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.service.BaseCrudHeaderLineService;
 import com.rfindustries.core.service.BaseCrudService;
 import com.rfindustries.corerest.controller.BaseRestHeaderLineCrudController;
@@ -45,42 +46,49 @@ public abstract class BaseRestHeaderLineCrudControllerImpl<
     @PostMapping(RouteConstants.INSERT)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> insert(@RequestBody BodyRequest<DTO> bodyRequest) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.upsert(this.resolveCommonsParameters(), bodyRequest.getData(), true)));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), true)));
     }
 
     @PutMapping(RouteConstants.UPDATE)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> update(@RequestBody BodyRequest<DTO> bodyRequest) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.upsert(this.resolveCommonsParameters(), bodyRequest.getData(), false)));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), false)));
     }
 
     @DeleteMapping(RouteConstants.DELETE)
     @Override
     public ResponseEntity<BodyResponseRequest<Boolean>> delete(@RequestBody BodyRequest<DTO> bodyRequest) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.delete(this.resolveCommonsParameters(), bodyRequest.getData())));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.delete(commonsParameters, bodyRequest.getData())));
     }
 
     @GetMapping(RouteConstants.GO_READ)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goRead(@RequestParam(BaseCrudController.REQUEST_PARAM_PK) HEADER_PK pk) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.goRead(this.resolveCommonsParameters(), pk)));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goRead(commonsParameters, pk)));
     }
 
     @GetMapping(RouteConstants.GO_EDIT)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goEdit(@RequestParam(BaseCrudController.REQUEST_PARAM_PK) HEADER_PK pk) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.goEdit(this.resolveCommonsParameters(), pk)));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goEdit(commonsParameters, pk)));
     }
 
     @GetMapping(RouteConstants.GO_ADD)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goAdd() {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.goAdd(this.resolveCommonsParameters())));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goAdd(commonsParameters)));
     }
 
     @GetMapping(RouteConstants.CALCULATE)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> calculate(BodyRequest<DTO> bodyRequest) {
-        return ResponseEntity.ok(new BodyResponseRequest<>(this.service.calculate(this.resolveCommonsParameters(), bodyRequest.getData())));
+        BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
+        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.calculate(commonsParameters, bodyRequest.getData())));
     }
 }

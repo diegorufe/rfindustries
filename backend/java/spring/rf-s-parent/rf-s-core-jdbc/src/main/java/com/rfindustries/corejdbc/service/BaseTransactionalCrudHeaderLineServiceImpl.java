@@ -1,5 +1,6 @@
 package com.rfindustries.corejdbc.service;
 
+import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
@@ -50,7 +51,7 @@ public abstract class BaseTransactionalCrudHeaderLineServiceImpl<
 
     @Transactional
     @Override
-    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.delete(baseCommonsParameters, dto);
     }
 }

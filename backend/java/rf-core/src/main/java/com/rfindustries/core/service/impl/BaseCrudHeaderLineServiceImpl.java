@@ -1,5 +1,6 @@
 package com.rfindustries.core.service.impl;
 
+import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
@@ -27,49 +28,60 @@ public abstract class BaseCrudHeaderLineServiceImpl<
 
 
     @Override
-    public DTO goAdd(BaseCommonsParameters baseCommonsParameters) {
+    public ResponseMethod<DTO> goAdd(BaseCommonsParameters baseCommonsParameters) {
+        ResponseMethod<DTO> responseMethod = ResponseMethod.<DTO>builder().build();
         DTO dto = this.instanceDTO();
-        dto.setHeader(this.getHeaderService().goAdd(baseCommonsParameters));
+        ResponseMethod<HEADER_DTO> responseHeader = this.getHeaderService().goAdd(baseCommonsParameters);
+
+        this.mergeMessagesResponseMethod(responseMethod, responseHeader);
+        dto.setHeader(responseHeader.getData());
         dto.setLines(new ArrayList<>());
 
-        return dto;
+        responseMethod.setData(dto);
+        return responseMethod;
     }
 
     @Override
-    public DTO goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        HEADER_DTO header = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+    public ResponseMethod<DTO> goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        ResponseMethod<DTO> responseMethod = ResponseMethod.<DTO>builder().build();
+        ResponseMethod<HEADER_DTO> responseHeader = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+        this.mergeMessagesResponseMethod(responseMethod, responseHeader);
         DTO dto = this.instanceDTO();
-        dto.setHeader(header);
-        return dto;
+        dto.setHeader(responseHeader.getData());
+        responseMethod.setData(dto);
+        return responseMethod;
     }
 
     @Override
-    public DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        HEADER_DTO header = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+    public ResponseMethod<DTO> goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        ResponseMethod<DTO> responseMethod = ResponseMethod.<DTO>builder().build();
+        ResponseMethod<HEADER_DTO> responseHeader = this.getHeaderService().goEdit(baseCommonsParameters, headerPk);
+        this.mergeMessagesResponseMethod(responseMethod, responseHeader);
         List<LINE_DTO> lines = this.getLineService().findByHeaderPk(baseCommonsParameters, headerPk);
 
         DTO dto = this.instanceDTO();
 
-        dto.setHeader(header);
+        dto.setHeader(responseHeader.getData());
         dto.setLines(lines);
 
-        return dto;
+        return responseMethod;
     }
 
     @Override
-    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         // TODO check validations
-        this.getLineService().findByHeaderPk(baseCommonsParameters, this.getHeaderService().resolvePK(dto.getHeader()));
-        this.getHeaderService().delete(baseCommonsParameters, dto.getHeader());
-        return true;
+        this.getLineService().deleteByHeaderPk(baseCommonsParameters, this.getHeaderService().resolvePK(dto.getHeader()));
+        return this.getHeaderService().delete(baseCommonsParameters, dto.getHeader());
     }
 
     @Override
-    public DTO addLine(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<DTO> addLine(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        ResponseMethod<DTO> responseMethod = ResponseMethod.<DTO>builder().build();
         if (dto.getLines() == null) {
             dto.setLines(new ArrayList<>());
         }
         dto.getLines().add(this.getLineService().instanceDTO());
-        return dto;
+        responseMethod.setData(dto);
+        return responseMethod;
     }
 }

@@ -1,5 +1,6 @@
 package com.rfindustries.core.service;
 
+import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.dto.BaseHeaderLineDTO;
@@ -20,7 +21,7 @@ public interface BaseCrudHeaderLineService<
         LINE_PK,
         LINE_DTO extends BaseDTO,
         OPTION extends BaseOptionHeaderLineDTO
-        > {
+        > extends BaseService {
 
 
     HEADER_SERVICE getHeaderService();
@@ -29,18 +30,18 @@ public interface BaseCrudHeaderLineService<
 
     DTO instanceDTO();
 
-    DTO goAdd(BaseCommonsParameters baseCommonsParameters);
+    ResponseMethod<DTO> goAdd(BaseCommonsParameters baseCommonsParameters);
 
-    DTO goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
+    ResponseMethod<DTO> goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
-    DTO goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
+    ResponseMethod<DTO> goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
-    DTO upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
+    ResponseMethod<DTO> upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
 
-    boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    DTO addLine(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<DTO> addLine(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    DTO calculate(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<DTO> calculate(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 }
