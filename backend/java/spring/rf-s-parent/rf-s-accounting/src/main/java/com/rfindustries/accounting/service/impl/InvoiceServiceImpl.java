@@ -56,6 +56,8 @@ public class InvoiceServiceImpl
 
     private void upsertHeader(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto, boolean insert) {
         dto.setHeader(insert ? this.getHeaderService().insert(baseCommonsParameters, dto.getHeader()) : this.getHeaderService().update(baseCommonsParameters, dto.getHeader()));
+
+
         // TODO remove seats
     }
 

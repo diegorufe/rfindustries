@@ -5,6 +5,7 @@ import com.rfindustries.commons.dto.TaxDTO;
 import com.rfindustries.commons.entities.TaxEntity;
 import com.rfindustries.commons.service.TaxService;
 import com.rfindustries.commons.utils.CommonsMapperUtils;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ public class TaxServiceImpl extends BaseTransactionalCrudServiceImpl<TaxDao, Tax
         implements TaxService {
 
     @Override
-    public TaxEntity toEntity(TaxDTO dto) {
+    public TaxEntity toEntity(BaseCommonsParameters baseCommonsParameters, TaxDTO dto) {
         return CommonsMapperUtils.toTaxEntity(dto);
     }
 
     @Override
-    public TaxDTO toDTO(TaxEntity entity) {
+    public TaxDTO toDTO(BaseCommonsParameters baseCommonsParameters, TaxEntity entity) {
         return CommonsMapperUtils.toTaxDTO(entity);
     }
 

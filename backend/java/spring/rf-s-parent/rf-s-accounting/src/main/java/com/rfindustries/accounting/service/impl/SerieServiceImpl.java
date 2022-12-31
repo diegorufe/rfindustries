@@ -1,5 +1,6 @@
 package com.rfindustries.accounting.service.impl;
 
+import com.rfindustries.accounting.constants.SerieType;
 import com.rfindustries.accounting.dao.SerieDao;
 import com.rfindustries.accounting.dto.SerieDTO;
 import com.rfindustries.accounting.entities.SerieEntity;
@@ -26,5 +27,15 @@ public class SerieServiceImpl extends BaseTransactionalCrudServiceImpl<SerieDao,
     @Override
     public SerieDTO instanceDTO() {
         return SerieDTO.builder().build();
+    }
+
+    @Override
+    public int incrementNumber(BaseCommonsParameters baseCommonsParameters, SerieType serieType, String code, Integer number) {
+        return this.getDao().incrementNumber(baseCommonsParameters.getEnterpriseIdCastToDesire(), serieType.getType(), code, number);
+    }
+
+    @Override
+    public int decrementNumber(BaseCommonsParameters baseCommonsParameters, SerieType serieType, String code, Integer number) {
+        return this.getDao().decrementNumber(baseCommonsParameters.getEnterpriseIdCastToDesire(), serieType.getType(), code, number);
     }
 }

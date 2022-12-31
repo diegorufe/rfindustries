@@ -1,5 +1,6 @@
 package com.rfindustries.corejdbc.service;
 
+import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
@@ -30,31 +31,31 @@ public abstract class BaseTransactionalCrudServiceImpl<
 
     @Transactional
     @Override
-    public List<DTO> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
+    public ResponseMethod<List<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
         return super.insertAll(baseCommonsParameters, dtos);
     }
 
     @Transactional
     @Override
-    public DTO insert(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<DTO> insert(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.insert(baseCommonsParameters, dto);
     }
 
     @Transactional
     @Override
-    public DTO update(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<DTO> update(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.update(baseCommonsParameters, dto);
     }
 
     @Transactional
     @Override
-    public List<DTO> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
+    public ResponseMethod<List<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
         return super.updateAll(baseCommonsParameters, dtos);
     }
 
     @Transactional
     @Override
-    public boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.delete(baseCommonsParameters, dto);
     }
 }

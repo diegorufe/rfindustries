@@ -1,5 +1,6 @@
 package com.rfindustries.core.service;
 
+import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
@@ -11,13 +12,13 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     DAO getDao();
 
-    List<DTO> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
+    ResponseMethod<List<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
 
-    DTO insert(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<DTO> insert(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    List<DTO> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
+    ResponseMethod<List<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
 
-    DTO update(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<DTO> update(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
     ENTITY toEntity(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
@@ -25,22 +26,23 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     DTO instanceDTO();
 
-    default DTO actionDoAfterInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert) {
-        return dto;
+    default ResponseMethod<DTO> actionDoAfterInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert) {
+        return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
-    default DTO actionDoBeforeInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert) {
-        return dto;
+    default ResponseMethod<DTO> actionDoBeforeInsertUpdate(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert) {
+        return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
-    boolean delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 
-    default DTO actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
-        return dto;
+    default  ResponseMethod<DTO> actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
-    default void actionDoAfterDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    default ResponseMethod<DTO> actionDoAfterDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+        return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
     DTO findById(BaseCommonsParameters baseCommonsParameters, PK pk);
@@ -49,11 +51,11 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
         return List.of();
     }
 
-    DTO goRead(BaseCommonsParameters baseCommonsParameters, PK pk);
+    ResponseMethod<DTO> goRead(BaseCommonsParameters baseCommonsParameters, PK pk);
 
-    DTO goEdit(BaseCommonsParameters baseCommonsParameters, PK pk);
+    ResponseMethod<DTO> goEdit(BaseCommonsParameters baseCommonsParameters, PK pk);
 
-    DTO goAdd(BaseCommonsParameters baseCommonsParameters);
+    ResponseMethod<DTO> goAdd(BaseCommonsParameters baseCommonsParameters);
 
     default <HEADER_PK> long deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
         return 0;

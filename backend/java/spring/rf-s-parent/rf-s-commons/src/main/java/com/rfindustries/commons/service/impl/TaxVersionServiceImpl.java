@@ -7,6 +7,7 @@ import com.rfindustries.commons.entities.TaxVersionEntity;
 import com.rfindustries.commons.entities.mappers.entities.TaxVersionWithTaxEntity;
 import com.rfindustries.commons.service.TaxVersionService;
 import com.rfindustries.commons.utils.CommonsMapperUtils;
+import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,12 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
         implements TaxVersionService {
 
     @Override
-    public TaxVersionEntity toEntity(TaxVersionDTO dto) {
+    public TaxVersionEntity toEntity(BaseCommonsParameters baseCommonsParameters, TaxVersionDTO dto) {
         return CommonsMapperUtils.toTaxVersionEntity(dto);
     }
 
     @Override
-    public TaxVersionDTO toDTO(TaxVersionEntity entity) {
+    public TaxVersionDTO toDTO(BaseCommonsParameters baseCommonsParameters, TaxVersionEntity entity) {
         return CommonsMapperUtils.toTaxVersionDTO(entity);
     }
 
