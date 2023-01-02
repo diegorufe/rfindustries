@@ -33,6 +33,9 @@ public final class EntityDefinition extends BaseJDBCEntityDefinition {
     public static final String TOTAL_BASE = "TOTAL_BASE";
     public static final String TOTAL_TAXES = "TOTAL_TAXES";
 
+    public static final String START_DATE = "START_DATE";
+    public static final String END_DATE = "END_DATE";
+
     private EntityDefinition(){
         // NOT implemented
     }

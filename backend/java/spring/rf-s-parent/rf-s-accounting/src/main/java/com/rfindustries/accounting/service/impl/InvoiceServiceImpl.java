@@ -4,12 +4,10 @@ import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.accounting.constants.CalculationInvoiceType;
 import com.rfindustries.accounting.dao.InvoiceHeaderDao;
 import com.rfindustries.accounting.dao.InvoiceLineDao;
-import com.rfindustries.accounting.dto.InvoiceDTO;
-import com.rfindustries.accounting.dto.InvoiceHeaderDTO;
-import com.rfindustries.accounting.dto.InvoiceLineDTO;
-import com.rfindustries.accounting.dto.OptionInvoiceDTO;
+import com.rfindustries.accounting.dto.*;
 import com.rfindustries.accounting.entities.InvoiceHeaderEntity;
 import com.rfindustries.accounting.entities.InvoiceLineEntity;
+import com.rfindustries.accounting.service.ConfigurationService;
 import com.rfindustries.accounting.service.InvoiceHeaderService;
 import com.rfindustries.accounting.service.InvoiceLineService;
 import com.rfindustries.accounting.service.InvoiceService;
@@ -17,6 +15,7 @@ import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.features.CalculationType;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudHeaderLineServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +34,9 @@ public class InvoiceServiceImpl
         InvoiceLineService, InvoiceLineDao, InvoiceLineEntity, Long, InvoiceLineDTO,
         OptionInvoiceDTO
         > implements InvoiceService {
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     @Override
     public InvoiceDTO instanceDTO() {
@@ -107,7 +109,13 @@ public class InvoiceServiceImpl
         InvoiceHeaderDTO header = responseMethod.getData().getHeader();
         header.setDateTime(LocalDateTime.now());
 
-        // TODO find default data
+        ConfigurationDTO configuration = this.configurationService.findByEnterpriseIdCached(baseCommonsParameters);
+
+        if (configuration != null) {
+            header.setAccounting(configuration.getAccounting());
+            header.setAccountingYear(configuration.getAccountingYear());
+        }
+
 
         return responseMethod;
     }

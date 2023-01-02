@@ -4,7 +4,6 @@ import com.rf.collections.utils.CollectionUtils;
 import com.rfindustries.commons.dao.TaxVersionDao;
 import com.rfindustries.commons.dto.TaxVersionDTO;
 import com.rfindustries.commons.entities.TaxVersionEntity;
-import com.rfindustries.commons.entities.mappers.entities.TaxVersionWithTaxEntity;
 import com.rfindustries.commons.service.TaxVersionService;
 import com.rfindustries.commons.utils.CommonsMapperUtils;
 import com.rfindustries.core.features.BaseCommonsParameters;
@@ -16,9 +15,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import static com.rfindustries.commons.utils.CommonsMapperUtils.fromTaxVersionWithTaxEntity;
 
 
 @Service
@@ -45,7 +41,7 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
         TaxVersionDTO result = null;
 
         if (taxId != null && startDate != null) {
-            result = fromTaxVersionWithTaxEntity(this.getDao().findTaxVersionByTaxIdAndDate(taxId, startDate));
+            result = this.getDao().findTaxVersionByTaxIdAndDate(taxId, startDate);
         }
 
         return Optional.ofNullable(result);
@@ -56,10 +52,10 @@ public class TaxVersionServiceImpl extends BaseTransactionalCrudServiceImpl<TaxV
         Set<TaxVersionDTO> result = new LinkedHashSet<>();
 
         if (CollectionUtils.isNotEmpty(ids)) {
-            List<TaxVersionWithTaxEntity> entities = this.getDao().findTaxVersionsByIds(ids);
+            List<TaxVersionDTO> dtos = this.getDao().findTaxVersionsByIds(ids);
 
-            if (CollectionUtils.isNotEmpty(entities)) {
-                result = entities.stream().map(CommonsMapperUtils::fromTaxVersionWithTaxEntity).collect(Collectors.toSet());
+            if (CollectionUtils.isNotEmpty(dtos)) {
+                result = new LinkedHashSet<>(dtos);
             }
 
         }

@@ -226,4 +226,32 @@ public final class AccountingMapperUtils {
                 .type(SerieType.getByType(entity.getType()))
                 .build();
     }
+
+    public static ConfigurationEntity toConfigurationEntity(ConfigurationDTO dto) {
+        return ConfigurationEntity.builder()
+                .id(dto.getId())
+                .businessCustomerId(dto.getBusinessCustomerId())
+                .enterpriseId(dto.getEnterpriseId())
+                .createdAt(dto.getCreatedAt())
+                .updatedAt(dto.getUpdatedAt())
+                .userCreatedAtId(dto.resolverUserCreatedAtId())
+                .userUpdatedAtId(dto.resolverUserUpdatedAtId())
+                .accountingId(dto.getAccounting() == null ? null : dto.getAccounting().getId())
+                .accountingYearId(dto.getAccountingYear() == null ? null : dto.getAccountingYear().getId())
+                .build();
+    }
+
+    public static ConfigurationDTO toConfigurationDTO(ConfigurationEntity entity) {
+        return ConfigurationDTO.builder()
+                .id(entity.getId())
+                .businessCustomerId(entity.getBusinessCustomerId())
+                .enterpriseId(entity.getEnterpriseId())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .userCreatedAtId(entity.getUserCreatedAtId())
+                .userUpdatedAtId(entity.getUserUpdatedAtId())
+                .accounting(AccountingDTO.builder().id(entity.getAccountingId()).build())
+                .accountingYear(AccountingYearDTO.builder().id(entity.getAccountingYearId()).build())
+                .build();
+    }
 }

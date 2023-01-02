@@ -33,7 +33,6 @@ public final class SharedMapperUtils {
                 .id(taxVersion.getId())
                 .startDate(fromGoogleDate(taxVersion.getStarDate()))
                 .value(fromGoogleDecimal(taxVersion.getValue()))
-                .taxId(taxVersion.getTaxId())
                 .tax(fromTax(taxVersion.getTax()))
                 .businessCustomerId(taxVersion.getBusinessCustomerId())
                 .enterpriseId(getLongValue(taxVersion.getEnterpriseId()))

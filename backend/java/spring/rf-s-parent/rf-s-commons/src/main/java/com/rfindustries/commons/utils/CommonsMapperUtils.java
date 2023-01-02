@@ -4,30 +4,14 @@ import com.rfindustries.commons.dto.TaxDTO;
 import com.rfindustries.commons.dto.TaxVersionDTO;
 import com.rfindustries.commons.entities.TaxEntity;
 import com.rfindustries.commons.entities.TaxVersionEntity;
-import com.rfindustries.commons.entities.mappers.entities.TaxVersionWithTaxEntity;
 import com.rfindustries.shared.commons.constants.TaxVersionType;
 
 public final class CommonsMapperUtils {
 
-    private CommonsMapperUtils(){
+    private CommonsMapperUtils() {
         // NOT Implemented
     }
 
-    public static TaxVersionDTO fromTaxVersionWithTaxEntity(TaxVersionWithTaxEntity taxVersionWithTaxEntity) {
-        return taxVersionWithTaxEntity == null
-                ? null
-                : TaxVersionDTO.builder()
-                .id(taxVersionWithTaxEntity.getTaxVersion().getId())
-                .type(TaxVersionType.findByType(taxVersionWithTaxEntity.getTaxVersion().getType()))
-                .value(taxVersionWithTaxEntity.getTaxVersion().getValue())
-                .startDate(taxVersionWithTaxEntity.getTaxVersion().getStartDate())
-                .tax(TaxDTO.builder()
-                        .id(taxVersionWithTaxEntity.getTax().getId())
-                        .code(taxVersionWithTaxEntity.getTax().getCode())
-                        .name(taxVersionWithTaxEntity.getTax().getName())
-                        .build())
-                .build();
-    }
 
     public static TaxEntity toTaxEntity(TaxDTO dto) {
         return TaxEntity.builder()
