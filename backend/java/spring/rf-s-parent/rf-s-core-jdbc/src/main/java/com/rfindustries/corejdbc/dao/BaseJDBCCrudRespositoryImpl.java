@@ -15,9 +15,9 @@ import java.util.stream.StreamSupport;
 @Transactional(
         readOnly = true
 )
-public class BAseJDBCCrudRespositoryImpl<ENTITY extends BaseEntity<Long>> extends SimpleJdbcRepository<ENTITY, Long> implements BaseJDBCCrudRepository<ENTITY> {
+public class BaseJDBCCrudRespositoryImpl<ENTITY extends BaseEntity<Long>> extends SimpleJdbcRepository<ENTITY, Long> implements BaseJDBCCrudRepository<ENTITY> {
 
-    public BAseJDBCCrudRespositoryImpl(JdbcAggregateOperations entityOperations, PersistentEntity<ENTITY, ?> entity, JdbcConverter converter) {
+    public BaseJDBCCrudRespositoryImpl(JdbcAggregateOperations entityOperations, PersistentEntity<ENTITY, ?> entity, JdbcConverter converter) {
         super(entityOperations, entity, converter);
     }
 

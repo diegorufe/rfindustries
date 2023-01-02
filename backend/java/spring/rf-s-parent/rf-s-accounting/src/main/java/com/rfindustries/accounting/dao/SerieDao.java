@@ -6,11 +6,13 @@ import com.rfindustries.corejdbc.dao.BaseJDBCCrudRepository;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface SerieDao extends BaseJDBCCrudRepository<SerieEntity> {
 
 
+    @Transactional
     @Query("UPDATE RF_ACCOUNTING_SERIES " +
             "SET NUMBER = :NUMBER " +
             "WHERE ENTERPRISE_ID = :ENTERPRISE_ID " +
@@ -22,6 +24,7 @@ public interface SerieDao extends BaseJDBCCrudRepository<SerieEntity> {
                      @Param(EntityDefinition.CODE) String code,
                      @Param(EntityDefinition.NUMBER) Integer number);
 
+    @Transactional
     @Query("UPDATE RF_ACCOUNTING_SERIES " +
             "SET NUMBER = :NUMBER " +
             "WHERE ENTERPRISE_ID = :ENTERPRISE_ID " +

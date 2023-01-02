@@ -48,7 +48,7 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
 
     @Override
     public List<InvoiceLineDTO> findAllByInvoiceId(BaseCommonsParameters baseCommonsParameters, Long invoiceId) {
-        return this.entitiesToDTOs(baseCommonsParameters, this.getDao().findAllByInvoiceId(invoiceId));
+        return this.getDao().findAllByInvoiceId(invoiceId);
     }
 
     private List<InvoiceLineDTO> entitiesToDTOs(BaseCommonsParameters baseCommonsParameters, List<InvoiceLineEntity> entities) {
