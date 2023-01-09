@@ -6,7 +6,9 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface BaseReactiveMongoRepository<ENTITY extends BaseEntity<String>> extends ReactiveMongoRepository<ENTITY, String>, BaseDao<ENTITY, String> {
+public interface BaseReactiveMongoRepository
+        <ENTITY extends BaseEntity<String>>
+        extends ReactiveMongoRepository<ENTITY, String>, BaseDao<ENTITY, String> {
 
 
 
