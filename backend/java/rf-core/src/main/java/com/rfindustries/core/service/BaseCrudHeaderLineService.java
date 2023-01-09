@@ -7,6 +7,7 @@ import com.rfindustries.core.dto.BaseHeaderLineDTO;
 import com.rfindustries.core.dto.BaseOptionHeaderLineDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import reactor.core.publisher.Mono;
 
 public interface BaseCrudHeaderLineService<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
@@ -30,18 +31,18 @@ public interface BaseCrudHeaderLineService<
 
     DTO instanceDTO();
 
-    ResponseMethod<DTO> goAdd(BaseCommonsParameters baseCommonsParameters);
+    ResponseMethod<Mono<DTO>> goAdd(BaseCommonsParameters baseCommonsParameters);
 
-    ResponseMethod<DTO> goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
+    ResponseMethod<Mono<DTO>> goRead(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
-    ResponseMethod<DTO> goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
+    ResponseMethod<Mono<DTO>> goEdit(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk);
 
-    ResponseMethod<DTO> upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
+    ResponseMethod<Mono<DTO>> upsert(BaseCommonsParameters baseCommonsParameters, DTO dto, boolean insert);
 
-    ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<Boolean>> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    ResponseMethod<DTO> addLine(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<DTO>> addLine(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    ResponseMethod<DTO> calculate(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<DTO>> calculate(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 }

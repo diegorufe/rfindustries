@@ -14,15 +14,19 @@ import com.rfindustries.accounting.service.InvoiceService;
 import com.rfindustries.core.beans.ResponseMethod;
 import com.rfindustries.core.features.BaseCommonsParameters;
 import com.rfindustries.core.features.CalculationType;
+import com.rfindustries.core.utils.ReactorUtils;
 import com.rfindustries.corejdbc.service.BaseTransactionalCrudHeaderLineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,25 +53,25 @@ public class InvoiceServiceImpl
 
     @Transactional
     @Override
-    public ResponseMethod<InvoiceDTO> upsert(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto, boolean insert) {
-        ResponseMethod<InvoiceDTO> responseMethod = ResponseMethod.<InvoiceDTO>builder().build();
+    public ResponseMethod<Mono<InvoiceDTO>> upsert(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto, boolean insert) {
+        ResponseMethod<Mono<InvoiceDTO>> responseMethod = ResponseMethod.<Mono<InvoiceDTO>>builder().build();
         // TODO check validations
         this.upsertHeader(baseCommonsParameters, responseMethod, dto, insert);
         this.upsertLines(baseCommonsParameters, responseMethod, dto, insert);
 
-        responseMethod.setData(dto);
+        responseMethod.setData(Mono.just(dto));
 
         return responseMethod;
     }
 
-    private void upsertHeader(BaseCommonsParameters baseCommonsParameters, ResponseMethod<InvoiceDTO> responseMethod, InvoiceDTO dto, boolean insert) {
-        ResponseMethod<InvoiceHeaderDTO> responseHeader = insert ? this.getHeaderService().insert(baseCommonsParameters, dto.getHeader()) : this.getHeaderService().update(baseCommonsParameters, dto.getHeader());
-        dto.setHeader(responseHeader.getData());
+    private void upsertHeader(BaseCommonsParameters baseCommonsParameters, ResponseMethod<Mono<InvoiceDTO>> responseMethod, InvoiceDTO dto, boolean insert) {
+        ResponseMethod<Mono<InvoiceHeaderDTO>> responseHeader = insert ? this.getHeaderService().insert(baseCommonsParameters, dto.getHeader()) : this.getHeaderService().update(baseCommonsParameters, dto.getHeader());
+        dto.setHeader(responseHeader.getData().block());
         this.mergeMessagesResponseMethod(responseMethod, responseHeader);
         // TODO remove seats
     }
 
-    private void upsertLines(BaseCommonsParameters baseCommonsParameters, ResponseMethod<InvoiceDTO> responseMethod, InvoiceDTO dto, boolean insert) {
+    private void upsertLines(BaseCommonsParameters baseCommonsParameters, ResponseMethod<Mono<InvoiceDTO>> responseMethod, InvoiceDTO dto, boolean insert) {
         final InvoiceHeaderDTO header = dto.getHeader();
         header.setTotal(BigDecimal.ZERO);
         header.setTotalBase(BigDecimal.ZERO);
@@ -93,10 +97,10 @@ public class InvoiceServiceImpl
                 header.setTotal(header.getTotal().add(line.getTotal()));
             });
 
-            ResponseMethod<List<InvoiceLineDTO>> responseLines = this.getLineService().insertAll(baseCommonsParameters, dto.getLines());
+            ResponseMethod<Flux<InvoiceLineDTO>> responseLines = this.getLineService().insertAll(baseCommonsParameters, dto.getLines());
             this.mergeMessagesResponseMethod(responseMethod, responseLines);
 
-            dto.setLines(responseLines.getData());
+            dto.setLines(ReactorUtils.fluxToMonoList(responseLines.getData()).block());
         }
 
         // Update totals
@@ -104,9 +108,12 @@ public class InvoiceServiceImpl
     }
 
     @Override
-    public ResponseMethod<InvoiceDTO> goAdd(BaseCommonsParameters baseCommonsParameters) {
-        ResponseMethod<InvoiceDTO> responseMethod = super.goAdd(baseCommonsParameters);
-        InvoiceHeaderDTO header = responseMethod.getData().getHeader();
+    public ResponseMethod<Mono<InvoiceDTO>> goAdd(BaseCommonsParameters baseCommonsParameters) {
+        ResponseMethod<Mono<InvoiceDTO>> responseMethod = super.goAdd(baseCommonsParameters);
+        InvoiceDTO dto = responseMethod.getData().block();
+        Objects.requireNonNull(dto);
+        Objects.requireNonNull(dto.getHeader());
+        InvoiceHeaderDTO header = dto.getHeader();
         header.setDateTime(LocalDateTime.now());
 
         ConfigurationDTO configuration = this.configurationService.findByEnterpriseIdCached(baseCommonsParameters);
@@ -121,9 +128,9 @@ public class InvoiceServiceImpl
     }
 
     @Override
-    public ResponseMethod<InvoiceDTO> calculate(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
+    public ResponseMethod<Mono<InvoiceDTO>> calculate(BaseCommonsParameters baseCommonsParameters, InvoiceDTO dto) {
         Set<CalculationType> calculationTypes = dto.getOptions() == null ? null : dto.getOptions().getCalculationTypes();
-        ResponseMethod<InvoiceDTO> responseMethod = ResponseMethod.<InvoiceDTO>builder().data(dto).build();
+        ResponseMethod<Mono<InvoiceDTO>> responseMethod = ResponseMethod.<Mono<InvoiceDTO>>builder().data(Mono.just(dto)).build();
 
         if (calculationTypes != null) {
             calculationTypes.forEach(type -> {
@@ -137,6 +144,7 @@ public class InvoiceServiceImpl
             });
         }
 
+        responseMethod.setData(Mono.just(dto));
         return responseMethod;
     }
 
@@ -176,4 +184,5 @@ public class InvoiceServiceImpl
             });
         }
     }
+
 }

@@ -5,6 +5,8 @@ import com.rfindustries.core.dao.BaseDao;
 import com.rfindustries.core.dto.BaseDTO;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -12,13 +14,13 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
 
     DAO getDao();
 
-    ResponseMethod<List<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
+    ResponseMethod<Flux<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
 
-    ResponseMethod<DTO> insert(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<DTO>> insert(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
-    ResponseMethod<List<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
+    ResponseMethod<Flux<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos);
 
-    ResponseMethod<DTO> update(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<DTO>> update(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
     ENTITY toEntity(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
@@ -34,10 +36,10 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
         return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
-    ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
+    ResponseMethod<Mono<Boolean>> delete(BaseCommonsParameters baseCommonsParameters, DTO dto);
 
 
-    default  ResponseMethod<DTO> actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    default ResponseMethod<DTO> actionDoBeforeDelete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
@@ -45,20 +47,20 @@ public interface BaseCrudService<DAO extends BaseDao<ENTITY, PK>, ENTITY extends
         return ResponseMethod.<DTO>builder().data(dto).build();
     }
 
-    DTO findById(BaseCommonsParameters baseCommonsParameters, PK pk);
+    Mono<DTO> findById(BaseCommonsParameters baseCommonsParameters, PK pk);
 
-    default <HEADER_PK> List<DTO> findByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        return List.of();
+    default <HEADER_PK> Flux<DTO> findByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        return Flux.empty();
     }
 
-    ResponseMethod<DTO> goRead(BaseCommonsParameters baseCommonsParameters, PK pk);
+    ResponseMethod<Mono<DTO>> goRead(BaseCommonsParameters baseCommonsParameters, PK pk);
 
-    ResponseMethod<DTO> goEdit(BaseCommonsParameters baseCommonsParameters, PK pk);
+    ResponseMethod<Mono<DTO>> goEdit(BaseCommonsParameters baseCommonsParameters, PK pk);
 
-    ResponseMethod<DTO> goAdd(BaseCommonsParameters baseCommonsParameters);
+    ResponseMethod<Mono<DTO>> goAdd(BaseCommonsParameters baseCommonsParameters);
 
-    default <HEADER_PK> long deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        return 0;
+    default <HEADER_PK> Mono<Long> deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        return Mono.just(0L);
     }
 
     default PK resolvePK(DTO dto) {

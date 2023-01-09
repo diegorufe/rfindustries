@@ -8,6 +8,8 @@ import org.springframework.data.jdbc.core.convert.JdbcConverter;
 import org.springframework.data.jdbc.repository.support.SimpleJdbcRepository;
 import org.springframework.data.mapping.PersistentEntity;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -22,7 +24,8 @@ public class BaseJDBCCrudRespositoryImpl<ENTITY extends BaseEntity<Long>> extend
     }
 
 
-    private List<ENTITY> insertUpdateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities, boolean create) {
+    private Flux<ENTITY> insertUpdateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities, boolean create) {
+        Flux<ENTITY> result = null;
         if (CollectionUtils.isNotEmpty(entities)) {
             entities.forEach(entity -> {
                 this.audit(baseCommonsParameters.getUserId(), entity, create);
@@ -30,20 +33,27 @@ public class BaseJDBCCrudRespositoryImpl<ENTITY extends BaseEntity<Long>> extend
                 this.resolveEnterprise(baseCommonsParameters, entity);
             });
             entities = StreamSupport.stream(this.saveAll(entities).spliterator(), false).toList();
+            result = Flux.just(entities.toArray(CollectionUtils.instanceArray((Class<ENTITY>) entities.get(0).getClass(), entities.size())));
         }
-        return entities;
+        return result;
     }
 
     @Transactional
     @Override
-    public List<ENTITY> insertAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
+    public Flux<ENTITY> insertAllEntities(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
         return this.insertUpdateAll(baseCommonsParameters, entities, true);
     }
 
     @Transactional
     @Override
-    public List<ENTITY> updateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
+    public Flux<ENTITY> updateAllEntities(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities) {
         return this.insertUpdateAll(baseCommonsParameters, entities, false);
+    }
+
+    @Override
+    public Mono<Boolean> deleteEntity(ENTITY entity) {
+        this.delete(entity);
+        return Mono.just(true);
     }
 
 }

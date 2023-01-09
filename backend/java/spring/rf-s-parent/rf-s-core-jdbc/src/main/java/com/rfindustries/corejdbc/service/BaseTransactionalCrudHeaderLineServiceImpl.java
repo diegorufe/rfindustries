@@ -12,6 +12,7 @@ import com.rfindustries.core.service.BaseCrudService;
 import com.rfindustries.core.service.impl.BaseCrudHeaderLineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 public abstract class BaseTransactionalCrudHeaderLineServiceImpl<
         DTO extends BaseHeaderLineDTO<HEADER_DTO, LINE_DTO, OPTION>,
@@ -51,7 +52,7 @@ public abstract class BaseTransactionalCrudHeaderLineServiceImpl<
 
     @Transactional
     @Override
-    public ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Mono<Boolean>> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.delete(baseCommonsParameters, dto);
     }
 }

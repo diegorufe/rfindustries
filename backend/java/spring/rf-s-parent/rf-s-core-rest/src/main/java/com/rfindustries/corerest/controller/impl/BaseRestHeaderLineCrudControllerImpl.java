@@ -47,48 +47,48 @@ public abstract class BaseRestHeaderLineCrudControllerImpl<
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> insert(@RequestBody BodyRequest<DTO> bodyRequest) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), true)));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), true)));
     }
 
     @PutMapping(RouteConstants.UPDATE)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> update(@RequestBody BodyRequest<DTO> bodyRequest) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), false)));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.upsert(commonsParameters, bodyRequest.getData(), false)));
     }
 
     @DeleteMapping(RouteConstants.DELETE)
     @Override
     public ResponseEntity<BodyResponseRequest<Boolean>> delete(@RequestBody BodyRequest<DTO> bodyRequest) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.delete(commonsParameters, bodyRequest.getData())));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.delete(commonsParameters, bodyRequest.getData())));
     }
 
     @GetMapping(RouteConstants.GO_READ)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goRead(@RequestParam(BaseCrudController.REQUEST_PARAM_PK) HEADER_PK pk) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goRead(commonsParameters, pk)));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.goRead(commonsParameters, pk)));
     }
 
     @GetMapping(RouteConstants.GO_EDIT)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goEdit(@RequestParam(BaseCrudController.REQUEST_PARAM_PK) HEADER_PK pk) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goEdit(commonsParameters, pk)));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.goEdit(commonsParameters, pk)));
     }
 
     @GetMapping(RouteConstants.GO_ADD)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> goAdd() {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.goAdd(commonsParameters)));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.goAdd(commonsParameters)));
     }
 
     @GetMapping(RouteConstants.CALCULATE)
     @Override
     public ResponseEntity<BodyResponseRequest<DTO>> calculate(BodyRequest<DTO> bodyRequest) {
         BaseCommonsParameters commonsParameters = this.resolveCommonsParameters();
-        return ResponseEntity.ok(this.resolveResponseMethod(commonsParameters, this.service.calculate(commonsParameters, bodyRequest.getData())));
+        return ResponseEntity.ok(this.resolveMonoResponseMethod(commonsParameters, this.service.calculate(commonsParameters, bodyRequest.getData())));
     }
 }

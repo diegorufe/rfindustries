@@ -1,73 +1,50 @@
 package com.rfindustries.core.dao;
 
-import com.rf.collections.utils.CollectionUtils;
+import com.rfindustries.core.dao.features.DaoAuditFeature;
+import com.rfindustries.core.dao.features.DaoCustomerEnterpriseFeature;
 import com.rfindustries.core.entities.BaseEntity;
 import com.rfindustries.core.features.BaseCommonsParameters;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> {
-    default <T> void audit(T userId, ENTITY entity, boolean create) {
-        Objects.requireNonNull(entity);
-        entity.audit(userId, create);
-    }
+public interface BaseDao<ENTITY extends BaseEntity<PK>, PK> extends
+        DaoAuditFeature<ENTITY, PK>,
+        DaoCustomerEnterpriseFeature<ENTITY, PK> {
 
-    default ENTITY insert(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
-        ENTITY result = null;
+    default Mono<ENTITY> insertEntity(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
+        Mono<ENTITY> result = null;
         if (entity != null) {
-            List<ENTITY> entities = this.insertAll(baseCommonsParameters, List.of(entity));
-
-            if (CollectionUtils.isNotEmpty(entities)) {
-                result = entities.get(0);
-            }
+            Flux<ENTITY> entities = this.insertAllEntities(baseCommonsParameters, List.of(entity));
+            result = entities.collect(Collectors.reducing((i1, i2) -> i1))
+                    .map(Optional::get);
         }
 
         return result;
     }
 
-    List<ENTITY> insertAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
+    Flux<ENTITY> insertAllEntities(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
 
-    default ENTITY update(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
-        ENTITY result = null;
+
+    default Mono<ENTITY> updateEntity(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
+        Mono<ENTITY> result = null;
         if (entity != null) {
-            List<ENTITY> entities = this.updateAll(baseCommonsParameters, List.of(entity));
-
-            if (CollectionUtils.isNotEmpty(entities)) {
-                result = entities.get(0);
-            }
+            Flux<ENTITY> entities = this.updateAllEntities(baseCommonsParameters, List.of(entity));
+            result = entities.collect(Collectors.reducing((i1, i2) -> i1))
+                    .map(Optional::get);
         }
 
         return result;
     }
 
-    List<ENTITY> updateAll(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
+    Flux<ENTITY> updateAllEntities(BaseCommonsParameters baseCommonsParameters, List<ENTITY> entities);
 
-    void delete(ENTITY entity);
+    Mono<Boolean> deleteEntity(ENTITY entity);
 
-    default boolean isBusinessCustomerRequired() {
-        return true;
-    }
-
-
-    default boolean isEnterpriseRequired() {
-        return true;
-    }
-
-    default void resolveBusinessCustomer(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
-        if (isBusinessCustomerRequired()) {
-            entity.resolveBusinessCustomer(baseCommonsParameters.getBusinessCustomerIdCastToDesire());
-        }
-    }
-
-    default void resolveEnterprise(BaseCommonsParameters baseCommonsParameters, ENTITY entity) {
-        if (isEnterpriseRequired()) {
-            entity.resolveEnterprise(baseCommonsParameters.getEnterpriseIdCastToDesire());
-        }
-    }
-
-    default Optional<ENTITY> findById(PK id){
-        return Optional.empty();
+    default Mono<ENTITY> findEntityById(PK id){
+        return Mono.empty();
     }
 }

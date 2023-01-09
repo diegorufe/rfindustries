@@ -16,6 +16,8 @@ import com.rfindustries.shared.commons.service.TaxVersionGrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -112,14 +114,21 @@ public class InvoiceLineServiceImpl extends BaseTransactionalCrudServiceImpl<Inv
     }
 
     @Override
-    public <HEADER_PK> List<InvoiceLineDTO> findByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        return this.findAllByInvoiceId(baseCommonsParameters, (Long) headerPk);
+    public <HEADER_PK> Flux<InvoiceLineDTO> findByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        List<InvoiceLineDTO> lines = this.findAllByInvoiceId(baseCommonsParameters, (Long) headerPk);
+        Flux<InvoiceLineDTO> result = Flux.empty();
+
+        if(CollectionUtils.isNotEmpty(lines)){
+            result = Flux.just(CollectionUtils.listToArray(lines));
+        }
+
+        return result;
     }
 
     @Transactional
     @Override
-    public <HEADER_PK> long deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
-        return this.deleteAllByInvoiceId(baseCommonsParameters, (Long) headerPk);
+    public <HEADER_PK> Mono<Long> deleteByHeaderPk(BaseCommonsParameters baseCommonsParameters, HEADER_PK headerPk) {
+        return Mono.just(this.deleteAllByInvoiceId(baseCommonsParameters, (Long) headerPk));
     }
 
     @Transactional

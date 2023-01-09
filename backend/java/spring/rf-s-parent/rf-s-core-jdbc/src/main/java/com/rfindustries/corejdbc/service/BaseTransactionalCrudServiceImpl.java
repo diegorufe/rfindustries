@@ -9,6 +9,8 @@ import com.rfindustries.core.service.BaseCrudService;
 import com.rfindustries.core.service.impl.BaseCrudServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -31,31 +33,31 @@ public abstract class BaseTransactionalCrudServiceImpl<
 
     @Transactional
     @Override
-    public ResponseMethod<List<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
+    public ResponseMethod<Flux<DTO>> insertAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
         return super.insertAll(baseCommonsParameters, dtos);
     }
 
     @Transactional
     @Override
-    public ResponseMethod<DTO> insert(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Mono<DTO>> insert(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.insert(baseCommonsParameters, dto);
     }
 
     @Transactional
     @Override
-    public ResponseMethod<DTO> update(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Mono<DTO>> update(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.update(baseCommonsParameters, dto);
     }
 
     @Transactional
     @Override
-    public ResponseMethod<List<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
+    public ResponseMethod<Flux<DTO>> updateAll(BaseCommonsParameters baseCommonsParameters, List<DTO> dtos) {
         return super.updateAll(baseCommonsParameters, dtos);
     }
 
     @Transactional
     @Override
-    public ResponseMethod<Boolean> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
+    public ResponseMethod<Mono<Boolean>> delete(BaseCommonsParameters baseCommonsParameters, DTO dto) {
         return super.delete(baseCommonsParameters, dto);
     }
 }
