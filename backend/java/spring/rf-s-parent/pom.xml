@@ -12,11 +12,13 @@
 		<module>./rf-s-core-jdbc</module>
 		<module>./rf-s-core-mongo</module>
 		<module>./rf-s-core-rest</module>
-		<module>./rf-s-accounting</module>
-		<module>./rf-s-commons</module>
+		<module>./rf-s-core-reactive-rest</module>
 		<module>./rf-s-core-grpc-server</module>
 		<module>./rf-s-core-grpc-client</module>
 		<module>./rf-s-shared</module>
+		<module>./rf-s-accounting</module>
+		<module>./rf-s-commons</module>
+		<module>./rf-s-preferences</module>
 	</modules>
 	<groupId>com.rfindustries</groupId>
 	<artifactId>rf-s-parent</artifactId>
