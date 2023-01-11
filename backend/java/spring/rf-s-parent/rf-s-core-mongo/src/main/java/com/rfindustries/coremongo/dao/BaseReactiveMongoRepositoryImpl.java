@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-public abstract class BaseReactiveMongoRepositoryImpl
+public class BaseReactiveMongoRepositoryImpl
         <ENTITY extends BaseEntity<String>>
         extends SimpleReactiveMongoRepository<ENTITY, String>
         implements BaseReactiveMongoRepository<ENTITY> {

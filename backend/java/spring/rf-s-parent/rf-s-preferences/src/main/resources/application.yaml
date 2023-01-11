@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: preferences
+  data:
+    mongodb:
+      database: embedded
+      port: 27017
+      host: localhost
+
+server:
+  port: 4103
+  servlet:
+    contextPath: /preferences
+
+grpc:
+  server:
+    port: 5103
+
+scheduling:
+  syncData: '0 0/30 * * * ?'
+
+
+de:
+  flap-doodle:
+    mongodb:
+      embedded:
+        version: 5.0.5

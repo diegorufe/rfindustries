@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class BaseJDBCDTO extends BaseCrudDTO<Long> {
+public class BaseMongoDTO extends BaseCrudDTO<String> {
 
 }

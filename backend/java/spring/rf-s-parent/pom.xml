@@ -39,7 +39,7 @@
 		<xolstice.version>0.6.1</xolstice.version>
 		<javax.annotation.version>1.3.2</javax.annotation.version>
 		<grpc.google.version>1.51.0</grpc.google.version>
-		<embedded.mongo.version>4.3.3</embedded.mongo.version>
+		<embedded.mongo.version>4.3.2</embedded.mongo.version>
 	</properties>
 	<dependencies>
 		<dependency>
